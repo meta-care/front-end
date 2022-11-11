@@ -1,1 +1,1 @@
-https://tailwindcss.com/docs/guides/create-react-app
+https://tailwindcss.com/docs/guides/nextjs
