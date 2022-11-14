@@ -10,7 +10,7 @@ import {
   useContractWrite,
   useWaitForTransaction,
 } from 'wagmi';
-import contractInterface from '/metacare/smart-contract/contracts/abi.json';
+import contractInterface from '../smart-contract/contracts/abi.json';
 import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
 
 const contractConfig = {
