@@ -31,29 +31,25 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-       
-      <img
-                src={"metacarelogo.JPG"}
-                width="125px"
-                height="125px"
-                alt=""
-              />
+    
         <h1 className={styles.title}>
           Welcome to <span style={{color:"#183D9F"}}>Meta</span><span style={{color:"#1B9CE5"}}>Care</span>!
         </h1>
 
         <p className={styles.description}>
         <h3 style={{color:"#183D9F"}}>A Blockchain-based Healthcare Data Management Solution.</h3>
-        <h3 style={{color:"#183D9F"}}>Track your data. Share it with your doctor. Improve yout global health.</h3>
+        <h3 style={{color:"#183D9F"}}>Track your data. Share it with your doctor. Improve your global health.</h3>
         </p>
         <img
                 src={"blue-men.JPG"}
                 width="350px"
                 height="700px"
                 alt=""
+                style={{float: "left"}}
               />
         <h2>Step 1: Connect your wallet</h2>
         <ConnectButton />
+        
         
         
 
@@ -65,12 +61,17 @@ const Home: NextPage = () => {
           
         </div>
 
-        
+          
       </main>
 
       <footer className={styles.footer}>
         <a href="https://github.com/meta-care" target="_blank" rel="noopener noreferrer">
-          Made with 💙   by some frens
+          Made with <img
+                src={"heartbeat.gif"}
+                width="23px"
+                height="23px"
+                alt=""
+              />   by some frens
         </a>
       </footer>
     </div>
