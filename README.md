@@ -1,5 +1,11 @@
 ## Getting Started
 
+Note: when installing node modules use 
+
+```bash
+npm install --force
+```
+
 First, run the development server:
 
 ```bash
