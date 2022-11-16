@@ -12,6 +12,22 @@
   align-items: left;
 }
 
+.button {
+  appearance: none;
+  border: none;
+  background-image: linear-gradient(to right, #3898FF, #7A70FF);
+  display: inline-flex;
+  line-height: 1;
+
+  font-weight: 700;
+  height: 35px;
+  padding: 0 24px;
+  border-radius: 9px;
+  align-items: center;
+  color: white;
+  transition: all ease 100ms;
+}
+
 .img {
   position: absolute;
   top: 0;

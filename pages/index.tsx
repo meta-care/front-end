@@ -15,7 +15,7 @@ import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
 import { useAccount, usePrepareContractWrite } from 'wagmi';
 
 const Home: NextPage = () => {
-  const { isConnected } = useConnect();
+  const { isConnected } = useAccount();
 
   return (
     <div className={styles.container}>
@@ -70,11 +70,8 @@ const Home: NextPage = () => {
         <h2>Step 1: Connect your wallet</h2>
         <ConnectButton />
         {isConnected &&(
-          <button
-          style={{ marginTop: 24 }}
-          
-          className="button"
-        >
+          <button className={styles.button}>
+             Mint your Health NFT
         </button>
         )}
         
