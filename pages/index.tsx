@@ -29,14 +29,23 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        
-        <h1 className={styles.title} style={{color:"#183D9F"}}>    
+
+      <h1 className={styles.title} style={{color:"#0093FF"}}>    
           Welcome to METACARE
         </h1>
+      <img
+                src={"metacarev2cropped.png"}
+                width="333px"
+                height="337px"
+                alt=""
+                style={{float: "left"}}
+              />
+         
+         
 
         <p className={styles.description}>
-        <h2 style={{color:"#183D9F"}}>A Blockchain-based Healthcare <br></br>Data Management Solution.</h2>
-        <h5 style={{color:"#183D9F"}}>
+        <h2 style={{color:"#091562"}}>A Blockchain-based Healthcare <br></br>Data Management Solution.</h2>
+        <h5 style={{color:"#091562"}}>
         <AnimatedText
           type="words" // animate words or chars
           animation={{
@@ -69,8 +78,10 @@ const Home: NextPage = () => {
         
         <h2>Step 1: Connect your wallet</h2>
         <ConnectButton />
+        <p></p>
         {isConnected &&(
-          <button className={styles.button}>
+      
+        <button className={styles.button}>
              Mint your Health NFT
         </button>
         )}

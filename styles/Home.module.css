@@ -15,12 +15,12 @@
 .button {
   appearance: none;
   border: none;
-  background-image: linear-gradient(to right, #3898FF, #7A70FF);
-  display: inline-flex;
-  line-height: 1;
+  background-image: linear-gradient(to right, #0d76fc, #7A70FF);
 
-  font-weight: 700;
+  line-height: 1;
+  font-weight: 777;
   height: 35px;
+  width: 199px;
   padding: 0 24px;
   border-radius: 9px;
   align-items: center;
@@ -30,7 +30,7 @@
 
 .img {
   position: absolute;
-  top: 0;
+  top: 15;
   right: 0;
   display: block;
   justify-content: left;
@@ -43,6 +43,8 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  color: #091562;
+  font-weight: 377;
 }
 
 .footer a {
