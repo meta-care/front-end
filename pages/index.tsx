@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import AnimatedText from 'react-animated-text-content';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
@@ -12,12 +12,10 @@ import {
 } from 'wagmi';
 //import contractInterface from '../smart-contract/contracts/abi.json';
 import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
-
-
+import { useAccount, usePrepareContractWrite } from 'wagmi';
 
 const Home: NextPage = () => {
-
-  
+  const { isConnected } = useConnect();
 
   return (
     <div className={styles.container}>
@@ -31,37 +29,55 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-    
-        <h1 className={styles.title}>
-          Welcome to <span style={{color:"#183D9F"}}>Meta</span><span style={{color:"#1B9CE5"}}>Care</span>!
+        
+        <h1 className={styles.title} style={{color:"#183D9F"}}>    
+          Welcome to METACARE
         </h1>
 
         <p className={styles.description}>
-        <h3 style={{color:"#183D9F"}}>A Blockchain-based Healthcare Data Management Solution.</h3>
-        <h3 style={{color:"#183D9F"}}>Track your data. Share it with your doctor. Improve your global health.</h3>
+        <h2 style={{color:"#183D9F"}}>A Blockchain-based Healthcare <br></br>Data Management Solution.</h2>
+        <h5 style={{color:"#183D9F"}}>
+        <AnimatedText
+          type="words" // animate words or chars
+          animation={{
+            x: '200px',
+            y: '-20px',
+            scale: 1.1,
+            ease: 'ease-in-out',
+          }}
+          animationType="lights"
+          interval={0.06}
+          duration={0.8}
+          tag="p"
+          className="animated-paragraph"
+          includeWhiteSpaces
+          threshold={0.1}
+          rootMargin="20%"
+        >
+        Track your data. Share it with your doctor. Improve your global health.
+        </AnimatedText>
+        </h5>
         </p>
-        <img
+        <img className={styles.img}
                 src={"blue-men.JPG"}
                 width="350px"
                 height="700px"
                 alt=""
                 style={{float: "left"}}
               />
+        
+        
         <h2>Step 1: Connect your wallet</h2>
         <ConnectButton />
-        
-        
-        
-
-        <div className={styles.grid}>
-          <a href="" className={styles.card}>
-            <h2>Mint Your Health NFT &rarr;</h2>
-          </a>
-
+        {isConnected &&(
+          <button
+          style={{ marginTop: 24 }}
           
-        </div>
-
-          
+          className="button"
+        >
+        </button>
+        )}
+        
       </main>
 
       <footer className={styles.footer}>
@@ -71,7 +87,7 @@ const Home: NextPage = () => {
                 width="23px"
                 height="23px"
                 alt=""
-              />   by some frens
+              />   by some frens  
         </a>
       </footer>
     </div>

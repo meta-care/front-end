@@ -12,6 +12,14 @@
   align-items: left;
 }
 
+.img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  justify-content: left;
+}
+
 .footer {
   display: flex;
   flex: 1;
@@ -26,6 +34,13 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+}
+
+.footer b {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
 }
 
 .title a {
@@ -48,12 +63,14 @@
 .title,
 .description {
   text-align: left;
+  display: inline-block;
 }
 
 .description {
   margin: 0 0 2rem;
   line-height: 1.1;
   font-size: 2.0rem;
+  display: inline-block;
 }
 
 .grid {
