@@ -79,11 +79,12 @@ const Home: NextPage = () => {
                 style={{float: "left"}}
               />
         {!isConnected &&(<h2 style={{color:"#091562"}}>Step 1: Connect your wallet</h2>)}
-        {isConnected &&(<h2 style={{color:"#091562"}}>Step 2: Mint your NFT</h2>)}
+        {(isConnected && !isSuccess) && (<h2 style={{color:"#091562"}}>Step 2: Mint your NFT</h2>)}
+        {(isConnected && isSuccess) &&(<h2 style={{color:"#091562"}}>Step 3: Access your Health Data</h2>)}
         <ConnectButton showBalance={false}/>
         <h5></h5>
 
-        {isConnected &&(
+        {(isConnected && !isSuccess) &&(
           <form 
           onSubmit={(e) => {
             e.preventDefault()
@@ -91,19 +92,30 @@ const Home: NextPage = () => {
           }}>
             <input id="doctorAddress" className={styles.form} onChange={(e) => setDoctorAddress(e.target.value)} placeholder="Doctor's Address" value={doctorAddress}/>
             <button className={styles.button1} disabled={!write || isLoading}>{isLoading ? 'Minting...' : 'Mint Health NFT'}</button>
-            {isSuccess && (
-              <div>
-                Successfully minted your NFT!
-                <div>
-                  <a href={`https://goerli.etherscan.io/tx/${data?.hash}`}>Etherscan</a>
-                </div>
-              </div>
-            )}
+            
             {(isPrepareError || isError) && (
               <div>Error: {(prepareError || error)?.message}</div>
             )}
           </form>
         )}
+
+        {(isConnected && isSuccess) && (
+              <div>
+                You Successfully minted your NFT!
+                <div>
+                  <a className="" href={`https://goerli.etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+                  
+        <img
+                src={"normalHeartRate.png"}
+                width="400px"
+                height="400px"
+                style={{float: "left"}}
+              />
+                </div>
+              </div>
+            )}
+
+
       </main>
 
       <footer className={styles.footer}>
