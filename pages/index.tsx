@@ -4,23 +4,31 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import {
-  useConnect,
-  useContractRead,
-  useContractWrite,
-  useWaitForTransaction,
-} from 'wagmi';
-//import contractInterface from '../smart-contract/contracts/abi.json';
+import { useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi';
+import contractInterface from '../components/contract-abi.json';
+import { useDebounce } from 'usehooks-ts';
 import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
-import { useAccount, usePrepareContractWrite } from 'wagmi';
-import { useForm } from 'react-hook-form';
 
 
 const Home: NextPage = () => {
   const { isConnected } = useAccount();
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
-  console.log(errors);
+
+  // Functions to mint an NFT
+  const [doctorAddress, setDoctorAddress] = React.useState('')
+  const debouncedDoctorAddress = useDebounce(doctorAddress, 500)
+  const { config, error: prepareError,
+    isError: isPrepareError, } = usePrepareContractWrite({
+    address: '0x0eD2Cb435783140aB9Ea50Dd4bF45dd1c4Ba7620', //ENTER THE SMART CONTRAT ADDRESS HERE
+    abi: contractInterface,
+    functionName: 'mint',
+    args: [parseInt(debouncedDoctorAddress)],
+    enabled: Boolean(debouncedDoctorAddress),
+  })
+  const { data, error, isError, write } = useContractWrite(config);
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash,
+  })
+
 
   return (
     <div className={styles.container}>
@@ -70,19 +78,32 @@ const Home: NextPage = () => {
                 alt=""
                 style={{float: "left"}}
               />
-        <h2 style={{color:"#091562"}}>Step 1: Connect your wallet</h2>
+        {!isConnected &&(<h2 style={{color:"#091562"}}>Step 1: Connect your wallet</h2>)}
+        {isConnected &&(<h2 style={{color:"#091562"}}>Step 2: Mint your NFT</h2>)}
         <ConnectButton />
         <h5></h5>
-        {isConnected &&(
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-          <input type="undefined" className={styles.form} placeholder="Doctor's Address" {...register} />
-          <input type="submit" className={styles.button1} value="Mint Health NFT"/>
+        {isConnected &&(
+          <form 
+          onSubmit={(e) => {
+            e.preventDefault()
+            write?.()
+          }}>
+            <input id="doctorAddress" className={styles.form} onChange={(e) => setDoctorAddress(e.target.value)} placeholder="Doctor's Address" value={doctorAddress}/>
+            <button className={styles.button1} disabled={!write || isLoading}>{isLoading ? 'Minting...' : 'Mint Health NFT'}</button>
+            {isSuccess && (
+              <div>
+                Successfully minted your NFT!
+                <div>
+                  <a href={`https://etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+                </div>
+              </div>
+            )}
+            {(isPrepareError || isError) && (
+              <div>Error: {(prepareError || error)?.message}</div>
+            )}
           </form>
-      
-        
         )}
-        
       </main>
 
       <footer className={styles.footer}>
