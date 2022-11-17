@@ -65,7 +65,7 @@ const Home: NextPage = () => {
         </p>
         <img className={styles.img}
                 src={"blue-men.JPG"}
-                width="350px"
+                width="400px"
                 height="700px"
                 alt=""
                 style={{float: "left"}}
