@@ -80,7 +80,7 @@ const Home: NextPage = () => {
               />
         {!isConnected &&(<h2 style={{color:"#091562"}}>Step 1: Connect your wallet</h2>)}
         {isConnected &&(<h2 style={{color:"#091562"}}>Step 2: Mint your NFT</h2>)}
-        <ConnectButton />
+        <ConnectButton showBalance={false}/>
         <h5></h5>
 
         {isConnected &&(
