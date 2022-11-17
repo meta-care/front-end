@@ -4,7 +4,7 @@
 
 .main {
   min-height: 100vh;
-  padding: 8rem 0;
+  padding: 2rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -12,11 +12,26 @@
   align-items: left;
 }
 
-.button {
+.form {
+  appearance: none;
+  border: none;
+  background-image: linear-gradient(to right, #86bbff, #d6d4fd);
+  line-height: 1;
+  font-weight: 777;
+  height: 35px;
+  width: 300px;
+  padding: 0 24px;
+  border-radius: 9px;
+  align-items: center;
+  color: white;
+  transition: all ease 100ms;
+  
+}
+
+.button1 {
   appearance: none;
   border: none;
   background-image: linear-gradient(to right, #0d76fc, #7A70FF);
-
   line-height: 1;
   font-weight: 777;
   height: 35px;
@@ -26,6 +41,14 @@
   align-items: center;
   color: white;
   transition: all ease 100ms;
+}
+
+.button1:hover{
+  background-image: linear-gradient(90deg, #0093FF 0%, #FC4F4F 22%, #FFCF00 49%, #FC4F4F 80%, #0093FF 100%);
+  animation:slidebg 5s linear infinite;
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  color: black;
+  transform: translateX(-0.5em);
 }
 
 .img {
@@ -43,8 +66,14 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  color: #0093FF;
+  font-weight: 555;
+}
+
+.footer:hover {
+  background: "heartbeat.gif";
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   color: #091562;
-  font-weight: 377;
 }
 
 .footer a {
@@ -85,7 +114,7 @@
 }
 
 .description {
-  margin: 0 0 2rem;
+  margin: 0 0 -2rem;
   line-height: 1.1;
   font-size: 2.0rem;
   display: inline-block;

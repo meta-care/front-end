@@ -13,9 +13,14 @@ import {
 //import contractInterface from '../smart-contract/contracts/abi.json';
 import FlipCard, { BackCard, FrontCard } from '../components/FlipCard';
 import { useAccount, usePrepareContractWrite } from 'wagmi';
+import { useForm } from 'react-hook-form';
+
 
 const Home: NextPage = () => {
   const { isConnected } = useAccount();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+  console.log(errors);
 
   return (
     <div className={styles.container}>
@@ -23,26 +28,17 @@ const Home: NextPage = () => {
         <title>MetaCare</title>
         <meta
           name="description"
-          content="Your Health Data On-Chain"
-        />
-        <link rel="icon" href="/favicon.ico" />
+          content="Your Health Data On-Chain"/>
+        <link rel="icon" href="/favicon.ico"/>
       </Head>
 
       <main className={styles.main}>
-
-      <h1 className={styles.title} style={{color:"#0093FF"}}>    
-          Welcome to METACARE
-        </h1>
-      <img
+        <img
                 src={"metacarev2cropped.png"}
-                width="333px"
-                height="337px"
+                width="177px"
+                height="192px"
                 alt=""
-                style={{float: "left"}}
-              />
-         
-         
-
+                style={{float: "left"}}/>
         <p className={styles.description}>
         <h2 style={{color:"#091562"}}>A Blockchain-based Healthcare <br></br>Data Management Solution.</h2>
         <h5 style={{color:"#091562"}}>
@@ -74,28 +70,26 @@ const Home: NextPage = () => {
                 alt=""
                 style={{float: "left"}}
               />
-        
-        
-        <h2>Step 1: Connect your wallet</h2>
+        <h2 style={{color:"#091562"}}>Step 1: Connect your wallet</h2>
         <ConnectButton />
-        <p></p>
+        <h5></h5>
         {isConnected &&(
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+          <input type="undefined" className={styles.form} placeholder="Doctor's Address" {...register} />
+          <input type="submit" className={styles.button1} value="Mint Health NFT"/>
+          </form>
       
-        <button className={styles.button}>
-             Mint your Health NFT
-        </button>
+        
         )}
         
       </main>
 
       <footer className={styles.footer}>
         <a href="https://github.com/meta-care" target="_blank" rel="noopener noreferrer">
-          Made with <img
-                src={"heartbeat.gif"}
-                width="23px"
-                height="23px"
-                alt=""
-              />   by some frens  
+          Made with 
+          <img id="animated" src="heartbeat.gif" width="23px" height="23px" alt=""></img>
+          by some frens  
         </a>
       </footer>
     </div>
