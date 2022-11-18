@@ -101,9 +101,10 @@ const Home: NextPage = () => {
 
         {(isConnected && isSuccess) && (
               <div>
-                You Successfully minted your NFT!
+                <h3>You have successfully minted your NFT!</h3>
+                 <a className="" href={`https://goerli.etherscan.io/tx/${data?.hash}`}>You can look at your transaction here on Etherscan</a>
+                  
                 <div>
-                  <a className="" href={`https://goerli.etherscan.io/tx/${data?.hash}`}>Etherscan</a>
                   
         <img
                 src={"normalHeartRate.png"}
