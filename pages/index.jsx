@@ -14,24 +14,33 @@ import { useDebounce } from "usehooks-ts";
 import { useIsMounted } from "./hooks/useIsMounted";
 
 export default function Home() {
+	// Check if the component is mounted to avoid React state update on unmounted component
 	const mounted = useIsMounted();
+
+	// Check if the user is connected to a wallet
 	const { isConnected } = useAccount();
 
-	// Functions to mint an NFT
+	// Get the doctor's address
 	const [doctorAddress, setDoctorAddress] = React.useState("");
 	const debouncedDoctorAddress = useDebounce(doctorAddress, 500);
+
+	// Prepare the contract write
 	const {
 		config,
 		error: prepareError,
 		isError: isPrepareError,
 	} = usePrepareContractWrite({
-		address: "0x0eD2Cb435783140aB9Ea50Dd4bF45dd1c4Ba7620", //ENTER THE SMART CONTRAT ADDRESS HERE
+		address: "0x0eD2Cb435783140aB9Ea50Dd4bF45dd1c4Ba7620", // ----------- ENTER THE SMART CONTRAT ADDRESS HERE
 		abi: contractInterface,
 		functionName: "mint",
 		args: [debouncedDoctorAddress],
 		enabled: Boolean(debouncedDoctorAddress),
 	});
+
+	// Write to the contract
 	const { data, error, isError, write } = useContractWrite(config);
+
+	// Wait for the transaction to be mined
 	const { isLoading, isSuccess } = useWaitForTransaction({
 		hash: data?.hash,
 	});
@@ -39,21 +48,21 @@ export default function Home() {
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>MetaCare</title>
+				<title>MetaCare Health</title>
 				<meta name="description" content="Your Health Data On-Chain" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<main className={styles.main}>
-				<div className={styles.test}>
-					{mounted && (
+				{mounted && (
+					<div className={styles.columns}>
 						<div>
 							<img
-								src={"metacarev2cropped.png"}
+								src={"metacareLogo.png"}
 								width="177px"
 								height="192px"
 								alt=""
-								style={{ float: "left" }}
+								style={{ display: "block" }}
 							/>
 							<p className={styles.description}>
 								<h2 style={{ color: "#091562" }}>
@@ -84,48 +93,53 @@ export default function Home() {
 							</p>
 
 							{!isConnected && (
-								<h2 style={{ color: "#091562" }}>Step 1: Connect your wallet</h2>
-							)}
-							{isConnected && !isSuccess && (
-								<h2 style={{ color: "#091562" }}>Step 2: Mint your NFT</h2>
-							)}
-							{isConnected && isSuccess && (
-								<h2 style={{ color: "#091562" }}>
-									Step 3: Access your Health Data
-								</h2>
+								<div>
+									<h2 style={{ color: "#091562" }}>
+										Step 1: Connect your wallet
+									</h2>
+									<ConnectButton showBalance={false} />
+								</div>
 							)}
 
-							<ConnectButton showBalance={false} />
-
 							{isConnected && !isSuccess && (
-								<form
-									onSubmit={(e) => {
-										e.preventDefault();
-										write?.();
-									}}
-								>
-									<input
-										id="doctorAddress"
-										className={styles.form}
-										onChange={(e) => setDoctorAddress(e.target.value)}
-										placeholder="Doctor's Address"
-										value={doctorAddress}
-									/>
-									<button
-										className={styles.button1}
-										disabled={!write || isLoading}
+								<div>
+									<h2 style={{ color: "#091562" }}>Step 2: Mint your NFT</h2>
+									<ConnectButton showBalance={false} />
+									<form
+										style={{ marginTop: "2%" }}
+										onSubmit={(e) => {
+											e.preventDefault();
+											write?.();
+										}}
 									>
-										{isLoading ? "Minting..." : "Mint Health NFT"}
-									</button>
+										<input
+											id="doctorAddress"
+											className={styles.form}
+											onChange={(e) => setDoctorAddress(e.target.value)}
+											placeholder="Doctor's Address"
+											value={doctorAddress}
+										/>
+										<button
+											className={styles.button1}
+											disabled={!write || isLoading}
+											style={{ marginLeft: "1%" }}
+										>
+											{isLoading ? "Minting..." : "Mint Health NFT"}
+										</button>
 
-									{(isPrepareError || isError) && (
-										<div>Error: {(prepareError || error)?.message}</div>
-									)}
-								</form>
+										{(isPrepareError || isError) && (
+											<div>Error: {(prepareError || error)?.message}</div>
+										)}
+									</form>
+								</div>
 							)}
 
 							{isConnected && isSuccess && (
 								<div>
+									<h2 style={{ color: "#091562" }}>
+										Step 3: Access your Health Data
+									</h2>
+									<ConnectButton showBalance={false} />
 									<h3>You have successfully minted your NFT!</h3>
 									<a
 										className=""
@@ -145,19 +159,20 @@ export default function Home() {
 								</div>
 							)}
 						</div>
-					)}
-
-					<div>
 						<img
 							className={styles.img}
 							src={"blue-men.jpg"}
 							width="350px"
 							height="600px"
 							alt=""
-							style={{ float: "left" }}
+							style={{
+								margin: "auto",
+								marginTop: "5%",
+								marginLeft: "4%",
+							}}
 						/>
 					</div>
-				</div>
+				)}
 			</main>
 
 			<footer className={styles.footer}>

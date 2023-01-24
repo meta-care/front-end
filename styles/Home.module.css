@@ -43,18 +43,9 @@
 }
 
 .button1:hover {
-	background-image: linear-gradient(
-		90deg,
-		#0093ff 0%,
-		#fc4f4f 22%,
-		#ffcf00 49%,
-		#fc4f4f 80%,
-		#0093ff 100%
-	);
-	animation: slidebg 5s linear infinite;
+	animation: heartbeat 1s infinite;
 	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-	color: black;
-	transform: translateX(-0.5em);
+	transform: scale(1.1);
 }
 
 .img {
@@ -167,14 +158,12 @@
 	}
 }
 
-@media screen and (min-width: 1180px) {
-	.test {
-		width: 100%;
+@media screen and (min-width: 1200px) {
+	.columns {
 		flex-direction: line;
 		display: flex;
 	}
 	.img {
 		display: flex;
-		justify-content: right;
 	}
 }
