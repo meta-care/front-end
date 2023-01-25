@@ -1,12 +1,16 @@
-## Getting Started
+# Getting Started
 
-Note: when installing node modules use
+Copy the repo
+
+Fill in the .env file
+
+Install node modules
 
 ```bash
 npm install --legacy-peer-deps
 ```
 
-First, run the development server:
+Run the development server:
 
 ```bash
 npm run dev

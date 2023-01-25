@@ -30,7 +30,7 @@ export default function Home() {
 		error: prepareError,
 		isError: isPrepareError,
 	} = usePrepareContractWrite({
-		address: "0x0eD2Cb435783140aB9Ea50Dd4bF45dd1c4Ba7620", // ----------- ENTER THE SMART CONTRAT ADDRESS HERE
+		address: process.env.SMART_CONTRACT_ADDRESS, // ----------- ENTER THE SMART CONTRAT ADDRESS HERE
 		abi: contractInterface,
 		functionName: "mint",
 		args: [debouncedDoctorAddress],
