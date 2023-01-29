@@ -176,10 +176,8 @@ export default function Home() {
 			</main>
 
 			<footer className={styles.footer}>
-				<a href="https://github.com/meta-care" target="_blank" rel="noopener noreferrer">
-					Made with
-					<img id="animated" src="heartbeat.gif" width="23px" height="23px" alt=""></img>
-					by some frens
+				<a href="https://www.crotaluslabs.com/" target="_blank" rel="noopener noreferrer">
+					Powered by Crotalus Labs&reg;	
 				</a>
 			</footer>
 		</div>
