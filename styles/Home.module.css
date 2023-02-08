@@ -1,7 +1,3 @@
-.container {
-	padding: 0 2rem;
-}
-
 .main {
 	min-height: 85vh;
 	padding: 2rem 2rem;
@@ -12,36 +8,22 @@
 	align-items: left;
 }
 
-.form {
-	appearance: none;
-	border: none;
-	background-image: linear-gradient(to right, #86bbff, #d6d4fd);
-	line-height: 1;
-	font-weight: 777;
-	height: 35px;
-	width: 300px;
-	padding: 0 24px;
-	border-radius: 9px;
-	align-items: center;
-	color: white;
-	transition: all ease 100ms;
-}
-
 .button1 {
 	appearance: none;
 	border: none;
 	background-image: linear-gradient(to right, #0d76fc, #7a70ff);
 	line-height: 1;
-	font-weight: 777;
-	height: 35px;
-	width: 199px;
-	padding: 0 24px;
-	border-radius: 9px;
+	font-weight: 800;
+	height: 50px;
+	width: 200px;
+	padding: 0 20px;
+	border-radius: 20px;
 	align-items: center;
 	color: white;
-	transition: all ease 100ms;
+	transition: all ease 500ms;
+	font-size: 1rem;
+	cursor: pointer;
 }
-
 .button1:hover {
 	animation: heartbeat 1s infinite;
 	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
@@ -52,110 +34,30 @@
 	display: none;
 }
 
-.footer {
-	display: flex;
-	flex: 1;
-	padding: 2rem 0;
-	border-top: 1px solid #eaeaea;
-	justify-content: center;
-	align-items: center;
-	color: #0093ff;
-	font-weight: 555;
-}
-
-.footer:hover {
-	background: "heartbeat.gif";
-	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-	color: #091562;
-}
-
-.footer a {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-grow: 1;
-}
-
-.footer b {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 0.7rem;
-}
-
 .title a {
 	color: #0d76fc;
 	text-decoration: none;
 }
-
 .title a:hover,
 .title a:focus,
 .title a:active {
 	text-decoration: underline;
 }
-
 .title {
 	margin: 0rem 0;
 	line-height: 1;
 	font-size: 2rem;
 }
 
-.title,
 .description {
 	text-align: left;
 	display: inline-block;
 }
-
 .description {
 	margin: 0 0 -2rem;
 	line-height: 1.1;
 	font-size: 2rem;
 	display: inline-block;
-}
-
-.grid {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
-	max-width: 600px;
-}
-
-.card {
-	margin: 1rem;
-	padding: 1.5rem;
-	text-align: left;
-	color: inherit;
-	text-decoration: none;
-	border: 1px solid #eaeaea;
-	border-radius: 10px;
-	transition: color 0.15s ease, border-color 0.15s ease;
-	max-width: 350px;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-	color: #0d76fc;
-	border-color: #0d76fc;
-}
-
-.card h2 {
-	margin: 0 0 1rem 0;
-	font-size: 1.2rem;
-}
-
-.card p {
-	margin: 0;
-	font-size: 1.2rem;
-	line-height: 1.5;
-}
-
-@media (max-width: 600px) {
-	.grid {
-		width: 100%;
-		flex-direction: column;
-	}
 }
 
 @media screen and (min-width: 1200px) {

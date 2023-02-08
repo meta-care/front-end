@@ -1,13 +1,11 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
-import {
-	RainbowKitProvider,
-	getDefaultWallets,
-	connectorsForWallets,
-} from "@rainbow-me/rainbowkit";
+
+import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { infuraProvider } from "wagmi/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
+import Head from "next/head";
 
 const { chains, provider, webSocketProvider } = configureChains(
 	[chain.goerli, chain.mainnet],
@@ -33,10 +31,25 @@ const wagmiClient = createClient({
 
 export default function MyApp({ Component, pageProps }) {
 	return (
-		<WagmiConfig client={wagmiClient}>
-			<RainbowKitProvider chains={chains}>
-				<Component {...pageProps} />
-			</RainbowKitProvider>
-		</WagmiConfig>
+		<>
+			<Head>
+				<title>MetaCare Health</title>
+				<meta content="width=device-width, initial-scale=1" name="viewport" />
+				<meta name="description" content="Your Health Data On-Chain" />
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+
+			<WagmiConfig client={wagmiClient}>
+				<RainbowKitProvider chains={chains}>
+					<Component {...pageProps} />
+				</RainbowKitProvider>
+			</WagmiConfig>
+
+			<footer>
+				<a href="https://www.crotaluslabs.com/" target="_blank" rel="noopener noreferrer">
+					Powered by Crotalus Labs&reg;
+				</a>
+			</footer>
+		</>
 	);
 }

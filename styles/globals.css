@@ -14,3 +14,31 @@ a {
 * {
 	box-sizing: border-box;
 }
+
+footer {
+	display: flex;
+	flex: 1;
+	padding: 2rem 0;
+	border-top: 1px solid #eaeaea;
+	justify-content: center;
+	align-items: center;
+	color: #0093ff;
+	font-weight: 555;
+}
+footer:hover {
+	background: "heartbeat.gif";
+	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+	color: #091562;
+}
+footer a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 1;
+}
+footer b {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 0.7rem;
+}
