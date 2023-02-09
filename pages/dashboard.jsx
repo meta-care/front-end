@@ -1,6 +1,9 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { signIn, useSession } from "next-auth/client";
 import { useEffect, useState } from "react";
+import { useIsMounted } from "./hooks/useIsMounted";
+import { useRouter } from "next/router";
+import styles from "../styles/Home.module.css";
 import {
 	useAccount,
 	usePrepareContractWrite,
@@ -13,6 +16,12 @@ export default function dashboard() {
 	const { isConnected, address } = useAccount();
 	const [ownNFT, setOwnNFT] = useState(false);
 	const [session] = useSession();
+
+	// redirect to other pages
+	const router = useRouter();
+
+	// Check if the component is mounted to avoid React state update on unmounted component
+	const mounted = useIsMounted();
 
 	// Check if the user already has an NFT
 	useEffect(() => {
@@ -60,30 +69,62 @@ export default function dashboard() {
 	}, [isSuccess]);
 
 	return (
-		<main>
-			{!isConnected ? (
-				<ConnectButton showBalance={false} />
-			) : (
+		<main className={styles.main}>
+			<img
+				src={"metacareLogo.png"}
+				width="177px"
+				height="192px"
+				onClick={() => router.push(`/`)}
+			/>
+			{mounted && (
 				<>
-					{!ownNFT ? (
+					{!isConnected ? (
 						<>
-							{!session ? (
-								<button onClick={() => signIn("google")}>
-									Connect your Google account
-								</button>
-							) : (
-								<>
-									<button onClick={write} disabled={isLoading}>
-										<p> {isLoading ? "Minting..." : "Mint your NFT"}</p>
-									</button>
-									{(isPrepareError || isError) && (
-										<p>Error: {(prepareError || error)?.message}</p>
-									)}
-								</>
-							)}
+							<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+								Step 1: Connect your wallet
+							</h2>
+							<ConnectButton showBalance={false} />
 						</>
 					) : (
-						<p>show nft</p>
+						<>
+							{!ownNFT ? (
+								<>
+									{!session ? (
+										<>
+											<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+												Step 2: Connect your Google account
+											</h2>
+											<button
+												className={styles.button}
+												onClick={() => signIn("google")}
+											>
+												Connect Google
+											</button>
+										</>
+									) : (
+										<>
+											<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+												Step 3: Mint your NFT
+											</h2>
+											<button
+												onClick={write}
+												disabled={isLoading}
+												className={styles.button}
+											>
+												<p> {isLoading ? "Minting..." : "Mint NFT"}</p>
+											</button>
+											{(isPrepareError || isError) && (
+												<p>Error: {(prepareError || error)?.message}</p>
+											)}
+										</>
+									)}
+								</>
+							) : (
+								<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+									Here is your beautiful NFT:
+								</h2>
+							)}
+						</>
 					)}
 				</>
 			)}

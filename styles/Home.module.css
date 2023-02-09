@@ -4,16 +4,16 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	justify-content: left;
-	align-items: left;
+	align-items: center;
+	max-width: "1400px";
 }
 
-.button1 {
+.button {
 	appearance: none;
 	border: none;
 	background-image: linear-gradient(to right, #0d76fc, #7a70ff);
 	line-height: 1;
-	font-weight: 800;
+	font-weight: 700;
 	height: 50px;
 	width: 200px;
 	padding: 0 20px;
@@ -24,7 +24,7 @@
 	font-size: 1rem;
 	cursor: pointer;
 }
-.button1:hover {
+.button:hover {
 	animation: heartbeat 1s infinite;
 	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
 	transform: scale(1.1);
@@ -32,21 +32,6 @@
 
 .img {
 	display: none;
-}
-
-.title a {
-	color: #0d76fc;
-	text-decoration: none;
-}
-.title a:hover,
-.title a:focus,
-.title a:active {
-	text-decoration: underline;
-}
-.title {
-	margin: 0rem 0;
-	line-height: 1;
-	font-size: 2rem;
 }
 
 .description {
