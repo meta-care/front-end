@@ -8,7 +8,7 @@ import { publicProvider } from "wagmi/providers/public";
 import Head from "next/head";
 
 const { chains, provider, webSocketProvider } = configureChains(
-	[chain.goerli, chain.mainnet],
+	[chain.goerli],
 	[
 		infuraProvider({
 			apiKey: process.env.INFURA_API_KEY,

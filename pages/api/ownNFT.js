@@ -12,11 +12,11 @@ export default async (req, res) => {
 		return res.status(404).json({ msg: "no data" });
 	}
 
+	const contractAddress = "0xf2F5502c9E5311920c79fB860CC257Dc0Bc9ce16";
 	const provider = new ethers.providers.JsonRpcProvider(
 		`https://${process.env.BLOCKCHAIN}.infura.io/v3/${process.env.INFURA_KEY}`
 	);
-	const CONTRACTADDRESS = process.env.CONTRACTADDRESS;
-	const contract = new ethers.Contract(CONTRACTADDRESS, abi, provider);
+	const contract = new ethers.Contract(contractAddress, abi, provider);
 
 	try {
 		const balance = await contract.balanceOf(address);

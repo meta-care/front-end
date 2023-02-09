@@ -1,13 +1,20 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
 import { signIn, useSession } from "next-auth/client";
 import { useEffect, useState } from "react";
+import {
+	useAccount,
+	usePrepareContractWrite,
+	useContractWrite,
+	useWaitForTransaction,
+} from "wagmi";
+const abi = require("../components/contract-abi.json");
 
 export default function dashboard() {
 	const { isConnected, address } = useAccount();
 	const [ownNFT, setOwnNFT] = useState(false);
 	const [session] = useSession();
 
+	// Check if the user already has an NFT
 	useEffect(() => {
 		if (isConnected && address) {
 			fetch("/api/ownNFT", {
@@ -29,6 +36,29 @@ export default function dashboard() {
 		}
 	}, [isConnected, address]);
 
+	// Handle contract write
+	const {
+		config,
+		error: prepareError,
+		isError: isPrepareError,
+	} = usePrepareContractWrite({
+		address: "0xf2F5502c9E5311920c79fB860CC257Dc0Bc9ce16",
+		abi,
+		functionName: "mint",
+		args: [],
+	});
+	const { data, error, isError, write } = useContractWrite(config);
+	const { isLoading, isSuccess } = useWaitForTransaction({
+		hash: data?.hash,
+	});
+
+	// If the mint transaction is successful, show the NFT
+	useEffect(() => {
+		if (isSuccess) {
+			setOwnNFT(true);
+		}
+	}, [isSuccess]);
+
 	return (
 		<main>
 			{!isConnected ? (
@@ -42,7 +72,14 @@ export default function dashboard() {
 									Connect your Google account
 								</button>
 							) : (
-								<p>mint</p>
+								<>
+									<button onClick={write} disabled={isLoading}>
+										<p> {isLoading ? "Minting..." : "Mint your NFT"}</p>
+									</button>
+									{(isPrepareError || isError) && (
+										<p>Error: {(prepareError || error)?.message}</p>
+									)}
+								</>
 							)}
 						</>
 					) : (
@@ -53,47 +90,3 @@ export default function dashboard() {
 		</main>
 	);
 }
-
-/*
-<div>
-	<h2 style={{ color: "#091562" }}>Step 2: Mint your NFT</h2>
-	<form
-		style={{ marginTop: "2%" }}
-		onSubmit={(e) => {
-			e.preventDefault();
-			write?.();
-		}}
-	>
-		<button
-			className={styles.button1}
-			disabled={!write || isLoading}
-			style={{ marginLeft: "1%" }}
-		>
-			{isLoading ? "Minting..." : "Mint Health NFT"}
-		</button>
-
-		{(isPrepareError || isError) && (
-			<div>Error: {(prepareError || error)?.message}</div>
-		)}
-	</form>
-</div>
-);
-
-<div>
-	<h2 style={{ color: "#091562" }}>Step 3: Access your Health Data</h2>
-	<ConnectButton showBalance={false} />
-	<h3>You have successfully minted your NFT!</h3>
-	<a className="" href={`https://goerli.etherscan.io/tx/${data?.hash}`}>
-		You can look at your transaction here on Etherscan
-	</a>
-	<div>
-		<img
-			src={"normalHeartRate.png"}
-			width="400px"
-			height="400px"
-			style={{ float: "left" }}
-		/>
-	</div>
-</div>
-);
-*/
