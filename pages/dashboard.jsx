@@ -14,36 +14,11 @@ const abi = require("../components/contract-abi.json");
 
 export default function dashboard() {
 	const { isConnected, address } = useAccount();
+	const [imageURL, setimageURL] = useState("");
 	const [ownNFT, setOwnNFT] = useState(false);
 	const [session] = useSession();
-
-	// redirect to other pages
-	const router = useRouter();
-
-	// Check if the component is mounted to avoid React state update on unmounted component
 	const mounted = useIsMounted();
-
-	// Check if the user already has an NFT
-	useEffect(() => {
-		if (isConnected && address) {
-			fetch("/api/ownNFT", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ address }),
-			})
-				.then((response) => {
-					return response.json();
-				})
-				.then((data) => {
-					setOwnNFT(data.ownNFT);
-				})
-				.catch((error) => {
-					console.error(error);
-				});
-		}
-	}, [isConnected, address]);
+	const router = useRouter();
 
 	// Handle contract write
 	const {
@@ -61,12 +36,28 @@ export default function dashboard() {
 		hash: data?.hash,
 	});
 
-	// If the mint transaction is successful, show the NFT
+	// Check if the user have an NFT
 	useEffect(() => {
-		if (isSuccess) {
-			setOwnNFT(true);
+		if (isConnected && address) {
+			fetch("/api/ownNFT", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ address }),
+			})
+				.then((response) => {
+					return response.json();
+				})
+				.then((data) => {
+					setimageURL(data.imageURL);
+					setOwnNFT(data.ownNFT);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
-	}, [isSuccess]);
+	}, [isConnected, address, isSuccess]);
 
 	return (
 		<main className={styles.main}>
@@ -120,9 +111,17 @@ export default function dashboard() {
 									)}
 								</>
 							) : (
-								<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-									Here is your beautiful NFT:
-								</h2>
+								<>
+									<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+										Here is your beautiful NFT:
+									</h2>
+									<img
+										src={imageURL}
+										width="300px"
+										height="300px"
+										className={styles.nft}
+									/>
+								</>
 							)}
 						</>
 					)}
