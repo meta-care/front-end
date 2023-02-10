@@ -13,6 +13,8 @@ import {
 const abi = require("../components/contract-abi.json");
 
 export default function dashboard() {
+	const [createUserLoading, setCreateUserLoading] = useState(false);
+	const [createUserError, setCreateUserError] = useState("");
 	const { isConnected, address } = useAccount();
 	const [imageURL, setimageURL] = useState("");
 	const [ownNFT, setOwnNFT] = useState(false);
@@ -35,6 +37,33 @@ export default function dashboard() {
 	const { isLoading, isSuccess } = useWaitForTransaction({
 		hash: data?.hash,
 	});
+
+	// Send user data to MongoDB and then mint NFT
+	const handleMint = async () => {
+		setCreateUserLoading(true);
+		setCreateUserError("");
+		fetch("/api/createUser", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ session, address }),
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				setCreateUserLoading(false);
+				console.log(data);
+
+				// Mint NFT
+				write();
+			})
+			.catch((error) => {
+				setCreateUserLoading(false);
+				setCreateUserError(error);
+			});
+	};
 
 	// Check if the user have an NFT
 	useEffect(() => {
@@ -98,14 +127,27 @@ export default function dashboard() {
 												Step 3: Mint your NFT
 											</h2>
 											<button
-												onClick={write}
-												disabled={isLoading}
+												onClick={() => {
+													handleMint();
+												}}
+												disabled={isLoading || createUserLoading}
 												className={styles.button}
 											>
-												<p> {isLoading ? "Minting..." : "Mint NFT"}</p>
+												<p>
+													{" "}
+													{isLoading || createUserLoading
+														? "Minting..."
+														: "Mint NFT"}
+												</p>
 											</button>
-											{(isPrepareError || isError) && (
-												<p>Error: {(prepareError || error)?.message}</p>
+											{(createUserError || isPrepareError || isError) && (
+												<p>
+													Error:{" "}
+													{
+														(createUserError || prepareError || error)
+															?.message
+													}
+												</p>
 											)}
 										</>
 									)}
@@ -130,3 +172,27 @@ export default function dashboard() {
 		</main>
 	);
 }
+
+/*
+		const user = {
+			address: address,
+			accessToken: session.accessToken,
+			refreshToken: session.refreshToken,
+			expirationDate: session.expires,
+		};*/
+
+// Send user data to MongoDB
+
+/*
+		try {
+			await fetch("/api/mint", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(user),
+			});
+		} catch (error) {
+			console.error(error);
+		}
+		*/
