@@ -10,3 +10,5 @@ export function useIsMounted() {
 
 	return isMounted;
 }
+
+export default useIsMounted;
