@@ -28,7 +28,7 @@ export default function dashboard() {
 		error: prepareError,
 		isError: isPrepareError,
 	} = usePrepareContractWrite({
-		address: "0xf2F5502c9E5311920c79fB860CC257Dc0Bc9ce16",
+		address: "0x93834E6754C4086D7ED460349D1925108d14e29e",
 		abi,
 		functionName: "mint",
 		args: [],
