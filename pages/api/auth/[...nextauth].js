@@ -17,7 +17,7 @@ export default NextAuth({
 	secret: process.env.SECRET,
 	callbacks: {
 		async jwt(token, user, account) {
-			if (account) {
+			if (account && user) {
 				token.user = user;
 				token.accessToken = account.accessToken;
 				token.refreshToken = account.refreshToken;
