@@ -21,7 +21,7 @@ export default NextAuth({
 				token.user = user;
 				token.accessToken = account.accessToken;
 				token.refreshToken = account.refreshToken;
-				token.accessTokenExpires = Date.now() + account.expires_in * 1000;
+				token.accessTokenExpires = Date.now() + account.expires_in;
 			}
 			return token;
 		},
