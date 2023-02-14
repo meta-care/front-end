@@ -18,19 +18,13 @@ export default NextAuth({
 	callbacks: {
 		async jwt(token, user, account) {
 			if (account && user) {
-				token.user = user;
-				token.accessToken = account.accessToken;
 				token.refreshToken = account.refreshToken;
-				token.accessTokenExpires = Date.now() + account.expires_in * 1000;
 			}
 			return token;
 		},
 		async session(session, token) {
 			if (token) {
-				session.user = token.user;
-				session.accessToken = token.accessToken;
 				session.refreshToken = token.refreshToken;
-				session.accessTokenExpires = token.accessTokenExpires;
 			}
 			return session;
 		},

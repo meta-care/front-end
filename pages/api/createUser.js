@@ -26,24 +26,18 @@ export default async function submit(req, res) {
 			let user = new User({
 				_id: mongoose.Types.ObjectId(),
 				ethAddress: data.address,
-				accessToken: data.session.accessToken,
 				refreshToken: data.session.refreshToken,
-				expirationDate: data.session.accessTokenExpires,
 			});
 			await db.collection("users").insertOne(user);
 
 			// Else, update the user profile
 		} else {
-			await db.collection("users").updateOne(
-				{ ethAddress: data.address },
-				{
-					$set: {
-						accessToken: data.session.accessToken,
-						refreshToken: data.session.refreshToken,
-						expirationDate: data.session.accessTokenExpires,
-					},
-				}
-			);
+			await db
+				.collection("users")
+				.updateOne(
+					{ ethAddress: data.address },
+					{ $set: { refreshToken: data.session.refreshToken } }
+				);
 		}
 
 		// Return a success message

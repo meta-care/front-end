@@ -54,8 +54,6 @@ export default function dashboard() {
 			})
 			.then((data) => {
 				setCreateUserLoading(false);
-				console.log(data);
-
 				// Mint NFT
 				write();
 			})
