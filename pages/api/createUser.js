@@ -28,7 +28,7 @@ export default async function submit(req, res) {
 				ethAddress: data.address,
 				accessToken: data.session.accessToken,
 				refreshToken: data.session.refreshToken,
-				expirationDate: data.session.expires,
+				expirationDate: data.session.accessTokenExpires,
 			});
 			await db.collection("users").insertOne(user);
 
@@ -40,7 +40,7 @@ export default async function submit(req, res) {
 					$set: {
 						accessToken: data.session.accessToken,
 						refreshToken: data.session.refreshToken,
-						expirationDate: data.session.expires,
+						expirationDate: data.session.accessTokenExpires,
 					},
 				}
 			);

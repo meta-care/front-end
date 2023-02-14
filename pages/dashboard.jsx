@@ -172,27 +172,3 @@ export default function dashboard() {
 		</main>
 	);
 }
-
-/*
-		const user = {
-			address: address,
-			accessToken: session.accessToken,
-			refreshToken: session.refreshToken,
-			expirationDate: session.expires,
-		};*/
-
-// Send user data to MongoDB
-
-/*
-		try {
-			await fetch("/api/mint", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(user),
-			});
-		} catch (error) {
-			console.error(error);
-		}
-		*/
