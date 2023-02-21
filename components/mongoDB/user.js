@@ -1,13 +1,13 @@
-const { Schema, model } = require("mongoose");
+const { Schema } = require("mongoose");
 const mongoose = require("mongoose");
-const requiredString = { type: String, required: true };
 
 const userSchema = new Schema({
 	_id: Schema.Types.ObjectId,
-	ethAddress: requiredString,
-	accessToken: requiredString,
-	refreshToken: requiredString,
-	expirationDate: requiredString,
+	email: { type: String, required: true, unique: true },
+	refreshToken: { type: String, required: true },
+	signupDate: { type: Date },
+	premium: { type: Boolean, default: false },
+	ethAddress: { type: String, default: "" },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);

@@ -1,90 +1,12 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { signIn, useSession } from "next-auth/client";
-import { useEffect, useState } from "react";
+import { getSession } from "next-auth/client";
 import { useIsMounted } from "./hooks/useIsMounted";
 import { useRouter } from "next/router";
+import { getUser } from "../components/getData/getUser";
 import styles from "../styles/Home.module.css";
-import {
-	useAccount,
-	usePrepareContractWrite,
-	useContractWrite,
-	useWaitForTransaction,
-} from "wagmi";
-const abi = require("../components/contract-abi.json");
 
-export default function dashboard() {
-	const [createUserLoading, setCreateUserLoading] = useState(false);
-	const [createUserError, setCreateUserError] = useState("");
-	const { isConnected, address } = useAccount();
-	const [imageURL, setimageURL] = useState("");
-	const [ownNFT, setOwnNFT] = useState(false);
-	const [session] = useSession();
+export default function dashboard({ session, user, imageURL }) {
 	const mounted = useIsMounted();
 	const router = useRouter();
-
-	// Handle contract write
-	const {
-		config,
-		error: prepareError,
-		isError: isPrepareError,
-	} = usePrepareContractWrite({
-		address: "0x1Cd5c46E1a7df46d6145A8d67830fc02b3187767",
-		abi,
-		functionName: "mint",
-		args: [],
-	});
-	const { data, error, isError, write } = useContractWrite(config);
-	const { isLoading, isSuccess } = useWaitForTransaction({
-		hash: data?.hash,
-	});
-
-	// Send user data to MongoDB and then mint NFT
-	const handleMint = async () => {
-		setCreateUserLoading(true);
-		setCreateUserError("");
-		fetch("/api/createUser", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ session, address }),
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then((data) => {
-				setCreateUserLoading(false);
-				// Mint NFT
-				write();
-			})
-			.catch((error) => {
-				setCreateUserLoading(false);
-				setCreateUserError(error);
-			});
-	};
-
-	// Check if the user have an NFT
-	useEffect(() => {
-		if (isConnected && address) {
-			fetch("/api/ownNFT", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ address }),
-			})
-				.then((response) => {
-					return response.json();
-				})
-				.then((data) => {
-					setimageURL(data.imageURL);
-					setOwnNFT(data.ownNFT);
-				})
-				.catch((error) => {
-					console.error(error);
-				});
-		}
-	}, [isConnected, address, isSuccess]);
 
 	return (
 		<main className={styles.main}>
@@ -96,77 +18,62 @@ export default function dashboard() {
 			/>
 			{mounted && (
 				<>
-					{!isConnected ? (
+					{!user.premium ? (
 						<>
-							<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-								Step 1: Connect your wallet
-							</h2>
-							<ConnectButton showBalance={false} />
+							<button
+								className={styles.button}
+								onClick={() => router.push(`/premium`)}
+							>
+								Go Premium
+							</button>
 						</>
 					) : (
 						<>
-							{!ownNFT ? (
-								<>
-									{!session ? (
-										<>
-											<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-												Step 2: Connect your Google account
-											</h2>
-											<button
-												className={styles.button}
-												onClick={() => signIn("google")}
-											>
-												Connect Google
-											</button>
-										</>
-									) : (
-										<>
-											<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-												Step 3: Mint your NFT
-											</h2>
-											<button
-												onClick={() => {
-													handleMint();
-												}}
-												disabled={isLoading || createUserLoading}
-												className={styles.button}
-											>
-												<p>
-													{" "}
-													{isLoading || createUserLoading
-														? "Minting..."
-														: "Mint NFT"}
-												</p>
-											</button>
-											{(createUserError || isPrepareError || isError) && (
-												<p>
-													Error:{" "}
-													{
-														(createUserError || prepareError || error)
-															?.message
-													}
-												</p>
-											)}
-										</>
-									)}
-								</>
-							) : (
-								<>
-									<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-										Here is your beautiful NFT:
-									</h2>
-									<img
-										src={imageURL}
-										width="300px"
-										height="300px"
-										className={styles.nft}
-									/>
-								</>
-							)}
+							<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+								Here is your beautiful NFT:
+							</h2>
+							<img
+								src={imageURL}
+								width="300px"
+								height="300px"
+								className={styles.nft}
+							/>
 						</>
 					)}
 				</>
 			)}
 		</main>
 	);
+}
+
+export async function getServerSideProps(context) {
+	// Check if the user is connected. Otherwise return him to the home page
+	const session = await getSession(context);
+	if (!session) {
+		return {
+			redirect: {
+				destination: "/",
+				permanent: false,
+			},
+		};
+	}
+
+	// Get the user profile
+	const { profile, imageURL } = await getUser(session);
+	if (!profile) {
+		return {
+			redirect: {
+				destination: "/",
+				permanent: false,
+			},
+		};
+	}
+
+	//Transform the profile object so it doesn't show an error because of the _id component
+	const user = JSON.parse(JSON.stringify(profile));
+
+	// Return the user profile
+	return {
+		props: { session, user, imageURL },
+	};
 }

@@ -2,8 +2,9 @@ import styles from "../styles/Home.module.css";
 import AnimatedText from "react-animated-text-content";
 import { useRouter } from "next/router";
 import { useIsMounted } from "./hooks/useIsMounted";
+import { signIn, getSession } from "next-auth/client";
 
-export default function Home() {
+export default function Home({ session }) {
 	// redirect to other pages
 	const router = useRouter();
 
@@ -47,9 +48,16 @@ export default function Home() {
 							<div style={{ marginLeft: "30%", marginTop: "50px" }}>
 								<button
 									className={styles.button}
-									onClick={() => router.push(`/dashboard`)}
+									onClick={() =>
+										session
+											? router.push(`/dashboard`)
+											: signIn("google", {
+													redirect: true,
+													callbackUrl: "/dashboard",
+											  })
+									}
 								>
-									Get Started
+									{session ? "Dashboard" : "Get Started"}
 								</button>
 							</div>
 						</div>
@@ -71,4 +79,12 @@ export default function Home() {
 			)}
 		</main>
 	);
+}
+export async function getServerSideProps(context) {
+	// Check if the user is connected.
+	const session = await getSession(context);
+
+	return {
+		props: { session },
+	};
 }
