@@ -95,7 +95,8 @@ export default function dashboard({ session, user }) {
 							) : (
 								<>
 									<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-										Congratulation, you are now a premium user!
+										🎉 Congratulations: Your Data Digital Twin has been
+										generated! 🎉
 									</h2>
 									<button
 										className={styles.button}

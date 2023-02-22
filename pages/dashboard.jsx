@@ -30,7 +30,7 @@ export default function dashboard({ session, user, imageURL }) {
 					) : (
 						<>
 							<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-								Here is your beautiful NFT:
+								Here is your Data Digital Twin:
 							</h2>
 							<img
 								src={imageURL}

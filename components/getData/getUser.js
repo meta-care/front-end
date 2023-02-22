@@ -28,10 +28,11 @@ export async function getUser(session) {
 			let user = new User({
 				_id: mongoose.Types.ObjectId(),
 				email: session.user.email,
+				name: session.user.name,
+				image: session.user.image,
 				refreshToken: session.refreshToken,
-				ethAddress: "",
+				signupDate: new Date(now_utc).toISOString(),
 				premium: false,
-				signupDate: now_utc,
 			});
 			profile = user;
 			await db.collection("users").insertOne(user);
@@ -55,12 +56,16 @@ export async function getUser(session) {
 			// Check if the user have a new refresh token
 			if (session.refreshToken != profile.refreshToken) {
 				profile = { ...profile, refreshToken: session.refreshToken };
-				await db
-					.collection("users")
-					.updateOne(
-						{ email: session.user.email },
-						{ $set: { refreshToken: session.refreshToken } }
-					);
+				await db.collection("users").updateOne(
+					{ email: session.user.email },
+					{
+						$set: {
+							refreshToken: session.refreshToken,
+							name: session.user.name,
+							image: session.user.image,
+						},
+					}
+				);
 			}
 		}
 
