@@ -46,7 +46,7 @@ export async function getUser(session) {
 					`https://${process.env.BLOCKCHAIN}.infura.io/v3/${process.env.INFURA_KEY}`
 				);
 				const contract = new ethers.Contract(contractAddress, abi, provider);
-				const tokenNumber = await contract.tokenOfOwnerByIndex(profile.ethAddress, 0);
+				const tokenNumber = await contract.tokenOfOwnerByIndex(profile.address, 0);
 				const tokenURI = await contract.tokenURI(tokenNumber);
 				const response = await fetch(tokenURI);
 				const data = await response.json();

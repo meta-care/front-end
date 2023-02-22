@@ -20,10 +20,7 @@ export default async function submit(req, res) {
 		// Update the user profile
 		await db
 			.collection("users")
-			.updateOne(
-				{ email: data.email },
-				{ $set: { premium: true, ethAddress: data.address } }
-			);
+			.updateOne({ email: data.email }, { $set: { premium: true, address: data.address } });
 
 		// Return a success message
 		return res.json({ msg: "success" });

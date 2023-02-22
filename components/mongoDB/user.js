@@ -10,7 +10,7 @@ const userSchema = new Schema({
 	refreshToken: requiredString,
 	signupDate: requiredString,
 	premium: { type: Boolean, default: false },
-	ethAddress: { type: String, default: "" },
+	address: { type: String },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);
