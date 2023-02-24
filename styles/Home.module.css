@@ -25,6 +25,7 @@
 	cursor: pointer;
 	box-shadow: 2px 2px 2px grey;
 }
+
 .button:hover {
 	animation: heartbeat 1s infinite;
 	transform: scale(1.1);
@@ -42,6 +43,7 @@
 	margin: 2rem;
 	transition: all ease 1000ms;
 }
+
 .nft:hover {
 	animation: heartbeat 1s infinite;
 	transform: scale(1.1);
@@ -51,6 +53,7 @@
 	text-align: left;
 	display: inline-block;
 }
+
 .description {
 	margin: 0 0 -2rem;
 	line-height: 1.1;
@@ -63,7 +66,39 @@
 		flex-direction: line;
 		display: flex;
 	}
+
 	.img {
 		display: flex;
 	}
+}
+
+.datatable {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 1rem;
+	font-weight: normal;
+	color: #333333;
+	border: 1px solid #C4C4C4;
+}
+
+.datatable thead th {
+	background-color: #F4F4F4;
+	color: #000;
+	border: 1px solid #C4C4C4;
+	padding: 10px;
+	text-align: left;
+}
+
+.datatable tbody td {
+	border: 1px solid #C4C4C4;
+	padding: 10px;
+	text-align: left;
+}
+
+.datatable tbody tr:nth-child(even) {
+	background-color: #F4F4F4;
+}
+
+.datatable tbody tr:hover {
+	background-color: #EFEFEF;
 }
