@@ -1,7 +1,6 @@
 import clientPromise from "../../components/mongoDB/mongodb";
 
 export default async (req, res) => {
-
 	// Check if the request is a GET request
 	if (req.method !== "GET") {
 		return res.status(500).json({ msg: "This needs to be a get request" });
@@ -18,7 +17,10 @@ export default async (req, res) => {
 		let db = await client.db();
 
 		// Get user historical data from db
-		const userDataCursor = await db.collection("datas").find({ email: email }).sort({ startTimeMillis: -1 });
+		const userDataCursor = await db
+			.collection("datas")
+			.find({ email: email })
+			.sort({ startTimeNanos: -1 });
 		const userData = await userDataCursor.toArray();
 
 		// Return a success message
@@ -29,4 +31,4 @@ export default async (req, res) => {
 		console.log("ERROR: " + e);
 		return res.status(500).json({ error: JSON.stringify(e) });
 	}
-}
+};

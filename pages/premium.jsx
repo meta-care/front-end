@@ -16,6 +16,7 @@ const abi = require("../components/contract-abi.json");
 export default function dashboard({ session, user }) {
 	const { isConnected, address } = useAccount();
 	const [finished, setFinished] = useState(false);
+	const [alreadyOwn, setalreadyOwn] = useState(false);
 	const mounted = useIsMounted();
 	const router = useRouter();
 
@@ -37,7 +38,7 @@ export default function dashboard({ session, user }) {
 
 	// Update the user profile to premium
 	useEffect(() => {
-		if (isSuccess && address && isConnected) {
+		if (address && isConnected && (isSuccess || alreadyOwn)) {
 			fetch("/api/setPremium", {
 				method: "POST",
 				headers: {
@@ -55,7 +56,31 @@ export default function dashboard({ session, user }) {
 					console.error(error);
 				});
 		}
-	}, [isSuccess]);
+	}, [isSuccess, alreadyOwn]);
+
+	// Check if the user already have an NFT
+	useEffect(() => {
+		if (isConnected && address) {
+			fetch("/api/ownNFT", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ address }),
+			})
+				.then((response) => {
+					return response.json();
+				})
+				.then((data) => {
+					if (data.ownNFT) {
+						setalreadyOwn(true);
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
+	}, [isConnected, address]);
 
 	return (
 		<main className={styles.main}>
