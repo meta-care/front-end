@@ -11,6 +11,7 @@ const userSchema = new Schema({
 	signupDate: requiredString,
 	premium: { type: Boolean, default: false },
 	address: { type: String },
+	premiumDate: { type: String },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);

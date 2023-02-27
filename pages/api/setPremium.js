@@ -12,6 +12,17 @@ export default async function submit(req, res) {
 		return res.status(500).json({ error: "no data" });
 	}
 
+	// Get the current date
+	var date = new Date();
+	var now_utc = Date.UTC(
+		date.getUTCFullYear(),
+		date.getUTCMonth(),
+		date.getUTCDate(),
+		date.getUTCHours(),
+		date.getUTCMinutes(),
+		date.getUTCSeconds()
+	);
+
 	try {
 		// Get the client and the database connection from mongoDB
 		let client = await clientPromise;
@@ -20,7 +31,16 @@ export default async function submit(req, res) {
 		// Update the user profile
 		await db
 			.collection("users")
-			.updateOne({ email: data.email }, { $set: { premium: true, address: data.address } });
+			.updateOne(
+				{ email: data.email },
+				{
+					$set: {
+						premium: true,
+						address: data.address,
+						premiumDate: new Date(now_utc).toISOString(),
+					},
+				}
+			);
 
 		// Return a success message
 		return res.json({ msg: "success" });

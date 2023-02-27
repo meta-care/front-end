@@ -5,7 +5,9 @@ export function Premium({ session, user, imageURL }) {
 	const [showTable, setShowTable] = useState(false);
 	const [userData, setUserData] = useState([]);
 	const [finished, setFinished] = useState(false);
+	const [newUser, setNewUser] = useState(false);
 
+	// Get data from the database
 	useEffect(() => {
 		if (showTable) {
 			const url = new URL("/api/getHistoricalData", window.location.origin);
@@ -18,14 +20,41 @@ export function Premium({ session, user, imageURL }) {
 			})
 				.then((response) => response.json())
 				.then((data) => {
-					setUserData(data);
-					setFinished(true);
+					if (data.length) {
+						setUserData(data);
+						setFinished(true);
+					} else {
+						setNewUser(true);
+					}
 				})
 				.catch((error) => {
 					console.error(error);
 				});
 		}
 	}, [user, showTable]);
+
+	// Get data directly from google (if he is a new user)
+	useEffect(() => {
+		if (newUser) {
+			const url = new URL("/api/getFreeHistoricalData", window.location.origin);
+			url.searchParams.append("refreshToken", user.refreshToken);
+			fetch(url, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					setUserData(data);
+					setFinished(true);
+					setNewUser(false);
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
+	}, [newUser]);
 
 	return (
 		<>
