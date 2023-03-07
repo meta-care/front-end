@@ -97,6 +97,15 @@ export default function dashboard({ session, user }) {
 							<h2 style={{ color: "#091562", fontSize: "2rem" }}>
 								Step 1: Connect your wallet
 							</h2>
+							<a
+								href="/privacy"
+								style={{
+									color: "#0093ff",
+									marginBottom: "1rem",
+								}}
+							>
+								By connecting your wallet you agree to the Privacy Policy
+							</a>
 							<ConnectButton showBalance={false} />
 						</>
 					) : (
