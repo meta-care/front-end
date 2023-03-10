@@ -12,6 +12,7 @@ const userSchema = new Schema({
 	premium: { type: Boolean, default: false },
 	address: { type: String },
 	premiumDate: { type: String },
+	tokenID: { type: Number },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);

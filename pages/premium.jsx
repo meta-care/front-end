@@ -17,6 +17,7 @@ export default function dashboard({ session, user }) {
 	const { isConnected, address } = useAccount();
 	const [finished, setFinished] = useState(false);
 	const [alreadyOwn, setalreadyOwn] = useState(false);
+	const [tokenID, setTokenID] = useState();
 	const mounted = useIsMounted();
 	const router = useRouter();
 
@@ -50,6 +51,7 @@ export default function dashboard({ session, user }) {
 					return response.json();
 				})
 				.then((data) => {
+					setTokenID(data.tokenID);
 					setFinished(true);
 				})
 				.catch((error) => {
@@ -95,17 +97,8 @@ export default function dashboard({ session, user }) {
 					{!isConnected ? (
 						<>
 							<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-								Step 1: Connect your wallet
+								Connect your wallet
 							</h2>
-							<a
-								href="/privacy"
-								style={{
-									color: "#0093ff",
-									marginBottom: "1rem",
-								}}
-							>
-								By connecting your wallet you agree to the Privacy Policy
-							</a>
 							<ConnectButton showBalance={false} />
 						</>
 					) : (
@@ -115,6 +108,15 @@ export default function dashboard({ session, user }) {
 									<h2 style={{ color: "#091562", fontSize: "2rem" }}>
 										Step 2: Mint your NFT
 									</h2>
+									<a
+										href="/privacy"
+										style={{
+											color: "#0093ff",
+											marginBottom: "1rem",
+										}}
+									>
+										By minting an NFT, you agree to our Privacy Policy
+									</a>
 									<button
 										onClick={write}
 										disabled={isLoading}
@@ -134,9 +136,9 @@ export default function dashboard({ session, user }) {
 									</h2>
 									<button
 										className={styles.button}
-										onClick={() => router.push(`/dashboard`)}
+										onClick={() => router.push(`/NFT/${tokenID}`)}
 									>
-										<p>Go to dashboard</p>
+										<p>See your new NFT</p>
 									</button>
 								</>
 							)}

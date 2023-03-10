@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 
 export function Premium({ session, user, imageURL }) {
@@ -6,6 +7,7 @@ export function Premium({ session, user, imageURL }) {
 	const [userData, setUserData] = useState([]);
 	const [finished, setFinished] = useState(false);
 	const [newUser, setNewUser] = useState(false);
+	const router = useRouter();
 
 	// Get data from the database
 	useEffect(() => {
@@ -58,6 +60,9 @@ export function Premium({ session, user, imageURL }) {
 
 	return (
 		<>
+			<button className={styles.button} onClick={() => router.push(`/NFT/${user.tokenID}`)}>
+				<p>See your NFT</p>
+			</button>
 			<h2 style={{ color: "#091562", fontSize: "2rem" }}>Here is your Data Digital Twin:</h2>
 			<img src={imageURL} width="300px" height="300px" className={styles.nft} />
 			<button className={styles.button} onClick={() => setShowTable(!showTable)}>

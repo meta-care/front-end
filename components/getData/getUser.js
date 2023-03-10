@@ -61,7 +61,6 @@ export async function getUser(session) {
 					{
 						$set: {
 							refreshToken: session.refreshToken,
-							name: session.user.name,
 							image: session.user.image,
 						},
 					}
