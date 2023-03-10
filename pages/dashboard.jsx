@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/client";
+import { getSession, signOut } from "next-auth/client";
 import { useIsMounted } from "./hooks/useIsMounted";
 import { useRouter } from "next/router";
 import { getUser } from "../components/getData/getUser";
@@ -18,6 +18,17 @@ export default function Dashboard({ session, user, imageURL }) {
 				height="192px"
 				onClick={() => router.push(`/`)}
 			/>
+			<button
+				className={styles.button}
+				onClick={() =>
+					signOut("google", {
+						redirect: true,
+						callbackUrl: "/",
+					})
+				}
+			>
+				{"SignOut"}
+			</button>
 			{mounted && (
 				<>
 					{user.premium ? (
