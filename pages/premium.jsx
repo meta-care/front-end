@@ -2,6 +2,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { getSession } from "next-auth/client";
 import { useIsMounted } from "./hooks/useIsMounted";
 import { useRouter } from "next/router";
+import { useForm, useFieldArray } from "react-hook-form";
 import styles from "../styles/Home.module.css";
 import {
 	useAccount,
@@ -13,13 +14,57 @@ import clientPromise from "../components/mongoDB/mongodb";
 import { useEffect, useState } from "react";
 const abi = require("../components/contract-abi.json");
 
-export default function dashboard({ session, user }) {
+export default function premium({ session, user }) {
 	const { isConnected, address } = useAccount();
 	const [finished, setFinished] = useState(false);
 	const [alreadyOwn, setalreadyOwn] = useState(false);
 	const [tokenID, setTokenID] = useState();
 	const mounted = useIsMounted();
 	const router = useRouter();
+
+	// Handle the form
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		control,
+	} = useForm({
+		defaultValues: {
+			name: user.name,
+			publicData: false,
+		},
+	});
+
+	//Handle the professionnals input fields
+	const {
+		fields: professionnalInputFields,
+		append: professionnalInputAppend,
+		remove: professionnalInputRemove,
+	} = useFieldArray({
+		name: "professionnals",
+		control,
+	});
+
+	//Handle the achievements input fields
+	const {
+		fields: achievementsInputFields,
+		append: achievementsInputAppend,
+		remove: achievementsInputRemove,
+	} = useFieldArray({
+		name: "achievements",
+		control,
+	});
+
+	//Handle the form submit & errors
+	const [isFormSumbitted, setIsFormSumbitted] = useState(false);
+	const [formData, setFormData] = useState();
+	const onSubmit = async (formData) => {
+		setFormData(formData);
+		setIsFormSumbitted(true);
+	};
+	const onError = (errors) => {
+		console.log("ERRORS: ", errors);
+	};
 
 	// Handle contract write
 	const {
@@ -39,13 +84,13 @@ export default function dashboard({ session, user }) {
 
 	// Update the user profile to premium
 	useEffect(() => {
-		if (address && isConnected && (isSuccess || alreadyOwn)) {
+		if (address && isConnected && isFormSumbitted && (isSuccess || alreadyOwn)) {
 			fetch("/api/setPremium", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ address, email: session.user.email }),
+				body: JSON.stringify({ address, email: session.user.email, formData }),
 			})
 				.then((response) => {
 					return response.json();
@@ -62,7 +107,7 @@ export default function dashboard({ session, user }) {
 
 	// Check if the user already have an NFT
 	useEffect(() => {
-		if (isConnected && address) {
+		if (isConnected && address && isFormSumbitted) {
 			fetch("/api/ownNFT", {
 				method: "POST",
 				headers: {
@@ -82,7 +127,7 @@ export default function dashboard({ session, user }) {
 					console.error(error);
 				});
 		}
-	}, [isConnected, address]);
+	}, [isConnected, address, isFormSumbitted]);
 
 	return (
 		<main className={styles.main}>
@@ -103,43 +148,167 @@ export default function dashboard({ session, user }) {
 						</>
 					) : (
 						<>
-							{!finished ? (
+							{!isFormSumbitted ? (
 								<>
 									<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-										Step 2: Mint your NFT
+										Personnalize your NFT
 									</h2>
-									<a
-										href="/privacy"
-										style={{
-											color: "#0093ff",
-											marginBottom: "1rem",
-										}}
+									<form
+										onSubmit={(e) =>
+											handleSubmit(
+												onSubmit,
+												onError
+											)(e).catch((e) => {
+												console.log("Server error...");
+											})
+										}
 									>
-										By minting an NFT, you agree to our Privacy Policy
-									</a>
-									<button
-										onClick={write}
-										disabled={isLoading}
-										className={styles.button}
-									>
-										<p> {isLoading ? "Minting..." : "Mint NFT"}</p>
-									</button>
-									{(isPrepareError || isError) && (
-										<p>Error: {(prepareError || error)?.message}</p>
-									)}
+										<div>
+											<label>Name:</label>
+											<input
+												type="text"
+												{...register("name", {
+													required: "Name is required",
+													maxLength: {
+														value: 30,
+														message: "Maximum name length is 30",
+													},
+												})}
+											/>
+										</div>
+										<p>{errors.name?.message}</p>
+										<div>
+											<label>Allow anyone to see your data:</label>
+											<input type="checkbox" {...register("publicData")} />
+										</div>
+										{professionnalInputFields.map((field, index) => (
+											<div key={field.id}>
+												<div>
+													<label>
+														HealthCare Professionnal {index + 1} email:
+													</label>
+													<div
+														onClick={() =>
+															professionnalInputRemove(index)
+														}
+													>
+														X
+													</div>
+													<input
+														{...register(
+															`professionnals.${index}.email`,
+															{
+																required: "Email is required",
+																maxLength: {
+																	value: 50,
+																	message:
+																		"Maximum email length is 50",
+																},
+															}
+														)}
+													/>
+												</div>
+												<p>
+													{errors.professionnals?.[index]?.email?.message}
+												</p>
+											</div>
+										))}
+										{professionnalInputFields.length < 10 && (
+											<div>
+												<button
+													type="button"
+													onClick={() =>
+														professionnalInputAppend({ email: "" })
+													}
+												>
+													+ HealthCare Professionnal
+												</button>
+											</div>
+										)}
+										{achievementsInputFields.map((field, index) => (
+											<div key={field.id}>
+												<div>
+													<label>Achievements {index + 1}:</label>
+													<div
+														onClick={() =>
+															achievementsInputRemove(index)
+														}
+													>
+														X
+													</div>
+													<input
+														{...register(`achievements.${index}.text`, {
+															required: "achievements is required",
+															maxLength: {
+																value: 200,
+																message:
+																	"Maximum achievements length is 200",
+															},
+														})}
+													/>
+												</div>
+												<p>{errors.achievements?.[index]?.text?.message}</p>
+											</div>
+										))}
+										{achievementsInputFields.length < 3 && (
+											<div>
+												<button
+													type="button"
+													onClick={() =>
+														achievementsInputAppend({ text: "" })
+													}
+												>
+													+ Achievement
+												</button>
+											</div>
+										)}
+
+										<button>
+											<input type="submit" />
+										</button>
+									</form>
 								</>
 							) : (
 								<>
-									<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-										🎉 Congratulations: Your Data Digital Twin has been
-										generated! 🎉
-									</h2>
-									<button
-										className={styles.button}
-										onClick={() => router.push(`/NFT/${tokenID}`)}
-									>
-										<p>See your new NFT</p>
-									</button>
+									{!finished ? (
+										<>
+											<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+												Step 2: Mint your NFT
+											</h2>
+											<a
+												href="/privacy"
+												style={{
+													color: "#0093ff",
+													marginBottom: "1rem",
+												}}
+											>
+												By minting an NFT, you agree to our Privacy Policy
+											</a>
+											<button
+												onClick={write}
+												disabled={isLoading}
+												className={styles.button}
+											>
+												<p> {isLoading ? "Minting..." : "Mint NFT"}</p>
+											</button>
+											{(isPrepareError || isError) && (
+												<p>Error: {(prepareError || error)?.message}</p>
+											)}
+										</>
+									) : (
+										<>
+											<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+												🎉 Congratulations: Your Data Digital Twin has been
+												generated! 🎉
+											</h2>
+											<button
+												className={styles.button}
+												onClick={() => router.push(`/NFT/${tokenID}`)}
+											>
+												<p>See your new NFT</p>
+											</button>
+										</>
+									)}
 								</>
 							)}
 						</>

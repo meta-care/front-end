@@ -2,7 +2,7 @@ import clientPromise from "../../components/mongoDB/mongodb";
 import { ethers } from "ethers";
 import abi from "../../components/contract-abi.json";
 
-export default async function submit(req, res) {
+export default async function setPremium(req, res) {
 	// Check if the request is a POST request
 	if (req.method !== "POST") {
 		return res.status(500).json({ error: "This needs to be a post request" });
@@ -12,6 +12,22 @@ export default async function submit(req, res) {
 	const data = req.body;
 	if (!data) {
 		return res.status(500).json({ error: "no data" });
+	}
+
+	// Get the achievements
+	let achievements = [];
+	if (data.formData.achievements) {
+		for (let i = 0; i < data.formData.achievements.length; i++) {
+			achievements.push(data.formData.achievements[i].text);
+		}
+	}
+
+	// Get the professionnals
+	let professionnals = [];
+	if (data.formData.professionnals) {
+		for (let i = 0; i < data.formData.professionnals.length; i++) {
+			professionnals.push(data.formData.professionnals[i].email);
+		}
 	}
 
 	// Get the current date
@@ -50,9 +66,13 @@ export default async function submit(req, res) {
 			{ email: data.email },
 			{
 				$set: {
+					name: data.formData.name,
 					premium: true,
+					achievements,
 					address: data.address,
 					premiumDate: new Date(now_utc).toISOString(),
+					professionnals,
+					publicData: data.formData.publicData,
 					tokenID,
 				},
 			}
