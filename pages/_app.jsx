@@ -44,12 +44,6 @@ export default function MyApp({ Component, pageProps }) {
 					<Component {...pageProps} />
 				</RainbowKitProvider>
 			</WagmiConfig>
-
-			<footer>
-				<a href="https://www.crotaluslabs.com/" target="_blank" rel="noopener noreferrer">
-					Powered by Crotalus Labs&reg;
-				</a>
-			</footer>
 		</>
 	);
 }
