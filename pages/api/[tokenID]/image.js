@@ -1,14 +1,33 @@
-import * as React from "react";
 import clientPromise from "../../../components/mongoDB/mongodb";
 
-export default function image(props) {
-	return (
+export default async function image(req, res) {
+	// get the tokenID from the URL
+	let { tokenID } = req.query;
+	tokenID = parseInt(tokenID);
+
+	//find a user with this tokenID in the database
+	let user = null;
+	try {
+		let client = await clientPromise;
+		let db = await client.db();
+		user = await db.collection("users").findOne({ tokenID: tokenID });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "Internal Server Error" });
+	}
+
+	// if there is no user with this tokenID, return 404
+	if (!user) {
+		return res.status(404).json({ message: "User not found" });
+	}
+
+	// return the image
+	return res.status(200).send(
 		<svg
 			width={1000}
 			height={1000}
 			xmlns="http://www.w3.org/2000/svg"
 			xmlnsXlink="http://www.w3.org/1999/xlink"
-			{...props}
 		>
 			<image
 				stroke="null"
@@ -41,7 +60,7 @@ export default function image(props) {
 				x={38}
 				fill="#061309"
 			>
-				{`metacare-health.vercel.app/NFT/${props?.tokenID}`}
+				{`metacare-health.vercel.app/NFT/${tokenID}`}
 			</text>
 			<text
 				stroke="#000"
@@ -55,7 +74,7 @@ export default function image(props) {
 				strokeWidth={0}
 				fill="#000"
 			>
-				{`${props?.name}'s Data Digital Twin`}
+				{`${user?.name}'s Data Digital Twin`}
 			</text>
 			<text
 				stroke="#000"
@@ -69,7 +88,7 @@ export default function image(props) {
 				strokeWidth={0}
 				fill="#000"
 			>
-				{props?.achievements[0]}
+				{user?.achievements[0]}
 			</text>
 			<text
 				stroke="#000"
@@ -83,7 +102,7 @@ export default function image(props) {
 				strokeWidth={0}
 				fill="#000"
 			>
-				{props?.achievements[1]}
+				{user?.achievements[1]}
 			</text>
 			<text
 				stroke="#000"
@@ -97,43 +116,8 @@ export default function image(props) {
 				strokeWidth={0}
 				fill="#000"
 			>
-				{props?.achievements[2]}
+				{user?.achievements[2]}
 			</text>
 		</svg>
 	);
-}
-
-export async function getServerSideProps(context) {
-	// get the tokenID from the URL
-	let { tokenID } = context.params;
-	tokenID = parseInt(tokenID);
-
-	//find a user with this tokenID in the database
-	let user = null;
-	try {
-		let client = await clientPromise;
-		let db = await client.db();
-		user = await db.collection("users").findOne({ tokenID: tokenID });
-	} catch (error) {
-		console.log(error);
-		return {
-			notFound: true,
-		};
-	}
-
-	// if there is no user with this tokenID, return 404
-	if (!user) {
-		console.log("user not found");
-		return {
-			notFound: true,
-		};
-	}
-
-	return {
-		props: {
-			tokenID,
-			name: user.name,
-			achievements: user.achievements,
-		},
-	};
 }
