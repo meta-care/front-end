@@ -6,7 +6,7 @@ import { Free } from "../components/dashboard/free";
 import { Premium } from "../components/dashboard/premium";
 import styles from "../styles/Home.module.css";
 
-export default function Dashboard({ session, user, imageURL }) {
+export default function Dashboard({ session, user }) {
 	const mounted = useIsMounted();
 	const router = useRouter();
 
@@ -32,7 +32,7 @@ export default function Dashboard({ session, user, imageURL }) {
 			{mounted && (
 				<>
 					{user.premium ? (
-						<Premium session={session} user={user} imageURL={imageURL} />
+						<Premium session={session} user={user} />
 					) : (
 						<Free session={session} user={user} />
 					)}
@@ -55,8 +55,8 @@ export async function getServerSideProps(context) {
 	}
 
 	// Get the user profile
-	const result = await getUser(session);
-	if (!result?.profile) {
+	const profile = await getUser(session);
+	if (!profile) {
 		return {
 			redirect: {
 				destination: "/",
@@ -66,10 +66,10 @@ export async function getServerSideProps(context) {
 	}
 
 	//Transform the profile object so it doesn't show an error because of the _id component
-	const user = JSON.parse(JSON.stringify(result.profile));
+	const user = JSON.parse(JSON.stringify(profile));
 
 	// Return the user profile
 	return {
-		props: { session, user, imageURL: result.imageURL },
+		props: { session, user },
 	};
 }

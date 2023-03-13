@@ -26,6 +26,7 @@ export default async function metadata(req, res) {
 		name: `${user.name}'s Data Digital Twin`,
 		description: "MetaCare Health",
 		image: `${process.env.NEXTAUTH_URL}/api/${tokenID}/image`,
+		external_url: `${process.env.NEXTAUTH_URL}/NFT/${tokenID}`,
 		attributes: [
 			{ "trait-type": "achievements 1", value: user.achievements[0] },
 			{ "trait-type": "achievements 2", value: user.achievements[1] },
