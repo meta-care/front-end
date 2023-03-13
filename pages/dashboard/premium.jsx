@@ -12,6 +12,7 @@ import {
 } from "wagmi";
 import clientPromise from "../../components/mongoDB/mongodb";
 import { useEffect, useState } from "react";
+import { ethers } from "ethers";
 const abi = require("../../components/contract-abi.json");
 
 export default function premium({ session, user }) {
