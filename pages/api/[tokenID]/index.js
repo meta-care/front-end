@@ -28,9 +28,9 @@ export default async function metadata(req, res) {
 		image: `${process.env.NEXTAUTH_URL}/api/${tokenID}/image`,
 		external_url: `${process.env.NEXTAUTH_URL}/NFT/${tokenID}`,
 		attributes: [
-			{ "trait-type": "achievements 1", value: user.achievements[0] },
-			{ "trait-type": "achievements 2", value: user.achievements[1] },
-			{ "trait-type": "achievements 3", value: user.achievements[2] },
+			{ "trait-type": "achievement 1", value: user.achievements[0] },
+			{ "trait-type": "achievement 2", value: user.achievements[1] },
+			{ "trait-type": "achievement 3", value: user.achievements[2] },
 		],
 	});
 }

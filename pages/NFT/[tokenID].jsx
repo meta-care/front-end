@@ -75,16 +75,17 @@ export default function NFT({ showData, user }) {
 
 	return (
 		<main className={styles.main}>
-			<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-				Here is {user.name} Data Digital Twin:
+			<h2 style={{ color: "#091562", fontSize: "3rem" }}>
+				Here is {user.name}'s Data Digital Twin:
 			</h2>
 			<div dangerouslySetInnerHTML={{ __html: image }} />
 			{showData && mounted && (
 				<>
-					<button className={styles.button} onClick={() => setShowTable(!showTable)}>
-						{showTable ? "Hide Table" : "Show Table"}
-					</button>
-					{finished && showTable && (
+					{!finished ? (
+						<button className={styles.button} onClick={() => setShowTable(true)}>
+							Show Table
+						</button>
+					) : (
 						<>
 							<h2 style={{ color: "#091562", fontSize: "2rem" }}>Historical Data:</h2>
 							{userData.data.length > 0 ? (

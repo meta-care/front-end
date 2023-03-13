@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { signOut } from "next-auth/client";
 import styles from "../../styles/Home.module.css";
 
-export function Free({ session, user }) {
+export function Free({ user }) {
 	const router = useRouter();
 	const [showTable, setShowTable] = useState(false);
 	const [userData, setUserData] = useState([]);
@@ -11,7 +12,7 @@ export function Free({ session, user }) {
 	useEffect(() => {
 		if (showTable) {
 			const url = new URL("/api/getFreeHistoricalData", window.location.origin);
-			url.searchParams.append("refreshToken", session.refreshToken);
+			url.searchParams.append("refreshToken", user.refreshToken);
 			fetch(url, {
 				method: "GET",
 				headers: {
@@ -31,13 +32,29 @@ export function Free({ session, user }) {
 
 	return (
 		<>
-			<button className={styles.button} onClick={() => router.push(`/premium`)}>
+			<button
+				className={styles.button}
+				onClick={() =>
+					signOut("google", {
+						redirect: true,
+						callbackUrl: "/",
+					})
+				}
+			>
+				{"SignOut"}
+			</button>
+			<button
+				className={styles.button}
+				onClick={() => router.push(`/dashboard/premium`)}
+				style={{ margin: "1rem" }}
+			>
 				Go Premium
 			</button>
-			<button className={styles.button} onClick={() => setShowTable(!showTable)}>
-				{showTable ? "Hide Table" : "Show Table"}
-			</button>
-			{finished && showTable && (
+			{!finished ? (
+				<button className={styles.button} onClick={() => setShowTable(true)}>
+					Show Table
+				</button>
+			) : (
 				<>
 					<h2 style={{ color: "#091562", fontSize: "2rem" }}>Your Historical Data:</h2>
 					{userData.data.length > 0 ? (

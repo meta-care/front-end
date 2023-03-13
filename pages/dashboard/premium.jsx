@@ -1,18 +1,18 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { getSession } from "next-auth/client";
-import { useIsMounted } from "./hooks/useIsMounted";
+import { useIsMounted } from "../hooks/useIsMounted";
 import { useRouter } from "next/router";
 import { useForm, useFieldArray } from "react-hook-form";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import {
 	useAccount,
 	usePrepareContractWrite,
 	useContractWrite,
 	useWaitForTransaction,
 } from "wagmi";
-import clientPromise from "../components/mongoDB/mongodb";
+import clientPromise from "../../components/mongoDB/mongodb";
 import { useEffect, useState } from "react";
-const abi = require("../components/contract-abi.json");
+const abi = require("../../components/contract-abi.json");
 
 export default function premium({ session, user }) {
 	const { isConnected, address } = useAccount();
@@ -72,7 +72,7 @@ export default function premium({ session, user }) {
 		error: prepareError,
 		isError: isPrepareError,
 	} = usePrepareContractWrite({
-		address: "0xFD4047e04476b15FF95cc36782256B8594a60582",
+		address: "0x7bAa340fc65e41a43ad8266db3c1dc8849193E92",
 		abi,
 		functionName: "mint",
 		args: [],
@@ -164,8 +164,13 @@ export default function premium({ session, user }) {
 										}
 									>
 										<div>
-											<label>Name:</label>
+											<label
+												style={{ fontSize: "1.5rem", marginRight: "1rem" }}
+											>
+												Name:
+											</label>
 											<input
+												style={{ fontSize: "1.5rem" }}
 												type="text"
 												{...register("name", {
 													required: "Name is required",
@@ -176,25 +181,33 @@ export default function premium({ session, user }) {
 												})}
 											/>
 										</div>
-										<p>{errors.name?.message}</p>
+										<p style={{ color: "red" }}>{errors.name?.message}</p>
 										<div>
-											<label>Allow anyone to see your data:</label>
-											<input type="checkbox" {...register("publicData")} />
+											<label style={{ fontSize: "1.5rem" }}>
+												Allow anyone to see your data:
+											</label>
+											<input
+												style={{ margin: "1.5rem", scale: "175%" }}
+												type="checkbox"
+												{...register("publicData")}
+											/>
 										</div>
 										{professionnalInputFields.map((field, index) => (
 											<div key={field.id}>
 												<div>
-													<label>
+													<label
+														style={{
+															fontSize: "1.5rem",
+														}}
+													>
 														HealthCare Professionnal {index + 1} email:
 													</label>
-													<div
-														onClick={() =>
-															professionnalInputRemove(index)
-														}
-													>
-														X
-													</div>
 													<input
+														style={{
+															fontSize: "1.5rem",
+															marginRight: "1rem",
+															marginLeft: "1rem",
+														}}
 														{...register(
 															`professionnals.${index}.email`,
 															{
@@ -207,8 +220,19 @@ export default function premium({ session, user }) {
 															}
 														)}
 													/>
+													<span
+														style={{
+															color: "red",
+															fontSize: "1.5rem",
+														}}
+														onClick={() =>
+															professionnalInputRemove(index)
+														}
+													>
+														X
+													</span>
 												</div>
-												<p>
+												<p style={{ color: "red" }}>
 													{errors.professionnals?.[index]?.email?.message}
 												</p>
 											</div>
@@ -217,6 +241,10 @@ export default function premium({ session, user }) {
 											<div>
 												<button
 													type="button"
+													className={styles.button}
+													style={{
+														margin: "1rem",
+													}}
 													onClick={() =>
 														professionnalInputAppend({ email: "" })
 													}
@@ -228,32 +256,53 @@ export default function premium({ session, user }) {
 										{achievementsInputFields.map((field, index) => (
 											<div key={field.id}>
 												<div>
-													<label>Achievements {index + 1}:</label>
-													<div
+													<label
+														style={{
+															fontSize: "1.5rem",
+														}}
+													>
+														Achievement {index + 1}:
+													</label>
+													<input
+														style={{
+															fontSize: "1.5rem",
+															marginRight: "1rem",
+															marginLeft: "1rem",
+														}}
+														{...register(`achievements.${index}.text`, {
+															required: "Text is required",
+															maxLength: {
+																value: 200,
+																message:
+																	"Maximum achievement length is 200",
+															},
+														})}
+													/>
+													<span
+														style={{
+															color: "red",
+															fontSize: "1.5rem",
+														}}
 														onClick={() =>
 															achievementsInputRemove(index)
 														}
 													>
 														X
-													</div>
-													<input
-														{...register(`achievements.${index}.text`, {
-															required: "achievements is required",
-															maxLength: {
-																value: 200,
-																message:
-																	"Maximum achievements length is 200",
-															},
-														})}
-													/>
+													</span>
 												</div>
-												<p>{errors.achievements?.[index]?.text?.message}</p>
+												<p style={{ color: "red" }}>
+													{errors.achievements?.[index]?.text?.message}
+												</p>
 											</div>
 										))}
 										{achievementsInputFields.length < 3 && (
 											<div>
 												<button
 													type="button"
+													className={styles.button}
+													style={{
+														margin: "1rem",
+													}}
 													onClick={() =>
 														achievementsInputAppend({ text: "" })
 													}
@@ -263,8 +312,14 @@ export default function premium({ session, user }) {
 											</div>
 										)}
 
-										<button>
-											<input type="submit" />
+										<button
+											className={styles.button}
+											style={{
+												margin: "1rem",
+											}}
+											type="submit"
+										>
+											Save
 										</button>
 									</form>
 								</>

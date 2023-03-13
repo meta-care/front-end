@@ -1,5 +1,5 @@
-import clientPromise from "../mongoDB/mongodb";
-import User from "../mongoDB/user";
+import clientPromise from "./mongodb";
+import User from "./user";
 const mongoose = require("mongoose");
 
 export async function getUser(session) {

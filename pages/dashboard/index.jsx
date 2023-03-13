@@ -1,12 +1,12 @@
-import { getSession, signOut } from "next-auth/client";
-import { useIsMounted } from "./hooks/useIsMounted";
+import { getSession } from "next-auth/client";
+import { useIsMounted } from "../hooks/useIsMounted";
 import { useRouter } from "next/router";
-import { getUser } from "../components/getData/getUser";
-import { Free } from "../components/dashboard/free";
-import { Premium } from "../components/dashboard/premium";
-import styles from "../styles/Home.module.css";
+import { getUser } from "../../components/mongoDB/getUser";
+import { Free } from "../../components/dashboard/free";
+import { Premium } from "../../components/dashboard/premium";
+import styles from "../../styles/Home.module.css";
 
-export default function Dashboard({ session, user }) {
+export default function Dashboard({ user }) {
 	const mounted = useIsMounted();
 	const router = useRouter();
 
@@ -18,26 +18,7 @@ export default function Dashboard({ session, user }) {
 				height="192px"
 				onClick={() => router.push(`/`)}
 			/>
-			<button
-				className={styles.button}
-				onClick={() =>
-					signOut("google", {
-						redirect: true,
-						callbackUrl: "/",
-					})
-				}
-			>
-				{"SignOut"}
-			</button>
-			{mounted && (
-				<>
-					{user.premium ? (
-						<Premium session={session} user={user} />
-					) : (
-						<Free session={session} user={user} />
-					)}
-				</>
-			)}
+			{mounted && <>{user.premium ? <Premium user={user} /> : <Free user={user} />}</>}
 		</main>
 	);
 }
@@ -70,6 +51,6 @@ export async function getServerSideProps(context) {
 
 	// Return the user profile
 	return {
-		props: { session, user },
+		props: { user },
 	};
 }

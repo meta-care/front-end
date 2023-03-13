@@ -14,7 +14,7 @@ export default async (req, res) => {
 	}
 
 	// Connect to the contract
-	const contractAddress = "0xFD4047e04476b15FF95cc36782256B8594a60582";
+	const contractAddress = "0x7bAa340fc65e41a43ad8266db3c1dc8849193E92";
 	const provider = new ethers.providers.JsonRpcProvider(
 		`https://${process.env.BLOCKCHAIN}.infura.io/v3/${process.env.INFURA_KEY}`
 	);
