@@ -75,7 +75,10 @@ export default function premium({ session, user }) {
 		address: "0x7bAa340fc65e41a43ad8266db3c1dc8849193E92",
 		abi,
 		functionName: "mint",
-		args: [],
+		overrides: {
+			from: address,
+			value: ethers.utils.parseEther("0"),
+		},
 	});
 	const { data, error, isError, write } = useContractWrite(config);
 	const { isLoading, isSuccess } = useWaitForTransaction({
