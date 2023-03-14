@@ -44,9 +44,9 @@ export default async function setPremium(req, res) {
 	// Get the token ID
 	let tokenID;
 	try {
-		const contractAddress = "0x7bAa340fc65e41a43ad8266db3c1dc8849193E92";
+		const contractAddress = "0x9C0A3088f2366E2e94BEd6B679471C7a23e1A62E";
 		const provider = new ethers.providers.JsonRpcProvider(
-			`https://${process.env.BLOCKCHAIN}.infura.io/v3/${process.env.INFURA_KEY}`
+			`https://${process.env.QUICKNODE_URL}`
 		);
 		const contract = new ethers.Contract(contractAddress, abi, provider);
 		tokenID = await contract.tokenOfOwnerByIndex(data.address, 0);

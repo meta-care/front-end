@@ -2,16 +2,20 @@ import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { infuraProvider } from "wagmi/providers/infura";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { baseGoerli } from "@wagmi/chains";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
 import Head from "next/head";
 
 const { chains, provider, webSocketProvider } = configureChains(
-	[chain.goerli],
+	[baseGoerli],
 	[
-		infuraProvider({
-			apiKey: process.env.INFURA_API_KEY,
+		jsonRpcProvider({
+			rpc: (chain) => ({
+				http: `https://${process.env.QUICKNODE_URL}`,
+				webSocket: `wss://${process.env.QUICKNODE_URL}`,
+			}),
 		}),
 		publicProvider(),
 	]
