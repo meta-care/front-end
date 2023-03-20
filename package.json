@@ -9,9 +9,9 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@rainbow-me/rainbowkit": "^0.7.4",
+		"@rainbow-me/rainbowkit": "^0.12.0",
 		"@wagmi/chains": "^0.2.11",
-		"ethers": "^5.0.0",
+		"ethers": "^5.7.2",
 		"mongoose": "^6.9.1",
 		"next": "^12.1.6",
 		"next-auth": "^3.29.10",
@@ -19,6 +19,6 @@
 		"react-animated-text-content": "^1.0.1",
 		"react-dom": "^18.1.0",
 		"react-hook-form": "^7.42.0",
-		"wagmi": "^0.7.15"
+		"wagmi": "^0.12.0"
 	}
 }

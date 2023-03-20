@@ -83,6 +83,7 @@ export default function premium({ session, user }) {
 	});
 	const { data, error, isError, write } = useContractWrite(config);
 	const { isLoading, isSuccess } = useWaitForTransaction({
+		chainId: 84531,
 		hash: data?.hash,
 	});
 
