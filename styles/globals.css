@@ -23,8 +23,8 @@ footer {
 	color: white;
 	text-align: center;
 	color: #0093ff;
-	border-top: 1px solid #eaeaea;
 	font-weight: 666;
+	font-size: 1.2rem;
 	padding: 2rem 0;
 }
 footer:hover {

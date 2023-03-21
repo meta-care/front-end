@@ -13,9 +13,10 @@ import {
 import clientPromise from "../../components/mongoDB/mongodb";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
+import { Header } from "../../components/header";
 const abi = require("../../components/contract-abi.json");
 
-export default function premium({ session, user }) {
+export default function premium({ user }) {
 	const { isConnected, address } = useAccount();
 	const [finished, setFinished] = useState(false);
 	const [alreadyOwn, setalreadyOwn] = useState(false);
@@ -95,7 +96,7 @@ export default function premium({ session, user }) {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ address, email: session.user.email, formData }),
+				body: JSON.stringify({ address, email: user.email, formData }),
 			})
 				.then((response) => {
 					return response.json();
@@ -135,247 +136,258 @@ export default function premium({ session, user }) {
 	}, [isConnected, address, isFormSumbitted]);
 
 	return (
-		<main className={styles.main}>
-			<img
-				src={"metacareLogo.png"}
-				width="177px"
-				height="192px"
-				onClick={() => router.push(`/`)}
-			/>
-			{mounted && (
-				<>
-					{!isConnected ? (
-						<>
-							<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-								Connect your wallet
-							</h2>
-							<ConnectButton showBalance={false} />
-						</>
-					) : (
-						<>
-							{!isFormSumbitted ? (
-								<>
-									<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-										Personnalize your NFT
-									</h2>
-									<form
-										onSubmit={(e) =>
-											handleSubmit(
-												onSubmit,
-												onError
-											)(e).catch((e) => {
-												console.log("Server error...");
-											})
-										}
-									>
-										<div>
-											<label
-												style={{ fontSize: "1.5rem", marginRight: "1rem" }}
-											>
-												Name:
-											</label>
-											<input
-												style={{ fontSize: "1.5rem" }}
-												type="text"
-												{...register("name", {
-													required: "Name is required",
-													maxLength: {
-														value: 30,
-														message: "Maximum name length is 30",
-													},
-												})}
-											/>
-										</div>
-										<p style={{ color: "red" }}>{errors.name?.message}</p>
-										<div>
-											<label style={{ fontSize: "1.5rem" }}>
-												Allow anyone to see your data:
-											</label>
-											<input
-												style={{ margin: "1.5rem", scale: "175%" }}
-												type="checkbox"
-												{...register("publicData")}
-											/>
-										</div>
-										{professionnalInputFields.map((field, index) => (
-											<div key={field.id}>
-												<div>
-													<label
-														style={{
-															fontSize: "1.5rem",
-														}}
-													>
-														HealthCare Professionnal {index + 1} email:
-													</label>
-													<input
-														style={{
-															fontSize: "1.5rem",
-															marginRight: "1rem",
-															marginLeft: "1rem",
-														}}
-														{...register(
-															`professionnals.${index}.email`,
-															{
-																required: "Email is required",
-																maxLength: {
-																	value: 50,
-																	message:
-																		"Maximum email length is 50",
-																},
-															}
-														)}
-													/>
-													<span
-														style={{
-															color: "red",
-															fontSize: "1.5rem",
-														}}
-														onClick={() =>
-															professionnalInputRemove(index)
-														}
-													>
-														X
-													</span>
-												</div>
-												<p style={{ color: "red" }}>
-													{errors.professionnals?.[index]?.email?.message}
-												</p>
-											</div>
-										))}
-										{professionnalInputFields.length < 10 && (
-											<div>
-												<button
-													type="button"
-													className={styles.button}
-													style={{
-														margin: "1rem",
-													}}
-													onClick={() =>
-														professionnalInputAppend({ email: "" })
-													}
-												>
-													+ HealthCare Professionnal
-												</button>
-											</div>
-										)}
-										{achievementsInputFields.map((field, index) => (
-											<div key={field.id}>
-												<div>
-													<label
-														style={{
-															fontSize: "1.5rem",
-														}}
-													>
-														Achievement {index + 1}:
-													</label>
-													<input
-														style={{
-															fontSize: "1.5rem",
-															marginRight: "1rem",
-															marginLeft: "1rem",
-														}}
-														{...register(`achievements.${index}.text`, {
-															required: "Text is required",
-															maxLength: {
-																value: 200,
-																message:
-																	"Maximum achievement length is 200",
-															},
-														})}
-													/>
-													<span
-														style={{
-															color: "red",
-															fontSize: "1.5rem",
-														}}
-														onClick={() =>
-															achievementsInputRemove(index)
-														}
-													>
-														X
-													</span>
-												</div>
-												<p style={{ color: "red" }}>
-													{errors.achievements?.[index]?.text?.message}
-												</p>
-											</div>
-										))}
-										{achievementsInputFields.length < 3 && (
-											<div>
-												<button
-													type="button"
-													className={styles.button}
-													style={{
-														margin: "1rem",
-													}}
-													onClick={() =>
-														achievementsInputAppend({ text: "" })
-													}
-												>
-													+ Achievement
-												</button>
-											</div>
-										)}
-
-										<button
-											className={styles.button}
-											style={{
-												margin: "1rem",
-											}}
-											type="submit"
+		<>
+			<Header user={user} />
+			<main className={styles.main}>
+				{mounted && (
+					<>
+						{!isConnected ? (
+							<>
+								<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+									Connect your wallet
+								</h2>
+								<ConnectButton showBalance={false} />
+							</>
+						) : (
+							<>
+								{!isFormSumbitted ? (
+									<>
+										<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+											Personnalize your NFT
+										</h2>
+										<form
+											onSubmit={(e) =>
+												handleSubmit(
+													onSubmit,
+													onError
+												)(e).catch((e) => {
+													console.log("Server error...");
+												})
+											}
 										>
-											Save
-										</button>
-									</form>
-								</>
-							) : (
-								<>
-									{!finished ? (
-										<>
-											<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-												Step 2: Mint your NFT
-											</h2>
-											<a
-												href="/privacy"
-												style={{
-													color: "#0093ff",
-													marginBottom: "1rem",
-												}}
-											>
-												By minting an NFT, you agree to our Privacy Policy
-											</a>
-											<button
-												onClick={write}
-												disabled={isLoading}
-												className={styles.button}
-											>
-												<p> {isLoading ? "Minting..." : "Mint NFT"}</p>
-											</button>
-											{(isPrepareError || isError) && (
-												<p>Error: {(prepareError || error)?.message}</p>
+											<div>
+												<label
+													style={{
+														fontSize: "1.5rem",
+														marginRight: "1rem",
+													}}
+												>
+													Name:
+												</label>
+												<input
+													style={{ fontSize: "1.5rem" }}
+													type="text"
+													{...register("name", {
+														required: "Name is required",
+														maxLength: {
+															value: 30,
+															message: "Maximum name length is 30",
+														},
+													})}
+												/>
+											</div>
+											<p style={{ color: "red" }}>{errors.name?.message}</p>
+											<div>
+												<label style={{ fontSize: "1.5rem" }}>
+													Allow anyone to see your data:
+												</label>
+												<input
+													style={{ margin: "1.5rem", scale: "175%" }}
+													type="checkbox"
+													{...register("publicData")}
+												/>
+											</div>
+											{professionnalInputFields.map((field, index) => (
+												<div key={field.id}>
+													<div>
+														<label
+															style={{
+																fontSize: "1.5rem",
+															}}
+														>
+															HealthCare Professionnal {index + 1}{" "}
+															email:
+														</label>
+														<input
+															style={{
+																fontSize: "1.5rem",
+																marginRight: "1rem",
+																marginLeft: "1rem",
+															}}
+															{...register(
+																`professionnals.${index}.email`,
+																{
+																	required: "Email is required",
+																	maxLength: {
+																		value: 50,
+																		message:
+																			"Maximum email length is 50",
+																	},
+																}
+															)}
+														/>
+														<span
+															style={{
+																color: "red",
+																fontSize: "1.5rem",
+															}}
+															onClick={() =>
+																professionnalInputRemove(index)
+															}
+														>
+															X
+														</span>
+													</div>
+													<p style={{ color: "red" }}>
+														{
+															errors.professionnals?.[index]?.email
+																?.message
+														}
+													</p>
+												</div>
+											))}
+											{professionnalInputFields.length < 10 && (
+												<div>
+													<button
+														type="button"
+														className={styles.button}
+														style={{
+															margin: "1rem",
+														}}
+														onClick={() =>
+															professionnalInputAppend({ email: "" })
+														}
+													>
+														+ HealthCare Professionnal
+													</button>
+												</div>
 											)}
-										</>
-									) : (
-										<>
-											<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-												🎉 Congratulations: Your Data Digital Twin has been
-												generated! 🎉
-											</h2>
+											{achievementsInputFields.map((field, index) => (
+												<div key={field.id}>
+													<div>
+														<label
+															style={{
+																fontSize: "1.5rem",
+															}}
+														>
+															Achievement {index + 1}:
+														</label>
+														<input
+															style={{
+																fontSize: "1.5rem",
+																marginRight: "1rem",
+																marginLeft: "1rem",
+															}}
+															{...register(
+																`achievements.${index}.text`,
+																{
+																	required: "Text is required",
+																	maxLength: {
+																		value: 200,
+																		message:
+																			"Maximum achievement length is 200",
+																	},
+																}
+															)}
+														/>
+														<span
+															style={{
+																color: "red",
+																fontSize: "1.5rem",
+															}}
+															onClick={() =>
+																achievementsInputRemove(index)
+															}
+														>
+															X
+														</span>
+													</div>
+													<p style={{ color: "red" }}>
+														{
+															errors.achievements?.[index]?.text
+																?.message
+														}
+													</p>
+												</div>
+											))}
+											{achievementsInputFields.length < 3 && (
+												<div>
+													<button
+														type="button"
+														className={styles.button}
+														style={{
+															margin: "1rem",
+														}}
+														onClick={() =>
+															achievementsInputAppend({ text: "" })
+														}
+													>
+														+ Achievement
+													</button>
+												</div>
+											)}
+
 											<button
 												className={styles.button}
-												onClick={() => router.push(`/NFT/${tokenID}`)}
+												style={{
+													margin: "1rem",
+												}}
+												type="submit"
 											>
-												<p>See your new NFT</p>
+												Save
 											</button>
-										</>
-									)}
-								</>
-							)}
-						</>
-					)}
-				</>
-			)}
-		</main>
+										</form>
+									</>
+								) : (
+									<>
+										{!finished ? (
+											<>
+												<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+													Step 2: Mint your NFT
+												</h2>
+												<a
+													href="/privacy"
+													style={{
+														color: "#0093ff",
+														marginBottom: "1rem",
+													}}
+												>
+													By minting an NFT, you agree to our Privacy
+													Policy
+												</a>
+												<button
+													onClick={write}
+													disabled={isLoading}
+													className={styles.button}
+												>
+													<p> {isLoading ? "Minting..." : "Mint NFT"}</p>
+												</button>
+												{(isPrepareError || isError) && (
+													<p>Error: {(prepareError || error)?.message}</p>
+												)}
+											</>
+										) : (
+											<>
+												<h2 style={{ color: "#091562", fontSize: "2rem" }}>
+													🎉 Congratulations: Your Data Digital Twin has
+													been generated! 🎉
+												</h2>
+												<button
+													className={styles.button}
+													onClick={() => router.push(`/NFT/${tokenID}`)}
+												>
+													<p>See your new NFT</p>
+												</button>
+											</>
+										)}
+									</>
+								)}
+							</>
+						)}
+					</>
+				)}
+			</main>
+		</>
 	);
 }
 
@@ -403,12 +415,10 @@ export async function getServerSideProps(context) {
 			},
 		};
 	}
-
-	//Transform the profile object so it doesn't show an error because of the _id component
 	const user = JSON.parse(JSON.stringify(profile));
 
 	// Return the user profile
 	return {
-		props: { session, user },
+		props: { user },
 	};
 }

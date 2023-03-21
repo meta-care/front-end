@@ -31,7 +31,7 @@ export function Free({ user }) {
 	}, [user, showTable]);
 
 	return (
-		<>
+		<main className={styles.main}>
 			<button
 				className={styles.button}
 				onClick={() =>
@@ -93,6 +93,6 @@ export function Free({ user }) {
 					)}
 				</>
 			)}
-		</>
+		</main>
 	);
 }

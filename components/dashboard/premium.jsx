@@ -1,12 +1,9 @@
-import { useRouter } from "next/router";
 import { signOut } from "next-auth/client";
 import styles from "../../styles/Home.module.css";
 
 export function Premium({ user }) {
-	const router = useRouter();
-
 	return (
-		<>
+		<main className={styles.main}>
 			<button
 				className={styles.button}
 				onClick={() =>
@@ -18,13 +15,6 @@ export function Premium({ user }) {
 			>
 				{"SignOut"}
 			</button>
-			<button
-				style={{ margin: "1rem" }}
-				className={styles.button}
-				onClick={() => router.push(`/NFT/${user.tokenID}`)}
-			>
-				<p>See your NFT</p>
-			</button>
-		</>
+		</main>
 	);
 }
