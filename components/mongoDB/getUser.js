@@ -27,7 +27,6 @@ export async function getUser(session) {
 				image: session.user.image,
 				refreshToken: session.refreshToken,
 				signupDate: new Date(now_utc).toISOString(),
-				premium: false,
 			});
 			profile = user;
 			await db.collection("users").insertOne(user);

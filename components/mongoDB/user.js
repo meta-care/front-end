@@ -8,13 +8,6 @@ const userSchema = new Schema({
 	image: { type: String, required: true },
 	refreshToken: { type: String, required: true },
 	signupDate: { type: String, required: true },
-	premium: { type: Boolean, default: false },
-	achievements: { type: Array },
-	address: { type: String },
-	premiumDate: { type: String },
-	professionnals: { type: Array },
-	publicData: { type: Boolean },
-	tokenID: { type: Number },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);

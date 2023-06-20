@@ -92,7 +92,6 @@ export default function Dashboard({ user }) {
 									<thead>
 										<tr>
 											<th>Email</th>
-											<th>Address</th>
 											<th>Type</th>
 											<th>Start Time</th>
 											<th>End Time</th>
@@ -103,7 +102,6 @@ export default function Dashboard({ user }) {
 										{userData.data.map((data) => (
 											<tr key={data._id}>
 												<td>{data.email}</td>
-												<td>{data.address}</td>
 												<td>{data.type}</td>
 												<td>
 													{new Date(

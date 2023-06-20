@@ -120,7 +120,6 @@ async function fetchData(accessToken, type, dataSourceId) {
 		// Create and save a new data object
 		const data = {
 			email: "email",
-			address: "address",
 			type,
 			startTimeNanos: rawData.point[i].startTimeNanos,
 			endTimeNanos: rawData.point[i].endTimeNanos,
