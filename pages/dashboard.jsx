@@ -8,59 +8,29 @@ import styles from "../styles/Home.module.css";
 
 export default function Dashboard({ user }) {
 	const mounted = useIsMounted();
-	const [showTable, setShowTable] = useState(false);
 	const [userData, setUserData] = useState([]);
 	const [finished, setFinished] = useState(false);
-	const [newUser, setNewUser] = useState(false);
 
-	// Get data from the database
+	// Get user's data
 	useEffect(() => {
-		if (showTable) {
-			const url = new URL("/api/getHistoricalData", window.location.origin);
-			url.searchParams.append("email", user.email);
-			fetch(url, {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
+		const url = new URL("/api/getHistoricalData", window.location.origin);
+		url.searchParams.append("email", user.email);
+		url.searchParams.append("refreshToken", user.refreshToken);
+		fetch(url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				setUserData(data);
+				setFinished(true);
 			})
-				.then((response) => response.json())
-				.then((data) => {
-					if (data.length) {
-						setUserData(data);
-						setFinished(true);
-					} else {
-						setNewUser(true);
-					}
-				})
-				.catch((error) => {
-					console.error(error);
-				});
-		}
-	}, [user, showTable]);
-
-	// Get data directly from google (if he is a new user)
-	useEffect(() => {
-		if (newUser && showTable) {
-			const url = new URL("/api/getFreeHistoricalData", window.location.origin);
-			url.searchParams.append("refreshToken", user.refreshToken);
-			fetch(url, {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					setUserData(data);
-					setFinished(true);
-					setNewUser(false);
-				})
-				.catch((error) => {
-					console.error(error);
-				});
-		}
-	}, [newUser]);
+			.catch((error) => {
+				console.error(error);
+			});
+	}, [user]);
 
 	return (
 		<>
@@ -78,15 +48,11 @@ export default function Dashboard({ user }) {
 					>
 						{"SignOut"}
 					</button>
+					<h2 style={{ color: "#091562", fontSize: "2rem" }}>Your Historical Data:</h2>
 					{!finished ? (
-						<button className={styles.button} onClick={() => setShowTable(true)}>
-							Show Table
-						</button>
+						<p>Loading...</p>
 					) : (
 						<>
-							<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-								Your Historical Data:
-							</h2>
 							{userData.data.length > 0 ? (
 								<table className={styles.datatable}>
 									<thead>
