@@ -2,6 +2,7 @@ import { getSession } from "next-auth/client";
 import { useIsMounted } from "./hooks/useIsMounted";
 import { getUser } from "../components/mongoDB/getUser";
 import { Header } from "../components/header";
+import { Professionnals } from "../components/professionnals";
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/client";
 import styles from "../styles/Home.module.css";
@@ -9,7 +10,7 @@ import styles from "../styles/Home.module.css";
 export default function Dashboard({ user }) {
 	const mounted = useIsMounted();
 	const [userData, setUserData] = useState([]);
-	const [finished, setFinished] = useState(false);
+	const [finishedGettingData, setFinishedGettingData] = useState(false);
 
 	// Get user's data
 	useEffect(() => {
@@ -25,7 +26,7 @@ export default function Dashboard({ user }) {
 			.then((response) => response.json())
 			.then((data) => {
 				setUserData(data);
-				setFinished(true);
+				setFinishedGettingData(true);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -48,8 +49,9 @@ export default function Dashboard({ user }) {
 					>
 						{"SignOut"}
 					</button>
+					<Professionnals user={user} />
 					<h2 style={{ color: "#091562", fontSize: "2rem" }}>Your Historical Data:</h2>
-					{!finished ? (
+					{!finishedGettingData ? (
 						<p>Loading...</p>
 					) : (
 						<>

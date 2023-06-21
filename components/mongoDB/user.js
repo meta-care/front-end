@@ -8,6 +8,7 @@ const userSchema = new Schema({
 	image: { type: String, required: true },
 	refreshToken: { type: String, required: true },
 	signupDate: { type: String, required: true },
+	professionnals: { type: Array, required: false },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);
