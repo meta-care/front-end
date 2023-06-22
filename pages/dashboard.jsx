@@ -56,36 +56,7 @@ export default function Dashboard({ user }) {
 					) : (
 						<>
 							{userData.data.length > 0 ? (
-								<table className={styles.datatable}>
-									<thead>
-										<tr>
-											<th>Email</th>
-											<th>Type</th>
-											<th>Start Time</th>
-											<th>End Time</th>
-											<th>Value</th>
-										</tr>
-									</thead>
-									<tbody>
-										{userData.data.map((data) => (
-											<tr key={data._id}>
-												<td>{data.email}</td>
-												<td>{data.type}</td>
-												<td>
-													{new Date(
-														data.startTimeNanos / 1000000
-													).toLocaleString()}
-												</td>
-												<td>
-													{new Date(
-														data.endTimeNanos / 1000000
-													).toLocaleString()}
-												</td>
-												<td>{data.value}</td>
-											</tr>
-										))}
-									</tbody>
-								</table>
+								<p>You have {userData.data.length} data pieces </p>
 							) : (
 								<p>You don't have any historical data yet.</p>
 							)}

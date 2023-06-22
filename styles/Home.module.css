@@ -61,34 +61,3 @@
 		display: flex;
 	}
 }
-
-.datatable {
-	border-collapse: collapse;
-	width: 100%;
-	font-size: 1rem;
-	font-weight: normal;
-	color: #333333;
-	border: 1px solid #c4c4c4;
-}
-
-.datatable thead th {
-	background-color: #f4f4f4;
-	color: #000;
-	border: 1px solid #c4c4c4;
-	padding: 10px;
-	text-align: left;
-}
-
-.datatable tbody td {
-	border: 1px solid #c4c4c4;
-	padding: 10px;
-	text-align: left;
-}
-
-.datatable tbody tr:nth-child(even) {
-	background-color: #f4f4f4;
-}
-
-.datatable tbody tr:hover {
-	background-color: #efefef;
-}

@@ -1,5 +1,11 @@
 import clientPromise from "../../components/mongoDB/mongodb";
 
+export const config = {
+	api: {
+		responseLimit: "50mb",
+	},
+};
+
 export default async (req, res) => {
 	// Check if the request is a GET request
 	if (req.method !== "GET") {
