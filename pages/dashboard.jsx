@@ -1,7 +1,7 @@
 import { getSession } from "next-auth/client";
 import { useIsMounted } from "./hooks/useIsMounted";
 import { getUser } from "../components/mongoDB/getUser";
-import { Header } from "../components/header";
+import { NavBar } from "../components/home/NavBar/NavBar.jsx";
 import { Professionnals } from "../components/professionnals";
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/client";
@@ -35,7 +35,7 @@ export default function Dashboard({ user }) {
 
 	return (
 		<>
-			<Header user={user} />
+			<NavBar user={user} />
 			{mounted && (
 				<main className={styles.main}>
 					<button

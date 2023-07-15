@@ -1,33 +1,12 @@
-.main {
+.desktopBody {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	height: 100%;
 }
 
-.header {
-	padding: 0.5rem 4rem;
-	flex: 1;
-	display: flex;
-	align-items: center;
-	border-bottom: 3px solid #091562;
-	justify-content: space-between;
-	max-width: "1400px";
-}
-
-.headerNav {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-
-}
-
-.headerText{
-	margin-right: 3%;
-	font-size: large;
-	font-weight: bold;
-	color: #0093ff;
-	width: 85px;
+.mobileMain {
+    display: none;
 }
 
 .button {
@@ -65,8 +44,7 @@
 .img {
 	position: relative;
 	justify-content: flex-end;
-	object-fit: fill;
-	height: 100%;
+	object-fit: contain;
 	right: 0%;
 	top: 0%;
 }
@@ -106,9 +84,27 @@
 }
 
 @media screen and (max-width: 1120px) {
+	.DesktopMain {
+		display: none;
+	}
+
+	.mobileMain {
+		width: 100%;
+        display: flex;
+    }
+
+	.mobileBody {
+		width: 100%;
+	}
+	
+	
 	.columns {
-		flex-direction: line;
+		width: 100%;
+		height:100%;
 		display: flex;
+		padding-left: 0;
+		flex-direction: row;
+		justify-content: center;
 	}
 
 	.img {
@@ -118,11 +114,49 @@
 	.description {
 		text-align: center;
 		margin-bottom: 3%;
+		padding-left: 3%;
+		padding-right: 3%;
 		display: flex;
 		flex-direction: column;
-		font-size: 1.7rem;
+		font-size: 1.6rem;
 	}
-	
+
+
+	.description2 {
+		text-align: center;
+		margin-top: 0%;
+		line-height: 1;
+		font-size: 1.3rem;
+		font-weight: normal;
+	}
+
+
+}
+
+@media screen and (max-width: 520px) {
+	.waitlistForm {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+		align-items: center;
+	}
+
+	.inputWaitlist {
+		width: 75%;
+		margin-top: 10px;
+		margin-right: 0;
+	}
+
+	.description {
+		text-align: center;
+		margin-bottom: 3%;
+		padding-left: 3%;
+		padding-right: 3%;
+		display: flex;
+		flex-direction: column;
+		font-size: 1.3rem;
+	}
+
 	.description2 {
 		text-align: center;
 		margin-top: 0%;
@@ -130,5 +164,4 @@
 		font-size: 1.2rem;
 		font-weight: normal;
 	}
-	
 }
