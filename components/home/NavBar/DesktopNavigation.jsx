@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import NavLinks from "./NavLinks";
 import styles from "./NavBar.module.css";
 
 const DesktopNav = () => {
+    const router = useRouter();
     return ( 
         <nav className={styles.desktopNav}>
             <div style={{ alignItems: "center" }}

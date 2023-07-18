@@ -15,8 +15,6 @@ const DesktopMain = () => {
         const availableHeight = windowHeight - navbarHeight;
     
         const imageHeight = availableHeight;
-
-        console.log(imageHeight);
     
         return {
           height: imageHeight,

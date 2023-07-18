@@ -1,10 +1,11 @@
+import { useRouter } from "next/router";
 import NavLinks from "./NavLinks";
 import styles from "./NavBar.module.css";
 import { CgMenu , CgClose } from "react-icons/cg"
 import { useState } from "react";
 
 const MobileNav = () => {
-
+    const router = useRouter();
     const [open, setOpen] = useState(false); 
 
 const hamburgerButton = <CgMenu 
@@ -35,7 +36,7 @@ const closeButton = <CgClose
                             cursor: "pointer",
                             marginTop: "3px",
                         }}
-                        onClick={() => router.push(`../../pages/index.jsx`)} //router throws error. Fix!
+                        onClick={() => router.push(`/`)} 
                 />
                 </div>
 
@@ -49,7 +50,7 @@ const closeButton = <CgClose
                             cursor: "pointer",
                             marginTop: "3px",
                         }}
-                        onClick={() => router.push(`../../pages/index.jsx`)} //router throws error. Fix!
+                        onClick={() => router.push(`/`)}
                 />
             </div>
         </nav>
