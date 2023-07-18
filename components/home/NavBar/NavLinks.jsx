@@ -34,6 +34,16 @@ const NavLinks = ({ user }) => {
 						</a>
 					</li>
 					<li>
+
+					<button
+						className={styles.startedButton}
+						onClick={() => router.push(`/comingSoon`)
+						}
+						> Get Started
+						</button>
+
+						{/* Commented the redirect button to Google Auth and replaced routing to ComingSoon page
+
 						<button
 						className={styles.startedButton}
 						onClick={() =>
@@ -46,7 +56,7 @@ const NavLinks = ({ user }) => {
 						}
 						>
 						{user ? "Dashboard" : "Get Started"}
-						</button>
+						</button>*/}
 					</li>
 				</ul>
 			</div>

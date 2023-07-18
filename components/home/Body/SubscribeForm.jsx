@@ -6,29 +6,29 @@ import { useState } from "react";
 
 const SubscribeForm = () => {
     const [state, setState] = useState(0);
-  const [errorMsg, setErrorMsg] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
   // 0 - initial , 1 - loading, 2 - success, 2 - error
-const subscribe = async (e) => {
-    e.preventDefault();
+    const subscribe = async (e) => {
+      e.preventDefault();
 
-    setState(1);
-    setErrorMsg("");
-    console.log(e.target[0].value);
-    try {
-      const res = await fetch("../../api/newsletter", {
-        method: "POST",
-        body: e.target[0].value,
-      });
+      setState(1);
+      setErrorMsg("");
+      console.log(e.target[0].value);
+      try {
+        const res = await fetch("../../api/newsletter", {
+          method: "POST",
+          body: e.target[0].value,
+        });
 
-      const data = await res.json();
-      if (data.error !== null) {
-        throw data.error;
+        const data = await res.json();
+        if (data.error !== null) {
+          throw data.error;
+        }
+        setState(2);
+      } catch (e) {
+          setErrorMsg(e);
+        setState(3);
       }
-      setState(2);
-    } catch (e) {
-        setErrorMsg(e);
-      setState(3);
-    }
   };
     return ( 
       <div>

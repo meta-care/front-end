@@ -33,7 +33,7 @@ const DesktopMain = () => {
                                     <img src="/logo.png" alt="Metacare Logo" width={200} height={200}/>
                                 </div>
                                 <h2 style={{ color: "#091562" }}>
-                                    Your Personal Pathway To <br></br>Your Healthier Future.
+                                    Your Pathway to a Healthier Future.
                                 </h2>
 
                                 <h5 style={{ color: "#091562" }}>
@@ -45,6 +45,10 @@ const DesktopMain = () => {
                                 </h5>
 
                                 <SubscribeForm />
+                                <h3 style={{fontWeight: "lighter", fontSize: 13, marginTop: "15px"}}>
+                                    Are you a healthcare professional? <span><a href="/ProfessionalSubscription" style={{color: "blue"}}>Click here </a></span>
+                                    and get early access.
+                                </h3>
                                 
                             </div>
                             
