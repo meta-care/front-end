@@ -10,16 +10,21 @@
     align-items: center; /* Center the content vertically */
   }
   
-  
+  .gridField {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+  }
   .formLine {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
   }
   
-  .formFieldInLine {
+  .formField {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
   }
   
   .formLabel {
@@ -34,6 +39,7 @@
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
+    background-color: white;
     border-radius: 4px;
     resize: vertical;
   }

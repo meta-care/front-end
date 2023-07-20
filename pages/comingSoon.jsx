@@ -14,7 +14,7 @@ export default function comingSoon() {
 			<h3 style={{ color: "#091562" }}>Subscribe our newsletter to stay updated.</h3>
 			<SoonSubForm />
 			<h3 style={{fontWeight: "lighter", fontSize: 13, paddingTop: "20px"}}>
-				Are you a healthcare professional? <span><a href="/ProfessionalSubscription" style={{color: "blue"}}>Click here </a></span>
+				Are you a healthcare professional? <span><a href="/DoctorEarlyAccess" style={{color: "blue"}}>Click here </a></span>
 				and get early access.
 			</h3>
 		</div>

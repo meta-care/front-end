@@ -1,5 +1,5 @@
-import MobileNav from "./MobileNavigation";
-import DesktopNav from "./DesktopNavigation";
+import MobileNav from "./MobileNav";
+import DesktopNav from "./DesktopNav";
 
 
 export function NavBar() {

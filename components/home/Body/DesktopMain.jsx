@@ -46,7 +46,7 @@ const DesktopMain = () => {
 
                                 <SubscribeForm />
                                 <h3 style={{fontWeight: "lighter", fontSize: 13, marginTop: "15px"}}>
-                                    Are you a healthcare professional? <span><a href="/ProfessionalSubscription" style={{color: "blue"}}>Click here </a></span>
+                                    Are you a healthcare professional? <span><a href="/DoctorEarlyAccess" style={{color: "blue"}}>Click here </a></span>
                                     and get early access.
                                 </h3>
                                 

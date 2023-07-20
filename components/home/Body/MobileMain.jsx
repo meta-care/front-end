@@ -26,6 +26,11 @@ const MobileMain = () => {
                                 </h5>
 
                                 <SubscribeForm />
+
+                                <h3 style={{fontWeight: "lighter", fontSize: 13, marginTop: "15px"}}>
+                                    Are you a healthcare professional? <span><a href="/DoctorEarlyAccess" style={{color: "blue"}}>Click here </a></span>
+                                    and get early access.
+                                </h3>
                                 
                             </div>
                         </div>
