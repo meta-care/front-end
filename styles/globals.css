@@ -44,3 +44,33 @@ footer b {
 	align-items: center;
 	font-size: 0.7rem;
 }
+
+@media screen and (max-width: 1060px) {
+	footer {
+		position: unset;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		color: white;
+		text-align: center;
+		color: #0093ff;
+		font-weight: 666;
+		font-size: 1.2rem;
+		padding: 2rem 0;
+	}
+}
+
+@media screen and (max-width: 520px) {
+	footer {
+		position: unset;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		color: white;
+		text-align: center;
+		color: #0093ff;
+		font-weight: 666;
+		font-size: 1.2rem;
+		padding: 2rem 0;
+	}
+}

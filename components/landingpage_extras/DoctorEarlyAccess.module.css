@@ -1,0 +1,64 @@
+.formContainer {
+    border: 1px solid #ddd;
+    width: 45%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #f2f8fd; /* Light blue background color */
+    margin: 0 auto; /* Center the container horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content vertically */
+  }
+  
+  .gridField {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .formLine {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .formField {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .formLabel {
+    width: 40%;
+    margin-right: 10px;
+    white-space: nowrap; /* Prevent labels from wrapping to a new line */
+  }
+  
+  
+  .formInput,
+  .formTextarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+  .button {
+	appearance: none;
+	border: none;
+	background-image: linear-gradient(to right, #0d76fc, #7a70ff);
+	line-height: 1;
+	font-weight: 700;
+	height: 50px;
+	width: 200px;
+	padding: 0 20px;
+	border-radius: 20px;
+	align-items: center;
+	color: white;
+	transition: all ease 500ms;
+	font-size: 1rem;
+	cursor: pointer;
+	box-shadow: 2px 2px 2px grey;
+}
+  
