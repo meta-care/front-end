@@ -42,7 +42,8 @@ const NavLinks = ({ user }) => {
 						> Get Started
 						</button>
 
-						{/* Commented the redirect button to Google Auth and replaced routing to ComingSoon page
+						
+					{/* THIS BUTTON IS THE ACTUAL LOG IN BUTTON
 
 						<button
 						className={styles.startedButton}
@@ -51,7 +52,7 @@ const NavLinks = ({ user }) => {
 								? router.push(`/dashboard`)
 								: signIn("google", {
 										redirect: true,
-										callbackUrl: "/dashboard",
+										callbackUrl: "/menu",
 								})
 						}
 						>
