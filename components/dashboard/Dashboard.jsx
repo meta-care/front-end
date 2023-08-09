@@ -7,15 +7,17 @@ const DashboardMenu = () => {
 	return (
 		<div className={styles.menu}>
 			{/*Data Digital Twin*/}
-			<div
-				className={styles.menuItems}
-				onClick={() =>
-					router.push("/dashboard/data")
-				} /*Redirects the user to the dashboard (DDT)*/
-			>
+			<div className={styles.menuItems} onClick={() => router.push("/dashboard/data")}>
 				<img src={"/DDT.png"} className={styles.img} alt="" />
 				<h2>Data Digital Twin</h2>
 			</div>
+
+			{/*Manage Doctor*/}
+			<div className={styles.menuItems} onClick={() => router.push("/dashboard/doctors")}>
+				<img src={"/Manage_Doctor.png"} className={styles.img} alt="" />
+				<h2>Manage Doctor</h2>
+			</div>
+
 			{/*Recommendations*/}
 			<div className={styles.menuItems_soon}>
 				<img src={"/Recommendations.png"} className={styles.img} alt="" />
@@ -24,6 +26,7 @@ const DashboardMenu = () => {
 					<h2>Coming soon</h2>
 				</div>
 			</div>
+
 			{/*Value Accrued*/}
 			<div className={styles.menuItems_soon}>
 				<img src={"/Value_accrued.png"} className={styles.img} alt="" />
@@ -32,14 +35,7 @@ const DashboardMenu = () => {
 					<h2>Coming soon</h2>
 				</div>
 			</div>
-			{/*Manage Doctor*/}
-			<div className={styles.menuItems_soon}>
-				<img src={"/Manage_Doctor.png"} className={styles.img} alt="" />
-				<h2>Manage Doctor</h2>
-				<div className={styles.comingSoon}>
-					<h2>Coming soon</h2>
-				</div>
-			</div>
+
 			{/*Settings*/}
 			<div className={styles.menuItems_soon}>
 				<img src={"/Settings.png"} className={styles.img} alt="" />
