@@ -7,7 +7,7 @@ Fill in the .env file
 Install node modules
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 ```
 
 Run the development server:

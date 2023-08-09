@@ -1,10 +1,9 @@
-import { getSession } from "next-auth/client";
 import { useIsMounted } from "./hooks/useIsMounted";
 import { getUser } from "../components/mongoDB/getUser";
 import { NavBar } from "../components/home/NavBar/NavBar.jsx";
 import { Professionnals } from "../components/professionnals";
 import { useEffect, useState } from "react";
-import { signOut } from "next-auth/client";
+import { signOut, getSession } from "next-auth/react";
 import styles from "../styles/Home.module.css";
 
 export default function Dashboard({ user }) {

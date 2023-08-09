@@ -1,8 +1,8 @@
 import styles from "../styles/Home.module.css";
 import { useIsMounted } from "./hooks/useIsMounted";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import { NavBar } from "../components/home/NavBar/NavBar.jsx";
-import  MainBody  from "../components/home/Body/main.jsx";
+import MainBody from "../components/home/Body/main.jsx";
 import { getUser } from "../components/mongoDB/getUser";
 
 export default function Home({ user }) {

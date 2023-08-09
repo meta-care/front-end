@@ -1,7 +1,8 @@
 import "../styles/globals.css";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react";
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	return (
 		<>
 			<Head>
@@ -10,7 +11,9 @@ export default function MyApp({ Component, pageProps }) {
 				<meta name="description" content="Monitor Your Health Data" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Component {...pageProps} />
+			<SessionProvider session={session} refetchInterval={5 * 60}>
+				<Component {...pageProps} />
+			</SessionProvider>
 		</>
 	);
 }
