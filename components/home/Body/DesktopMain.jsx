@@ -10,7 +10,7 @@ const DesktopMain = () => {
     // Sets the image height as the available screen height of the body (preventing scroll)
     // Just updates when the page reloads
     const calculateImageSize = () => {
-        const navbarHeight = 110;
+        const navbarHeight = 75;
         const windowHeight = window.innerHeight;
         const availableHeight = windowHeight - navbarHeight;
     
