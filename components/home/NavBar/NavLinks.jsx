@@ -19,22 +19,8 @@ const NavLinks = ({ user }) => {
 							About Us
 						</a>
 					</li>
+					{/*Link for other pages (Blog, Docs)...*/}
 					<li>
-						<a 
-						href="https://www.crotaluslabs.com/"
-						className={styles.navText}>
-							Blog
-						</a>
-					</li>
-					<li>
-						<a 
-						href="https://www.crotaluslabs.com/"
-						className={styles.navText}>
-							Documentation
-						</a>
-					</li>
-					<li>
-
 					<button
 						className={styles.startedButton}
 						onClick={() => router.push(`/comingSoon`)

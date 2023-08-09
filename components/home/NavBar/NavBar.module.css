@@ -13,9 +13,9 @@
 	display: flex;
 	justify-content: space-between;
 	border-bottom: 3px solid #091562;
-	padding-left: 1%;
-	padding-right: 9%;
-	height: 110px;
+	padding-left: 3%;
+	padding-right: 6%;
+	height: 75px;
 }
 
 .navLinks {
@@ -40,7 +40,7 @@
 
 .navLinks ul li {
 	display: inline;
-	margin-right: 9%;
+	margin-right: 20%;
 }
 
 
@@ -98,7 +98,7 @@
 		background-color: white;
 		border-top: 2px solid #091562;
 		margin-top: 0;
-		padding-left: 10%;
+		padding-left: 0%;
 		padding-top: 10px;
 		padding-bottom: 20px;
 		width: 100%;
@@ -110,9 +110,11 @@
 	.navLinks ul li {
 		display: flex;
 		margin-bottom: 3%;
+		margin-right: 0;
 	}
 
-	.navLinks ul li:nth-child(4) {
+
+	.navLinks ul li:nth-child(2) {
 		padding-left: 0;
 		margin-top: 15px;
 		padding-right: 0%;
@@ -199,7 +201,7 @@
 		background-color: white;
 		border-top: 2px solid #091562;
 		margin-top: 0;
-		padding-left: 10%;
+		padding-left: 0%;
 		padding-top: 10px;
 		padding-bottom: 20px;
 		width: 100%;

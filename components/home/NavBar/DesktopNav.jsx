@@ -13,7 +13,6 @@ const DesktopNav = () => {
                     width="228px"
                     height="49px"
                     style={{
-                        marginLeft: "2.75rem",
                         cursor: "pointer",
                         marginTop: "3px",
                     }}
