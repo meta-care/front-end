@@ -1,3 +1,7 @@
+/* NOT CURRENTLY USED 
+
+/////////////////////////////
+
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -152,3 +156,4 @@ export function Professionnals({ user }) {
 		</div>
 	);
 }
+*/

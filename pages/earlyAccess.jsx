@@ -2,17 +2,25 @@ import { useIsMounted } from "./hooks/useIsMounted";
 import { getSession } from "next-auth/react";
 import { NavBar } from "../components/navBar/NavBar.jsx";
 import { getUser } from "../components/mongoDB/getUser";
-import { HomeMenu } from "../components/home/Home.jsx";
+import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
 
-export default function Home({ user }) {
+export default function EarlyAccess({ user }) {
 	const mounted = useIsMounted();
+	const router = useRouter();
 
 	return (
 		<>
 			{mounted && (
 				<>
 					<NavBar user={user} />
-					<HomeMenu />
+
+					<div style={{ textAlign: "center" }}>
+						<h1>Coming Soon...</h1>
+						<button className={styles.button} onClick={() => router.push(`/`)}>
+							Go back home
+						</button>
+					</div>
 				</>
 			)}
 		</>

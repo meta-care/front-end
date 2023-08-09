@@ -4,7 +4,7 @@ import styles from "./NavBar.module.css";
 import { CgMenu, CgClose } from "react-icons/cg";
 import { useState } from "react";
 
-const MobileNav = ({ user }) => {
+const Mobile = ({ user }) => {
 	const router = useRouter();
 	const [open, setOpen] = useState(false);
 
@@ -32,7 +32,7 @@ const MobileNav = ({ user }) => {
 			{open && <NavLinks user={user} />}
 			<div className={styles.imgMediumScreen}>
 				<img
-					src={"metacare.png"}
+					src={"/metacare.png"}
 					width="228px"
 					height="49px"
 					style={{
@@ -46,7 +46,7 @@ const MobileNav = ({ user }) => {
 
 			<div className={styles.imgSmallScreen}>
 				<img
-					src={"metacare.png"}
+					src={"/metacare.png"}
 					width="159.6px"
 					height="34.3px"
 					style={{
@@ -61,4 +61,4 @@ const MobileNav = ({ user }) => {
 	);
 };
 
-export default MobileNav;
+export default Mobile;

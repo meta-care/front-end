@@ -1,15 +1,26 @@
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
+import { NavBar } from "../components/navBar/NavBar.jsx";
+import { useIsMounted } from "./hooks/useIsMounted";
 
 export default function FourOhFour() {
+	const mounted = useIsMounted();
 	const router = useRouter();
+
 	return (
-		<div style={{ textAlign: "center" }}>
-			<img src={"metacareLogo.png"} width="177px" height="192px" />
-			<h1>404 | Page Not Found :(</h1>
-			<button className={styles.button} onClick={() => router.push(`/`)}>
-				Go back home
-			</button>
-		</div>
+		<>
+			{mounted && (
+				<>
+					<NavBar />
+
+					<div style={{ textAlign: "center" }}>
+						<h1>404 | Page Not Found :(</h1>
+						<button className={styles.button} onClick={() => router.push(`/`)}>
+							Go back home
+						</button>
+					</div>
+				</>
+			)}
+		</>
 	);
 }

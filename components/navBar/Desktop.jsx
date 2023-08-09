@@ -2,13 +2,13 @@ import { useRouter } from "next/router";
 import NavLinks from "./NavLinks";
 import styles from "./NavBar.module.css";
 
-const DesktopNav = ({ user }) => {
+const Desktop = ({ user }) => {
 	const router = useRouter();
 	return (
 		<nav className={styles.desktopNav}>
 			<div style={{ alignItems: "center" }} className={styles.navLogo}>
 				<img
-					src={"metacare.png"}
+					src={"/metacare.png"}
 					width="228px"
 					height="49px"
 					style={{
@@ -18,9 +18,10 @@ const DesktopNav = ({ user }) => {
 					onClick={() => router.push(`/`)}
 				/>
 			</div>
+
 			<NavLinks user={user} />
 		</nav>
 	);
 };
 
-export default DesktopNav;
+export default Desktop;

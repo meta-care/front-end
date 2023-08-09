@@ -1,7 +1,7 @@
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import styles from "./NavBar.module.css";
 import { useRouter } from "next/router";
-import { useIsMounted } from "../../../pages/hooks/useIsMounted";
+import { useIsMounted } from "../../pages/hooks/useIsMounted";
 
 const NavLinks = ({ user }) => {
 	const router = useRouter();
@@ -19,6 +19,22 @@ const NavLinks = ({ user }) => {
 
 						{/*Link for other pages (Blog, Docs)...*/}
 
+						{user && (
+							<li>
+								<button
+									className={styles.startedButton}
+									onClick={() =>
+										signOut("google", {
+											redirect: true,
+											callbackUrl: "/",
+										})
+									}
+								>
+									SignOut
+								</button>
+							</li>
+						)}
+
 						<li>
 							<button
 								className={styles.startedButton}
@@ -27,13 +43,17 @@ const NavLinks = ({ user }) => {
 										? router.push(`/dashboard`)
 										: signIn("google", {
 												redirect: true,
-												callbackUrl: "/menu",
+												callbackUrl: "/dashboard",
 										  })
 								}
 							>
 								{user ? "Dashboard" : "Get Started"}
 							</button>
 						</li>
+
+						{user && <h2>{user.name}</h2>}
+
+						{user && <img src={user.image} alt="" />}
 					</ul>
 				</div>
 			)}
