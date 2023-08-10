@@ -40,6 +40,7 @@ export async function getUser(session) {
 					$set: {
 						refreshToken: session.refreshToken,
 						image: session.user.image,
+						name: session.user.name,
 					},
 				}
 			);

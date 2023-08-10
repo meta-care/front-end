@@ -9,19 +9,19 @@ export const config = {
 export default async (req, res) => {
 	// Check if the request is a GET request
 	if (req.method !== "GET") {
-		return res.status(500).json({ msg: "This needs to be a get request" });
+		return res.status(500).json({ error: "This needs to be a get request" });
 	}
 
 	// Get the email from the query string
 	const email = req.query.email;
 	if (!email) {
-		return res.json({ msg: "no email provided" });
+		return res.status(500).json({ error: "No email provided" });
 	}
 
 	// Get the refreshToken from the query string
 	const refreshToken = req.query.refreshToken;
 	if (!refreshToken) {
-		return res.status(500).json({ msg: "No refreshToken provided" });
+		return res.status(500).json({ error: "No refreshToken provided" });
 	}
 
 	try {
@@ -38,7 +38,11 @@ export default async (req, res) => {
 
 		// If no data is found in the database, get it from the Google API
 		if (userData.length === 0) {
-			userData = await getGoogleHistoricalData(refreshToken);
+			const { googleData, error } = await getGoogleHistoricalData(refreshToken);
+			userData = googleData;
+			if (error) {
+				return res.status(500).json({ error: error });
+			}
 		}
 
 		// Return a success message
@@ -46,7 +50,6 @@ export default async (req, res) => {
 
 		// Catch any errors
 	} catch (e) {
-		console.log("ERROR: " + e);
 		return res.status(500).json({ error: JSON.stringify(e) });
 	}
 };
@@ -76,11 +79,10 @@ async function getGoogleHistoricalData(refreshToken) {
 
 		// error handling
 		if (!response.ok) {
-			console.log(refreshedToken);
 			throw new Error(refreshedToken.error);
 		}
 	} catch (error) {
-		return res.status(500).json({ msg: "Error refreshing access token" });
+		return { userData: [], error: "Error refreshing access token" };
 	}
 
 	// Get the user's data sources from the Google API
@@ -97,22 +99,25 @@ async function getGoogleHistoricalData(refreshToken) {
 		const sourcesData = await sourcesResponse.json();
 		dataSources = sourcesData.dataSource;
 	} catch (error) {
-		return res.status(500).json({ msg: "Error getting data sources" });
+		return { userData: [], error: "Error getting data sources" };
 	}
 
 	// Loop through all the data sources and fetch the data
 	const userData = [];
 	for (const source of dataSources) {
-		const returnedArray = await fetchData(
+		const { returnedArray, error } = await fetchData(
 			refreshedToken.access_token,
 			source.dataType.name,
 			source.dataStreamId
 		);
+		if (error) {
+			return { userData, error };
+		}
 		userData.push(...returnedArray);
 	}
 
 	// Return the user's data
-	return userData;
+	return { userData, error: null };
 }
 
 async function fetchData(accessToken, type, dataSourceId) {
@@ -143,8 +148,7 @@ async function fetchData(accessToken, type, dataSourceId) {
 			throw new Error(rawData);
 		}
 	} catch (error) {
-		console.error(`⚠️  Error fetching ${dataSourceId}`);
-		return;
+		return { returnedArray: [], error: `Error fetching ${dataSourceId}` };
 	}
 
 	// Loop through all the data and store it in the array
@@ -172,5 +176,5 @@ async function fetchData(accessToken, type, dataSourceId) {
 	}
 
 	// Return the data
-	return dataArray;
+	return { returnedArray: dataArray, error: null };
 }
