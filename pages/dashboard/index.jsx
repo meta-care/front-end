@@ -1,5 +1,5 @@
 import { useIsMounted } from "../hooks/useIsMounted";
-import DashboardMenu from "../../components/Dashboard/Dashboard.jsx";
+import DashboardMenu from "../../components/dashboard/Dashboard.jsx";
 import { NavBar } from "../../components/navBar/NavBar.jsx";
 import { getSession } from "next-auth/react";
 import { getUser } from "../../components/mongoDB/getUser";

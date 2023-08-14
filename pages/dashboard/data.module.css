@@ -1,0 +1,10 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.product_canvas {
+    height: 800px;
+    width: 450px;
+}
