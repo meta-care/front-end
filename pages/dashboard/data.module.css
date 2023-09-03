@@ -5,6 +5,10 @@
 }
 
 .product_canvas {
-    height: 800px;
-    width: 450px;
+    flex: 1;
+    max-width: 421px;
+    height: 750px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

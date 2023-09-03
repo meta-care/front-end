@@ -50,10 +50,11 @@ const NavLinks = ({ user }) => {
 								{user ? "Dashboard" : "Get Started"}
 							</button>
 						</li>
+						
+						{user && <img className={styles.userImg} src={user.image} alt="" />}
 
 						{user && <h2>{user.name}</h2>}
-
-						{user && <img src={user.image} alt="" />}
+						
 					</ul>
 				</div>
 			)}
