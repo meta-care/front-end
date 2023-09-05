@@ -1,7 +1,7 @@
 import { Suspense, useRef } from 'react';
 import { useIsMounted } from "../hooks/useIsMounted";
 import { getUser } from "../../components/mongoDB/getUser";
-import { NavBar } from "../../components/navBar/NavBar.jsx";
+import { NavBar } from "../../components/navBar/InApplicationNav/index.jsx";
 import { getSession } from "next-auth/react";
 import DataMenu from "../../components/dashboard/data/Data.jsx";
 import { getPatients } from "../../components/mongoDB/getPatients";
@@ -22,7 +22,7 @@ export default function Data({ user, patients }) {
 					<div className={styles.main}>
 						<div className={styles.product_canvas} ref={productCanvasRef}>
 							<Canvas >
-								<Suspense fallback={null}>
+								<Suspense fallback={"null"}>
 								<AvatarDisplay containerRef={productCanvasRef}/>
 								</Suspense>
 							</Canvas>  

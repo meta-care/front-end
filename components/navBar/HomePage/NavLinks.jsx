@@ -1,7 +1,7 @@
 import { signIn, signOut } from "next-auth/react";
 import styles from "./NavBar.module.css";
 import { useRouter } from "next/router";
-import { useIsMounted } from "../../pages/hooks/useIsMounted";
+import { useIsMounted } from "../../../pages/hooks/useIsMounted";
 
 const NavLinks = ({ user }) => {
 	const router = useRouter();
@@ -53,7 +53,11 @@ const NavLinks = ({ user }) => {
 						
 						{user && <img className={styles.userImg} src={user.image} alt="" />}
 
-						{user && <h2>{user.name}</h2>}
+						{user && <h2 style={{ whiteSpace: 'nowrap', 
+						marginLeft: "5px",
+						color: "#0093ff"}}>
+							{user.name}
+						</h2>}
 						
 					</ul>
 				</div>

@@ -75,6 +75,9 @@ const AvatarDisplay = ({ containerRef }) => {
    // Define onWindowResize function
    function onWindowResize() {
     const container = containerRef.current;
+  
+    // Check if container exists
+    if (container) {
     const newWidth = container.clientWidth;
     const newHeight = container.clientHeight;
 
@@ -82,6 +85,7 @@ const AvatarDisplay = ({ containerRef }) => {
     camera.updateProjectionMatrix();
     renderer.setSize(newWidth, newHeight);
     render();
+    }
   }
    
   function render() {

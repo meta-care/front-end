@@ -1,6 +1,6 @@
 import { useIsMounted } from "../hooks/useIsMounted";
 import DashboardMenu from "../../components/dashboard/Dashboard.jsx";
-import { NavBar } from "../../components/navBar/NavBar.jsx";
+import { NavBar } from "../../components/navBar/InApplicationNav/index.jsx";
 import { getSession } from "next-auth/react";
 import { getUser } from "../../components/mongoDB/getUser";
 
@@ -12,6 +12,16 @@ export default function Dashboard({ user }) {
 			{mounted && (
 				<>
 					<NavBar user={user} />
+					<div style={{ display: 'flex', justifyContent: 'center' }}>
+						<img
+							src={"/metacare.png"}
+							width="350px"
+							height="75px"
+							style={{
+							marginTop: "3%",
+							}}
+						/>
+					</div>
 					<DashboardMenu />
 				</>
 			)}
