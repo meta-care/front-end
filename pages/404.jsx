@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
-import { NavBar } from "../components/navBar/NavBar.jsx";
+import { NavBar } from "../components/navBar/HomePage/index.jsx";
 import { useIsMounted } from "./hooks/useIsMounted";
 
 export default function FourOhFour() {
