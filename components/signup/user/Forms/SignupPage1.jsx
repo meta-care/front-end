@@ -7,7 +7,7 @@ const SignupPage1 = ({ onSubmit }) => {
 
      // State to manage form fields
      const [formData, setFormData] = useState({
-        dateOfBirth: '', // Add the dateOfBirth field
+        dateOfBirth: '',
         height: '',
         weight: '',
         knownDiseases: 'None',
