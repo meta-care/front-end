@@ -3,9 +3,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 
-const AvatarDisplay = ({ containerRef }) => {
+const TutorialAvatar = ({ containerRef }) => {
   let camera, scene, renderer, ambientLight;
   let character;
   let mixer; // Animation mixer
@@ -18,11 +17,11 @@ const AvatarDisplay = ({ containerRef }) => {
       // Camera setup
       const AspectRatio = 9 / 16; // Height:Width ratio
       camera = new THREE.PerspectiveCamera(30, AspectRatio, 0.1, 100);
-      camera.position.set(0, 4, 5);
+      camera.position.set(0, 4, 1);
 
       // Scene setup
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xffffff);
+      scene.background = null;
 
       // Ambient light setup
       ambientLight = new THREE.AmbientLight(0xffffff, 2.8); // Color, Intensity
@@ -33,25 +32,29 @@ const AvatarDisplay = ({ containerRef }) => {
       dracoLoader.setDecoderPath('jsm/libs/draco/gltf/');
 
       // GLTF loader setup for character
-      const characterUrl = 'https://models.readyplayer.me/64ea14524a8548d9bc0b6d76.glb';
+      const characterUrl = 'https://models.readyplayer.me/64fb08e90a22f8785ae573b1.glb';
       const characterLoader = new GLTFLoader();
       characterLoader.setDRACOLoader(dracoLoader); // If using DRACOLoader
       characterLoader.load(characterUrl, function (gltf) {
         character = gltf.scene;
 
         // Assuming your GLB character has a skeletal structure, add it to the scene
-        character.position.set(0, 1.1, 0); // Character position
+        character.position.set(0, 1.85, 2); // Character position
         scene.add(character);
 
-        // Create an AnimationMixer for the character
-        mixer = new THREE.AnimationMixer(character);
+        character.traverse(function(node) {
+            if (node.isMesh) {
+                node.morphTargetInfluences[node.morphTargetDictionary.mouthSmile] = 0.3;
+            }
+        });
 
-        // Load and apply FBX animation
-        loadAndApplyFBXAnimation();
+        // Render the scene immediately after adding the character
+        render();
+
       });
 
       // Renderer setup
-      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setPixelRatio(window.devicePixelRatio);
 
       const container = containerRef.current;
@@ -62,7 +65,7 @@ const AvatarDisplay = ({ containerRef }) => {
 
       // OrbitControls setup
       const controls = new OrbitControls(camera, renderer.domElement);
-      controls.enableRotate = true; // Allow rotation around Y-axis
+      controls.enableRotate = false; // Allow rotation around Y-axis
       controls.enableZoom = false;
       controls.enablePan = false;
       controls.minDistance = 3; // Minimum distance from the object
@@ -76,6 +79,8 @@ const AvatarDisplay = ({ containerRef }) => {
 
       // Resize event listener
       window.addEventListener('resize', onWindowResize);
+      onWindowResize();
+
       render();
     }
 
@@ -95,44 +100,6 @@ const AvatarDisplay = ({ containerRef }) => {
       }
     }
 
-    // Function to load and apply FBX animation
-    function loadAndApplyFBXAnimation() {
-      const fbxUrl = '/Animations/Waving.fbx'; // Updated URL to match your file location
-      const fbxLoader = new FBXLoader();
-    
-      fbxLoader.load(fbxUrl, function (fbx) {
-    
-        // Assuming you have an animation named "Idle" in your FBX file
-        const clip = fbx.animations.find((clip) => clip.name === 'mixamo.com');
-    
-        if (clip) {
-          // Create an animation action
-          const action = mixer.clipAction(clip);
-        
-          // Play the animation
-          action.play();
-        } else {
-          console.error('"mixamo.com" animation not found in the FBX file.');
-        }
-    
-        render();
-      });
-      animate();
-    }
-
-    function animate() {
-      // Get the time delta
-      const delta = clock.getDelta();
-    
-      // Update the animation mixer
-      mixer.update(delta);
-    
-      // Render the scene
-      renderer.render(scene, camera);
-    
-      // Request the next frame
-      requestAnimationFrame(animate);
-    }
 
     function render() {
       if (mixer) {
@@ -156,4 +123,4 @@ const AvatarDisplay = ({ containerRef }) => {
   return null;
 };
 
-export default AvatarDisplay;
+export default TutorialAvatar;

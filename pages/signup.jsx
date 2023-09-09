@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState, useRef } from 'react';
 import { useRouter } from "next/router";
 import styles from "./signup.module.css";
+import { Canvas } from '@react-three/fiber';
+import TutorialAvatar from '../components/characters/TutorialAvatar';
 
 const RegistrationForm = () => {
     const router = useRouter();
 
+    const productCanvasRef = useRef();
+
     //State for the tutorial
-    const [showTutorial, setShowTutorial] = useState(false);
+    const [showTutorial, setShowTutorial] = useState(true);
+    const [tutorialPage, setTutorialPage] = useState(1);
 
     // State to manage form fields
     const [formData, setFormData] = useState({
@@ -46,7 +51,8 @@ const RegistrationForm = () => {
     };
 
   return (
-    
+    //Registration Form
+    <>
     <div className={styles.signupForm}>
       <img
           style={{ margin: "0 auto" }}
@@ -121,6 +127,56 @@ const RegistrationForm = () => {
         </form>
       </div>
     </div>
+
+    {/* Tutorial Overlay */}
+     {showTutorial && (
+      <div className={styles.tutorial_overlay}>
+        <div className={styles.tutorial_content}>
+          {tutorialPage === 1 && (
+            <>
+            <div style={{ width:"100%", display: 'flex', flexDirection: 'row', justifyContent: "space-around" }}>
+              <div className={styles.avatar_container} ref={productCanvasRef}>
+                <Suspense fallback={"null"}>
+                  <Canvas>
+                    <TutorialAvatar containerRef={productCanvasRef}/>
+                  </Canvas>
+                </Suspense>
+              </div>
+              <div className={styles.textAndButton}>
+                <div style={{width: "70%"}}>
+                <h3>Welcome to Metacare Health!</h3>
+                <p>
+                  Your journey for an healthier future just started! I'm Alberto, doctor and CEO of Metacare Health. 
+                  In this small on boarding I'm going to quickly explain our mission and let you know our privacy terms. Click on "Next"
+                  to go to other page.
+                </p>
+                </div>
+                <button
+                  className={styles.tutorial_button}
+                  onClick={() => setTutorialPage(2)}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+            </>
+          )}
+
+          {tutorialPage === 2 && (
+            <>
+              <h2>Thank You</h2>
+              <button
+                className={styles.tutorial_button}
+                onClick={() => setShowTutorial(false)}
+              >
+                Finish
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    )}
+    </>
   );
 };
 

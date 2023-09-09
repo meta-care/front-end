@@ -24,3 +24,46 @@
     flex-direction: row;
     justify-content: space-around;
 }
+
+/* Styles for the tutorial overlay */
+.tutorial_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 147, 255, 0.9); /* Semi-transparent blue background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Ensure the overlay appears above the form */
+  }
+  
+  .tutorial_content {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Styles for the buttons within the tutorial */
+  .tutorial_button {
+    height: 50px;
+  }
+  
+  .avatar_container {
+    flex: 1;
+    max-width: 600px;
+    height: 750px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textAndButton {
+    width: 33%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5%;
+}
