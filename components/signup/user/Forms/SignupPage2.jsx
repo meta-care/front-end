@@ -31,7 +31,7 @@ const SignupPage1 = ({ onSubmit }) => {
         // You can access the form data via the formData state
         console.log('Form Data:', formData);
         // You can also access the selected avatar via the selectedAvatar state
-        console.log('Selected Avatar:', selectedAvatar);
+        //console.log('Selected Avatar:', selectedAvatar);
         onSubmit(); // Acrue step
     };
       

@@ -4,10 +4,14 @@ import SignupPage1 from '../components/signup/user/Forms/SignupPage1'
 import SignupPage2 from '../components/signup/user/Forms/SignupPage2'
 import Tutorial1 from '../components/signup/user/Tutorials/Tutorial1'
 import Tutorial2 from '../components/signup/user/Tutorials/Tutorial2'
+import Tutorial3 from '../components/signup/user/Tutorials/Tutorial3'
+import Tutorial4 from '../components/signup/user/Tutorials/Tutorial4'
 
 const RegistrationForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({}); // Store user inputs
+
+  const router = useRouter();
 
   const handleNextStep = (data) => {
     // Save user inputs and advance to the next step
@@ -47,7 +51,20 @@ const RegistrationForm = () => {
       {step === 4 && (
         <>
           <SignupPage2 onSubmit={() => setStep(step + 1)} />
+          <Tutorial3 onNext={() => setStep(step + 1)} />
+        </>
+      )}
+
+      {step === 5 && (
+        <>
+          <SignupPage2 onSubmit={() => setStep(step + 1)} />
           {/* Hide the Tutorial */}
+        </>
+      )}
+
+      {step === 6 && (
+        <>
+          <Tutorial4 onNext={() => setStep(step + 1)} />
         </>
       )}
     </>
