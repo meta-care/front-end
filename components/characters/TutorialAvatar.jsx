@@ -7,12 +7,43 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 const TutorialAvatar = ({ containerRef }) => {
   let camera, scene, renderer, ambientLight;
   let character;
-  let mixer; // Animation mixer
-
-  // Clock for updating the mixer
-  const clock = new THREE.Clock();
+  let blinkInterval;
 
   useEffect(() => {
+    function startBlinking() {
+      blinkInterval = setInterval(blink, 2800); // Blink every 2.8 seconds
+    }
+
+    function stopBlinking() {
+      clearInterval(blinkInterval);
+    }
+
+    function blink() {
+      character.traverse(function (node) {
+        if (node.isMesh) {
+          const eyesClosedIndex = node.morphTargetDictionary.eyesClosed;
+    
+          // Check if the morph target exists
+          if (eyesClosedIndex !== undefined) {
+            // Close the eyes by setting the morph target influence to 0.75
+            node.morphTargetInfluences[eyesClosedIndex] = 0.8;
+    
+            // Render the scene to display the changes when eyes are closed
+            render();
+    
+            // After a short delay, set the morph target influence back to 0
+            setTimeout(() => {
+              node.morphTargetInfluences[eyesClosedIndex] = 0;
+    
+              // Render the scene again to display the changes when eyes are opened
+              render();
+            }, 300); // Adjust the delay to control how long the blink lasts
+          }
+        }
+      });
+    }
+    
+
     function init() {
       // Camera setup
       const AspectRatio = 9 / 16; // Height:Width ratio
@@ -42,15 +73,17 @@ const TutorialAvatar = ({ containerRef }) => {
         character.position.set(0, 1.85, 2); // Character position
         scene.add(character);
 
+        //Add Smiley face
         character.traverse(function(node) {
-            if (node.isMesh) {
-                node.morphTargetInfluences[node.morphTargetDictionary.mouthSmile] = 0.3;
-            }
+          if (node.isMesh) {
+              node.morphTargetInfluences[node.morphTargetDictionary.mouthSmile] = 0.3;
+          }
         });
 
         // Render the scene immediately after adding the character
         render();
 
+        startBlinking();
       });
 
       // Renderer setup
@@ -100,11 +133,7 @@ const TutorialAvatar = ({ containerRef }) => {
       }
     }
 
-
     function render() {
-      if (mixer) {
-        mixer.update(0.01); // Update the animation mixer
-      }
       renderer.render(scene, camera);
     }
 
@@ -113,6 +142,7 @@ const TutorialAvatar = ({ containerRef }) => {
 
     // Clean up
     return () => {
+      stopBlinking();
       const canvasElement = document.querySelector('canvas');
       if (canvasElement) {
         canvasElement.remove();

@@ -20,19 +20,18 @@ const Tutorial2 = ({ onNext }) => {
               </div>
               <div className={styles.textAndButton}>
                 <div style={{width: "100%"}}>
-                <h3 style={{ fontSize: "20px" }}>Why we need some informations?</h3>
+                <h3 style={{ fontSize: "20px" }}>First step done!</h3>
                 <p style={{ fontSize: "18px", textAlign: "justify" }}>
-                  We at Metacare believe that the internet should be transparent and trustless. We require some personal 
-                  information in order to provide a personalized health recommendation experience. Our business model is NOT 
-                  personal data selling, although, in order to provide you with the best recommendations and experience, your 
-                  ANONIMOUS data may be used to train an AI model. 
+                  Thank you for providing the required information! Those informations were essential for us to evaluate 
+                  you health data and provide you with the best health assitant in the market! In this step we are asking for non-essential 
+                  information that you can choose not to answer (but we would be apreciate if you do). Click "Next" to continue.
                 </p>
                 </div>
                 <button
                   className={styles.tutorial_button}
                   onClick={onNext}
                 >
-                  Finish
+                  Next
                 </button>
               </div>
             </div>

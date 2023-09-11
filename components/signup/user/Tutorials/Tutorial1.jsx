@@ -4,8 +4,12 @@ import { Canvas } from '@react-three/fiber';
 import TutorialAvatar from '../../../characters/TutorialAvatar';
 
 const Tutorial1 = ({ onNext }) => {
+    const [tutorialStep, setTutorialStep] = useState(1);
     const productCanvasRef = useRef();
 
+    const handleNextTutorialStep = () => {
+      setTutorialStep(tutorialStep + 1);
+    };
 
     return ( 
       <div className={styles.tutorial_overlay}>
@@ -18,6 +22,7 @@ const Tutorial1 = ({ onNext }) => {
                   </Canvas>
                 </Suspense>
               </div>
+              {tutorialStep === 1 && (
               <div className={styles.textAndButton}>
                 <div style={{width: "100%"}}>
                 <h3 style={{ fontSize: "20px" }}>Welcome to Metacare Health!</h3>
@@ -29,11 +34,32 @@ const Tutorial1 = ({ onNext }) => {
                 </div>
                 <button
                   className={styles.tutorial_button}
-                  onClick={onNext}
+                  onClick={handleNextTutorialStep}
                 >
                   Next
                 </button>
               </div>
+              )}
+
+              {tutorialStep === 2 && (
+              <div className={styles.textAndButton}>
+              <div style={{width: "100%"}}>
+              <h3 style={{ fontSize: "20px" }}>Why we need some informations?</h3>
+              <p style={{ fontSize: "18px", textAlign: "justify" }}>
+                We at Metacare believe that the internet should be transparent and trustless. We require some personal 
+                information in order to provide a personalized health recommendation experience. Our business model is NOT 
+                personal data selling, although, in order to provide you with the best recommendations and experience, your 
+                ANONIMOUS data may be used to train an AI model. 
+              </p>
+              </div>
+              <button
+                className={styles.tutorial_button}
+                onClick={onNext}
+              >
+                Finish
+              </button>
+            </div>
+              )}
             </div>
         </div>
       </div>

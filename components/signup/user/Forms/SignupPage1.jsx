@@ -100,12 +100,6 @@ const SignupPage1 = ({ onSubmit }) => {
                     ))}
                 </select>
                 </div>
-            <div style={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
-                <h5>Create you avatar:</h5>
-            <button 
-            style={{height:"50%"}}
-            onClick={() => router.push("/createAvatar")}>Create Avatar</button>
-            </div>
             <div>
                 <button 
                 className={styles.tutorial_button}

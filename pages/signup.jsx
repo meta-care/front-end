@@ -5,7 +5,6 @@ import SignupPage2 from '../components/signup/user/Forms/SignupPage2'
 import Tutorial1 from '../components/signup/user/Tutorials/Tutorial1'
 import Tutorial2 from '../components/signup/user/Tutorials/Tutorial2'
 import Tutorial3 from '../components/signup/user/Tutorials/Tutorial3'
-import Tutorial4 from '../components/signup/user/Tutorials/Tutorial4'
 
 const RegistrationForm = () => {
   const [step, setStep] = useState(1);
@@ -34,37 +33,31 @@ const RegistrationForm = () => {
         </>
       )}
 
-      {step === 2 && (
-        <>
-          <SignupPage1 onSubmit={handleNextStep} />
-          <Tutorial2 onNext={() => setStep(step + 1)} />
-        </>
-      )}
 
-      {step === 3 && (
+      {step === 2 && (
         <>
           <SignupPage1 onSubmit={() => setStep(step + 1)} />
           {/* Hide the Tutorial */}
         </>
       )}
 
-      {step === 4 && (
+      {step === 3 && (
         <>
           <SignupPage2 onSubmit={() => setStep(step + 1)} />
-          <Tutorial3 onNext={() => setStep(step + 1)} />
+          <Tutorial2 onNext={() => setStep(step + 1)} />
         </>
       )}
 
-      {step === 5 && (
+      {step === 4 && (
         <>
           <SignupPage2 onSubmit={() => setStep(step + 1)} />
           {/* Hide the Tutorial */}
         </>
       )}
 
-      {step === 6 && (
+      {step === 5 && (
         <>
-          <Tutorial4 onNext={() => setStep(step + 1)} />
+          <Tutorial3 onNext={() => setStep(step + 1)} />
         </>
       )}
     </>
