@@ -9,6 +9,7 @@ const userSchema = new Schema({
 	refreshToken: { type: String, required: true },
 	signupDate: { type: String, required: true },
 	professionnals: { type: Array, required: false },
+	avatarURL: { type: Array, required: false },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);
