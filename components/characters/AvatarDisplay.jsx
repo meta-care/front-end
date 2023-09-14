@@ -5,7 +5,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 
-const AvatarDisplay = ({ containerRef }) => {
+const AvatarDisplay = ({ containerRef, user }) => {
   let camera, scene, renderer, ambientLight;
   let character;
   let mixer; // Animation mixer
@@ -33,7 +33,7 @@ const AvatarDisplay = ({ containerRef }) => {
       dracoLoader.setDecoderPath('jsm/libs/draco/gltf/');
 
       // GLTF loader setup for character
-      const characterUrl = 'https://models.readyplayer.me/64ea14524a8548d9bc0b6d76.glb';
+      const characterUrl = user.avatarURL;
       const characterLoader = new GLTFLoader();
       characterLoader.setDRACOLoader(dracoLoader); // If using DRACOLoader
       characterLoader.load(characterUrl, function (gltf) {
