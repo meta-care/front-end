@@ -6,6 +6,8 @@ import {
 import { getUser } from "../components/mongoDB/getUser";
 import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
 
 const config = {
 	clearCache: true,
@@ -24,11 +26,13 @@ export default function CreateAvatar({ user }) {
 	const [avatarCreated, setAvatarCreated] = useState(false);
 	const [avatarURL, setAvatarURL] = useState("");
 	const [saved, setSaved] = useState(false);
+	const router = useRouter();
 
 	const handleOnAvatarExported = async (event) => {
 		setAvatarURL(event.data.url);
 		setAvatarCreated(true);
 		setSaved(false);
+		router.push("/dashboard")
 	};
 
 	// Update the user profile

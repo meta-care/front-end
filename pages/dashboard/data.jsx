@@ -23,7 +23,7 @@ export default function Data({ user, patients }) {
 						<div className={styles.product_canvas} ref={productCanvasRef}>
 							<Canvas >
 								<Suspense fallback={"null"}>
-								<AvatarDisplay containerRef={productCanvasRef}/>
+								<AvatarDisplay user={ user } containerRef={productCanvasRef}/>
 								</Suspense>
 							</Canvas>  
 						</div>
