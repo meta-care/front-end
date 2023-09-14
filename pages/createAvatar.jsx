@@ -8,7 +8,6 @@ import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-
 const config = {
 	clearCache: true,
 	bodyType: "fullbody",
@@ -32,13 +31,12 @@ export default function CreateAvatar({ user }) {
 		setAvatarURL(event.data.url);
 		setAvatarCreated(true);
 		setSaved(false);
-		router.push("/dashboard")
+		router.push("/dashboard");
 	};
 
 	// Update the user profile
 	useEffect(() => {
 		if (avatarCreated) {
-			console.log("creating avatar");
 			fetch("/api/saveAvatar", {
 				method: "POST",
 				headers: {

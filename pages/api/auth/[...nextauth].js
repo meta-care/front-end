@@ -25,11 +25,6 @@ export default NextAuth({
 		async jwt({ token, user, account }) {
 			if (account && user) {
 				token.refreshToken = account.refresh_token;
-				console.log("token: " + account.refresh_token);
-
-				console.log(account);
-				console.log(user);
-				console.log(token);
 			}
 			return token;
 		},
@@ -37,9 +32,6 @@ export default NextAuth({
 			if (token) {
 				session.refreshToken = token.refreshToken;
 			}
-			console.log(session);
-			console.log(token);
-
 			return session;
 		},
 	},
