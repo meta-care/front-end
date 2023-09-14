@@ -9,6 +9,9 @@ export default NextAuth({
 			authorization: {
 				url: "https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code",
 				params: {
+					prompt: "consent",
+					access_type: "offline",
+					response_type: "code",
 					scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.blood_glucose.read https://www.googleapis.com/auth/fitness.blood_pressure.read https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.body_temperature.read https://www.googleapis.com/auth/fitness.heart_rate.read https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.oxygen_saturation.read https://www.googleapis.com/auth/fitness.reproductive_health.read https://www.googleapis.com/auth/fitness.sleep.read",
 				},
 			},
@@ -21,7 +24,12 @@ export default NextAuth({
 	callbacks: {
 		async jwt({ token, user, account }) {
 			if (account && user) {
-				token.refreshToken = account.refreshToken;
+				token.refreshToken = account.refresh_token;
+				console.log("token: " + account.refresh_token);
+
+				console.log(account);
+				console.log(user);
+				console.log(token);
 			}
 			return token;
 		},
@@ -29,6 +37,9 @@ export default NextAuth({
 			if (token) {
 				session.refreshToken = token.refreshToken;
 			}
+			console.log(session);
+			console.log(token);
+
 			return session;
 		},
 	},

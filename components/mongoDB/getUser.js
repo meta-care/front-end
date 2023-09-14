@@ -32,7 +32,7 @@ export async function getUser(session) {
 			await db.collection("users").insertOne(user);
 
 			// Else check if the user have a new refresh token
-		} else if (session.refreshToken != profile.refreshToken) {
+		} else if (session.refreshToken != profile.refreshToken && session.refreshToken != null) {
 			profile = { ...profile, refreshToken: session.refreshToken };
 			await db.collection("users").updateOne(
 				{ email: session.user.email },
