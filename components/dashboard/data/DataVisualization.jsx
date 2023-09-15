@@ -37,7 +37,7 @@ const DataVisualization = () => {
           style={{ width: "200px", height: "200px" }} // Set a fixed width and height
         ></div>
         <div className={styles.chart_image}>
-          <img src="/heart.png" alt="" />
+          <img src="/Illustrations/Data_Illustrations/heart.png" alt="" />
         </div>
       </div>
     </div>
