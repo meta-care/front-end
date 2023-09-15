@@ -12,13 +12,13 @@ export default function Dashboard({ user }) {
 			{mounted && (
 				<>
 					<NavBar user={user} />
-					<div style={{ display: 'flex', justifyContent: 'center' }}>
+					<div style={{ display: "flex", justifyContent: "center" }}>
 						<img
 							src={"/metacare.png"}
 							width="350px"
 							height="75px"
 							style={{
-							marginTop: "3%",
+								marginTop: "3%",
 							}}
 						/>
 					</div>
@@ -52,6 +52,26 @@ export async function getServerSideProps(context) {
 		};
 	}
 	const user = JSON.parse(JSON.stringify(profile));
+
+	// Verify that the user does have all the required fields
+	if (!user.birthDate || !user.weight || !user.height || !user.gender) {
+		return {
+			redirect: {
+				destination: "/signup",
+				permanent: false,
+			},
+		};
+	}
+
+	// Verify that the user does have an avatar
+	if (!user.avatarURL) {
+		return {
+			redirect: {
+				destination: "/createAvatar",
+				permanent: false,
+			},
+		};
+	}
 
 	// Return the user profile
 	return {

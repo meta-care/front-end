@@ -43,22 +43,27 @@ const NavLinks = ({ user }) => {
 										? router.push(`/dashboard`)
 										: signIn("google", {
 												redirect: true,
-												callbackUrl: "/dashboard",
+												callbackUrl: "/signup",
 										  })
 								}
 							>
 								{user ? "Dashboard" : "Get Started"}
 							</button>
 						</li>
-						
+
 						{user && <img className={styles.userImg} src={user.image} alt="" />}
 
-						{user && <h2 style={{ whiteSpace: 'nowrap', 
-						marginLeft: "5px",
-						color: "#0093ff"}}>
-							{user.name}
-						</h2>}
-						
+						{user && (
+							<h2
+								style={{
+									whiteSpace: "nowrap",
+									marginLeft: "5px",
+									color: "#0093ff",
+								}}
+							>
+								{user.name}
+							</h2>
+						)}
 					</ul>
 				</div>
 			)}

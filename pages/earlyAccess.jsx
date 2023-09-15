@@ -1,6 +1,6 @@
 import { useIsMounted } from "./hooks/useIsMounted";
 import { getSession } from "next-auth/react";
-import { NavBar } from "../components/navBar/NavBar.jsx";
+import { NavBar } from "../components/navBar/HomePage/index.jsx";
 import { getUser } from "../components/mongoDB/getUser";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
