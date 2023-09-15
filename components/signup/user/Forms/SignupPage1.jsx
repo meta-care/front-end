@@ -54,7 +54,6 @@ const SignupPage1 = ({ onSubmit }) => {
                                     src={"/logo.png"}
                                     width="200px"
                                     height="197px"/>
-                    <h2>User Registration</h2>
                     <div style={{ height: "100%", marginBottom: "5%"}}>
                         <form 
                         onSubmit={handleSubmit} 

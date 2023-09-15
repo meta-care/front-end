@@ -17,6 +17,25 @@
   flex-direction: row;
 }
 
+.formDisplay2 {
+  width: 60%;
+  height: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 5%;
+  background: linear-gradient(
+  to bottom,
+  white 10%, /* Extend white for the top 10% */
+  white 30%, /* Continue white for the next 80% */
+  #0093ff /* Start the gradient from 90% to 100% */
+  );
+  display: flex;
+  flex-direction: row;
+}
+
 .signupForm {
   z-index: 998;
   width: 60%;

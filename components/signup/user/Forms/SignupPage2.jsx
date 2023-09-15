@@ -7,14 +7,18 @@ const SignupPage1 = ({ onSubmit }) => {
 
      // State to manage form fields
      const [formData, setFormData] = useState({
-        dateOfBirth: '',
-        height: '',
-        weight: '',
-        knownDiseases: 'None',
+        gender: '',
+        heardAbout: '',
+        objectives: '',
+        medication: '',
+        chronicMedication: '',
       });
 
-    // Define an array of disease options
-    const diseaseOptions = ['None', 'Hypertension', 'Diabetes', 'Asthma', 'Other'];
+    // Define an array of options
+    const heardAbout = ['LinkedIn', 'Instagram ', 'Facebook', 'From a friend', 'Google search', 'Other'];
+    const genderOptions = ['Male', 'Female ', "Don't especify"];
+    const objectivesOptions = ['Fitness', 'Weight Loss ', "Chronic Disease Management", 'General Health Tracking', 'Other'];
+    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -38,7 +42,7 @@ const SignupPage1 = ({ onSubmit }) => {
     return ( 
         //Registration Form
         <>
-            <div className={styles.formDisplay}>
+            <div className={styles.formDisplay2}>
                 <div className={styles.formStep}>
                     <div>
                         <ul >
@@ -55,62 +59,82 @@ const SignupPage1 = ({ onSubmit }) => {
                                     src={"/logo.png"}
                                     width="200px"
                                     height="197px"/>
-                    <h2>User Registration</h2>
                     <div style={{ height: "100%", marginBottom: "5%"}}>
                         <form 
                         onSubmit={handleSubmit} 
                         style={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center" }}>
-                        
                         <div className={styles.inputField}>
-                            <label htmlFor="dateOfBirth">Date of Birth <span style={{color:"red"}}>*</span>:</label>
-                            <input
-                                type="date"
-                                id="dateOfBirth"
-                                name="dateOfBirth"
-                                value={formData.dateOfBirth}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
-                        <div className={styles.inputField}>
-                            <label htmlFor="height">Height (cm) <span style={{color:"red"}}>*</span>:</label>
-                            <input
-                            type="number"
-                            id="height"
-                            name="height"
-                            value={formData.height}
-                            onChange={handleInputChange}
-                            required
-                            style={{ maxWidth: "100px" }} // Set a maximum width
-                            />
-                        </div>
-                        <div className={styles.inputField}>
-                            <label htmlFor="weight">Weight (kg) <span style={{color:"red"}}>*</span>:</label>
-                            <input
-                            type="number"
-                            id="weight"
-                            name="weight"
-                            value={formData.weight}
-                            onChange={handleInputChange}
-                            required
-                            style={{ maxWidth: "100px" }} // Set a maximum width
-                            />
-                        </div>
-                        <div className={styles.inputField}>
-                            <label htmlFor="knownDiseases">Known Diseases:</label>
+                        <label htmlFor="gender">Gender:</label>
                             <select
-                                id="knownDiseases"
-                                name="knownDiseases"
-                                value={formData.knownDiseases}
+                                id="gender"
+                                name="gender"
+                                value={formData.gender}
                                 onChange={handleInputChange}
                             >
-                                {diseaseOptions.map((option) => (
+                                {genderOptions.map((option) => (
                                 <option key={option} value={option}>
                                     {option}
                                 </option>
                                 ))}
                             </select>
+                        </div>
+
+                        <div className={styles.inputField}>
+                        <label htmlFor="heardAbout">Where did you hear about us?</label>
+                            <select
+                                id="heardAbout"
+                                name="heardAbout"
+                                value={formData.heardAbout}
+                                onChange={handleInputChange}
+                            >
+                                {heardAbout.map((option) => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className={styles.inputField}>
+                        <label htmlFor="objectives">What are your objectives with the Metacare?</label>
+                            <select
+                                id="objectives"
+                                name="objectives"
+                                value={formData.objectives}
+                                onChange={handleInputChange}
+                            >
+                                {objectivesOptions.map((option) => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className={styles.inputField}>
+                        <label htmlFor="medication">Do you take any Chronic medication?</label>
+                        <select
+                            id="medication"
+                            name="medication"
+                            value={formData.medication}
+                            onChange={handleInputChange}
+                        >
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                        {formData.medication === 'Yes' && (
+                            <div className={styles.inputField}>
+                            <label htmlFor="chronicMedication">Please specify:</label>
+                            <input
+                                type="text"
+                                id="chronicMedication"
+                                name="chronicMedication"
+                                value={formData.chronicMedication}
+                                onChange={handleInputChange}
+                            />
                             </div>
+                        )}
+                        </div>
                         <div>
                             <button 
                             className={styles.tutorial_button}
