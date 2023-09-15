@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import styles from "../../../styles/Home.module.css";
 import { ShowData } from "./showData";
 import DataVisualization from "./DataVisualization.jsx";
@@ -17,10 +17,19 @@ const DataMenu = ({ user, patients }) => {
 					)}
 				</>
 			)}
-			<div style={{width: "100%", height: "100px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+			<Suspense>
+			<div style={{
+			width: "100%",
+			padding: "20px", 
+			display: "flex",
+			flexDirection: "column", 
+			alignItems: "center", 
+			textAlign: "center",
+			}}>
 			<h3 style={{margin: 0}}>Heart Rate</h3>
 			<DataVisualization />
 			</div>
+			</Suspense>
 			<h2> Look at your patients data:</h2>
 			{patients.map((patient) => (
 				<div onClick={() => setSelectedUser(patient)} key={patient._id}>
