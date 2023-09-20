@@ -3,9 +3,28 @@ import DashboardMenu from "../../components/dashboard/Dashboard.jsx";
 import { NavBar } from "../../components/navBar/InApplicationNav/index.jsx";
 import { getSession } from "next-auth/react";
 import { getUser } from "../../components/mongoDB/getUser";
+import { useEffect } from "react";
 
 export default function Dashboard({ user }) {
 	const mounted = useIsMounted();
+
+	// Store the newest user data in the database
+	useEffect(() => {
+		fetch(`http://localhost:8080/historical`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ email: user.email, refreshToken: user.refreshToken }),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, [user]);
 
 	return (
 		<>
