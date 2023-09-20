@@ -7,17 +7,17 @@ const SignupPage1 = ({ onSubmit }) => {
 
      // State to manage form fields
      const [formData, setFormData] = useState({
-        gender: '',
-        heardAbout: '',
-        objectives: '',
-        medication: '',
-        chronicMedication: '',
+        gender: ' ',
+        heardAbout: ' ',
+        objectives: ' ',
+        medication: ' ',
+        chronicMedication: ' ',
       });
 
     // Define an array of options
-    const heardAbout = ['LinkedIn', 'Instagram ', 'Facebook', 'From a friend', 'Google search', 'Other'];
-    const genderOptions = ['Male', 'Female ', "Don't especify"];
-    const objectivesOptions = ['Fitness', 'Weight Loss ', "Chronic Disease Management", 'General Health Tracking', 'Other'];
+    const heardAbout = ['Select an option','LinkedIn', 'Instagram ', 'Facebook', 'From a friend', 'Google search', 'Other'];
+    const genderOptions = ['Select an option', 'Male', 'Female ', "Don't especify"];
+    const objectivesOptions = ['Select an option', 'Fitness', 'Weight Loss ', "Chronic Disease Management", 'General Health Tracking', 'Other'];
     
 
     const handleInputChange = (e) => {
