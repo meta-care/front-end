@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 
 const AvatarDisplay = ({ containerRef, user }) => {
-  let camera, scene, renderer, ambientLight;
+  let camera, scene, renderer, ambientLight, directionalLight;
   let character;
   let mixer; // Animation mixer
 
@@ -22,11 +22,23 @@ const AvatarDisplay = ({ containerRef, user }) => {
 
       // Scene setup
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xffffff);
+
+      // Environment map (cubemap) for reflections
+      const envMap = new THREE.CubeTextureLoader()
+        .setPath('path/to/envmap/') // Set the path to your cubemap images
+        .load(['posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg']);
+      scene.background = envMap;
 
       // Ambient light setup
-      ambientLight = new THREE.AmbientLight(0xffffff, 2.8); // Color, Intensity
+      ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Color, Intensity
       scene.add(ambientLight);
+
+      // Directional light for better shading and shadows
+      directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+      directionalLight.position.set(1, 2, 1); // Adjust position as needed
+      directionalLight.castShadow = true;
+      directionalLight.shadow.mapSize.set(1024, 1024); // Adjust shadow map size as needed
+      scene.add(directionalLight);
 
       // DRACO loader setup
       const dracoLoader = new DRACOLoader();
@@ -41,6 +53,8 @@ const AvatarDisplay = ({ containerRef, user }) => {
 
         // Assuming your GLB character has a skeletal structure, add it to the scene
         character.position.set(0, 1.1, 0); // Character position
+        character.castShadow = true;
+        character.receiveShadow = true;
         scene.add(character);
 
         // Create an AnimationMixer for the character
@@ -99,22 +113,22 @@ const AvatarDisplay = ({ containerRef, user }) => {
     function loadAndApplyFBXAnimation() {
       const fbxUrl = '/Animations/Waving.fbx'; // Updated URL to match your file location
       const fbxLoader = new FBXLoader();
-    
+
       fbxLoader.load(fbxUrl, function (fbx) {
-    
+
         // Assuming you have an animation named "Idle" in your FBX file
         const clip = fbx.animations.find((clip) => clip.name === 'mixamo.com');
-    
+
         if (clip) {
           // Create an animation action
           const action = mixer.clipAction(clip);
-        
+
           // Play the animation
           action.play();
         } else {
           console.error('"mixamo.com" animation not found in the FBX file.');
         }
-    
+
         render();
       });
       animate();
@@ -123,21 +137,18 @@ const AvatarDisplay = ({ containerRef, user }) => {
     function animate() {
       // Get the time delta
       const delta = clock.getDelta();
-    
+
       // Update the animation mixer
       mixer.update(delta);
-    
+
       // Render the scene
       renderer.render(scene, camera);
-    
+
       // Request the next frame
       requestAnimationFrame(animate);
     }
 
     function render() {
-      if (mixer) {
-        mixer.update(0.01); // Update the animation mixer
-      }
       renderer.render(scene, camera);
     }
 

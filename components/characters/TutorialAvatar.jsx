@@ -5,7 +5,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const TutorialAvatar = ({ containerRef }) => {
-  let camera, scene, renderer, ambientLight;
+  let camera, scene, renderer, ambientLight, directionalLight;
   let character;
   let blinkInterval;
 
@@ -54,9 +54,23 @@ const TutorialAvatar = ({ containerRef }) => {
       scene = new THREE.Scene();
       scene.background = null;
 
+      // Environment map (cubemap) for reflections
+      const envMap = new THREE.CubeTextureLoader()
+        .setPath('path/to/envmap/') // Set the path to your cubemap images
+        .load(['posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg']);
+      scene.background = envMap;
+
       // Ambient light setup
-      ambientLight = new THREE.AmbientLight(0xffffff, 2.8); // Color, Intensity
+      ambientLight = new THREE.AmbientLight(0xffffff, 1); // Color, Intensity
       scene.add(ambientLight);
+
+      // Directional light for better shading and shadows
+      directionalLight = new THREE.DirectionalLight(0xffffff, 4);
+      directionalLight.position.set(0, 1, 1); // Adjust position as needed
+      directionalLight.castShadow = true;
+      directionalLight.shadow.mapSize.set(1024, 1024); // Adjust shadow map size as needed
+      scene.add(directionalLight);
+
 
       // DRACO loader setup
       const dracoLoader = new DRACOLoader();
