@@ -34,8 +34,8 @@ const AvatarDisplay = ({ containerRef, user }) => {
       scene.add(ambientLight);
 
       // Directional light for better shading and shadows
-      directionalLight = new THREE.DirectionalLight(0xffffff, 4);
-      directionalLight.position.set(1, 2, 1); // Adjust position as needed
+      directionalLight = new THREE.DirectionalLight(0xffffff, 3.5);
+      directionalLight.position.set(0, 2, 2); // Adjust position as needed
       directionalLight.castShadow = true;
       directionalLight.shadow.mapSize.set(1024, 1024); // Adjust shadow map size as needed
       scene.add(directionalLight);
