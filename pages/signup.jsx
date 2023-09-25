@@ -8,20 +8,14 @@ import Tutorial3 from "../components/signup/user/Tutorials/Tutorial3";
 import { getSession } from "next-auth/react";
 import { getUser } from "../components/mongoDB/getUser";
 
-const RegistrationForm = () => {
+export default function RegistrationForm({ user }) {
 	const [step, setStep] = useState(1);
 	const [formData, setFormData] = useState({}); // Store user inputs
-
-	const router = useRouter();
 
 	const handleNextStep = (data) => {
 		// Save user inputs and advance to the next step
 		setFormData({ ...formData, ...data });
 		setStep(step + 1);
-	};
-
-	const handleFinish = () => {
-		// Handle the completion of the signup process (e.g., redirect the user)
 	};
 
 	return (
@@ -30,28 +24,28 @@ const RegistrationForm = () => {
 			{/* Render the appropriate signup form and tutorial based on the step */}
 			{step === 1 && (
 				<>
-					<SignupPage1 onSubmit={handleNextStep} />
+					<SignupPage1 onSubmit={handleNextStep} user={user} />
 					<Tutorial1 onNext={() => setStep(step + 1)} />
 				</>
 			)}
 
 			{step === 2 && (
 				<>
-					<SignupPage1 onSubmit={() => setStep(step + 1)} />
+					<SignupPage1 onSubmit={() => setStep(step + 1)} user={user} />
 					{/* Hide the Tutorial */}
 				</>
 			)}
 
 			{step === 3 && (
 				<>
-					<SignupPage2 onSubmit={() => setStep(step + 1)} />
+					<SignupPage2 onSubmit={() => setStep(step + 1)} user={user} />
 					<Tutorial2 onNext={() => setStep(step + 1)} />
 				</>
 			)}
 
 			{step === 4 && (
 				<>
-					<SignupPage2 onSubmit={() => setStep(step + 1)} />
+					<SignupPage2 onSubmit={() => setStep(step + 1)} user={user} />
 					{/* Hide the Tutorial */}
 				</>
 			)}
@@ -63,9 +57,7 @@ const RegistrationForm = () => {
 			)}
 		</>
 	);
-};
-
-export default RegistrationForm;
+}
 
 export async function getServerSideProps(context) {
 	// Check if the user is connected. Otherwise return him to the home page

@@ -73,7 +73,7 @@ export async function getServerSideProps(context) {
 	const user = JSON.parse(JSON.stringify(profile));
 
 	// Verify that the user does have all the required fields
-	if (!user.birthDate || !user.weight || !user.height || !user.gender) {
+	if (!user.birthDate || !user.weight || !user.height) {
 		return {
 			redirect: {
 				destination: "/signup",

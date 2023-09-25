@@ -9,12 +9,15 @@ const userSchema = new Schema({
 	refreshToken: { type: String, required: true },
 	signupDate: { type: String, required: true },
 	professionnals: { type: Array, required: false },
-	avatarURL: { type: String, required: false },
 	birthDate: { type: String, required: false },
 	weight: { type: Number, required: false },
 	height: { type: Number, required: false },
-	gender: { type: String, required: false },
 	diseases: { type: Array, required: false },
+	gender: { type: String, required: false },
+	heardFrom: { type: String, required: false },
+	objectives: { type: String, required: false },
+	medication: { type: String, required: false },
+	avatarURL: { type: String, required: false },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);
