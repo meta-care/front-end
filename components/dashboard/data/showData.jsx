@@ -4,21 +4,28 @@ export function ShowData({ user, owndata: ownData }) {
 	const [userData, setUserData] = useState([]);
 	const [finishedGettingData, setFinishedGettingData] = useState(false);
 	const [error, setError] = useState(null);
+	const [averageHeartRate, setAverageHeartRate] = useState(0);
 
-	// Get user's data
+	// Get the newest user data from the database
 	useEffect(() => {
 		setFinishedGettingData(false);
 		setUserData([]);
-		const url = new URL("/api/getHistoricalData", window.location.origin);
-		url.searchParams.append("email", user.email);
-		url.searchParams.append("refreshToken", user.refreshToken);
-		fetch(url, {
+
+		// Construct query parameters
+		const currentTimestampInNanoseconds = Date.now() * 1000000;
+		const nanosecondsPerDay = 24 * 60 * 60 * 1000000000;
+		const queryParams = new URLSearchParams({
+			email: user.email,
+			type: "com.google.heart_rate.bpm",
+			startTime: currentTimestampInNanoseconds - nanosecondsPerDay * 200, // 200 days ago
+			endTime: currentTimestampInNanoseconds,
+			limit: 1000,
+		});
+
+		fetch(`http://localhost:8080/historical?${queryParams}`, {
 			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
 		})
-			.then((response) => response.json())
+			.then((res) => res.json())
 			.then((data) => {
 				if (data.error) {
 					throw data.error;
@@ -26,10 +33,22 @@ export function ShowData({ user, owndata: ownData }) {
 				setUserData(data);
 				setError(null);
 				setFinishedGettingData(true);
+
+				// Calculate the average heart rate
+				let totalHeartRate = 0;
+				let dataNumber = 0;
+				for (let i = 0; i < data.length; i++) {
+					if (data[i].value !== 0) {
+						totalHeartRate += data[i].value;
+						dataNumber++;
+					}
+				}
+				//Save the value and only keep 2 decimals
+				setAverageHeartRate(Math.round((totalHeartRate / dataNumber) * 10) / 10);
 			})
 			.catch((error) => {
+				console.log(error);
 				setError(JSON.stringify(error));
-				setUserData([]);
 				setFinishedGettingData(true);
 			});
 	}, [user]);
@@ -47,15 +66,15 @@ export function ShowData({ user, owndata: ownData }) {
 						<p>There was an error while getting the user's data: {error}</p>
 					) : (
 						<>
-							{!userData?.data?.length ? (
+							{!userData?.length ? (
 								<p>
 									{ownData ? "You don't " : `${user.name} doesn't `}have any
 									historical data yet.
 								</p>
 							) : (
 								<p>
-									{ownData ? "You have " : `${user.name} has `}{" "}
-									{userData.data.length} data pieces{" "}
+									{ownData ? "You have " : `${user.name} has `}
+									{` an average heart rate of ${averageHeartRate}bpm.`}
 								</p>
 							)}
 						</>
