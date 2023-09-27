@@ -43,6 +43,26 @@ export async function getServerSideProps(context) {
 	}
 	const user = JSON.parse(JSON.stringify(profile));
 
+	// Verify that the user does have all the required fields
+	if (!user.birthDate || !user.weight || !user.height) {
+		return {
+			redirect: {
+				destination: "/signup",
+				permanent: false,
+			},
+		};
+	}
+
+	// Verify that the user does have an avatar
+	if (!user.avatarURL) {
+		return {
+			redirect: {
+				destination: "/createAvatar",
+				permanent: false,
+			},
+		};
+	}
+
 	// Return the user profile
 	return {
 		props: { user },
