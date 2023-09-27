@@ -32,8 +32,7 @@ const Tutorial2 = ({ onNext }) => {
 								were essential for us to evaluate you health data and provide you
 								with the best health assitant in the market! In this step we are
 								asking for non-essential information that you can choose not to
-								answer (but we would be apreciate if you do). Click "Next" to
-								continue.
+								answer (but we would be apreciate if you do).
 							</p>
 						</div>
 						<button className={styles.tutorial_button} onClick={onNext}>

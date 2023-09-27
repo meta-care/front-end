@@ -69,6 +69,10 @@ const SignupPage1 = ({ onSubmit, user }) => {
 								{" "}
 								<p>Step 3: Create Avatar</p>{" "}
 							</li>
+							<li style={{ color: "grey" }}>
+								{" "}
+								<p>Step 4: Start your healthier future</p>{" "}
+							</li>
 						</ul>
 					</div>
 				</div>
