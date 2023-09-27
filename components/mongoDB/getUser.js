@@ -24,7 +24,6 @@ export async function getUser(session) {
 				_id: mongoose.Types.ObjectId(),
 				email: session.user.email,
 				name: session.user.name,
-				image: session.user.image,
 				refreshToken: session.refreshToken,
 				signupDate: new Date(now_utc).toISOString(),
 			});
@@ -39,7 +38,6 @@ export async function getUser(session) {
 				{
 					$set: {
 						refreshToken: session.refreshToken,
-						image: session.user.image,
 						name: session.user.name,
 					},
 				}
