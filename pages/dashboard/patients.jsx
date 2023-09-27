@@ -7,7 +7,7 @@ import { useState } from "react";
 import styles from "../../styles/Home.module.css";
 import { ShowData } from "../../components/dashboard/data/showData";
 
-export default function ProfessionnalsData({ user, patients }) {
+export default function Patients({ user, patients }) {
 	const mounted = useIsMounted();
 	const [selectedUser, setSelectedUser] = useState();
 

@@ -1,7 +1,7 @@
 import styles from "./Dashboard.module.css";
 import { useRouter } from "next/router";
 
-const DashboardMenu = () => {
+const DashboardMenu = ({ isDoctor }) => {
 	const router = useRouter();
 
 	return (
@@ -12,11 +12,21 @@ const DashboardMenu = () => {
 				<h2>Data Digital Twin</h2>
 			</div>
 
-			{/*Manage Doctor*/}
-			<div className={styles.menuItems} onClick={() => router.push("/dashboard/doctors")}>
-				<img src={"/Manage_Doctor.png"} className={styles.img} alt="" />
-				<h2>Manage Doctor</h2>
-			</div>
+			{/*Manage Doctor or Patient*/}
+			{isDoctor ? (
+				<div
+					className={styles.menuItems}
+					onClick={() => router.push("/dashboard/patients")}
+				>
+					<img src={"/Manage_Doctor.png"} className={styles.img} alt="" />
+					<h2>Manage Patients</h2>
+				</div>
+			) : (
+				<div className={styles.menuItems} onClick={() => router.push("/dashboard/doctors")}>
+					<img src={"/Manage_Doctor.png"} className={styles.img} alt="" />
+					<h2>Manage Doctor</h2>
+				</div>
+			)}
 
 			{/*Recommendations*/}
 			<div className={styles.menuItems_soon}>

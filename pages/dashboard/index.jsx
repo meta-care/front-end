@@ -4,8 +4,9 @@ import { NavBar } from "../../components/navBar/InApplicationNav/index.jsx";
 import { getSession } from "next-auth/react";
 import { getUser } from "../../components/mongoDB/getUser";
 import { useEffect } from "react";
+import { getPatients } from "../../components/mongoDB/getPatients";
 
-export default function Dashboard({ user }) {
+export default function Dashboard({ user, isDoctor }) {
 	const mounted = useIsMounted();
 
 	// Store the newest user data in the database
@@ -41,7 +42,7 @@ export default function Dashboard({ user }) {
 							}}
 						/>
 					</div>
-					<DashboardMenu />
+					<DashboardMenu isDoctor={isDoctor} />
 				</>
 			)}
 		</>
@@ -92,8 +93,16 @@ export async function getServerSideProps(context) {
 		};
 	}
 
+	// Know if the user is a doctor or a patient
+	let patients = await getPatients(user.email);
+	patients = JSON.parse(JSON.stringify(patients));
+	let isDoctor = false;
+	if (patients.length > 0) {
+		isDoctor = true;
+	}
+
 	// Return the user profile
 	return {
-		props: { user },
+		props: { user, isDoctor },
 	};
 }
