@@ -13,7 +13,9 @@ const NavLinks = ({ user }) => {
 				<div className={styles.navLinks}>
 					<ul>
 					<div style={{height: "80%", display: "flex", flexDirection: "row", alignItems: "center"}}>
-						{user && <img className={styles.userImg} src={user.image} alt="" />}
+						{user && <div className={styles.userImgContainer}>
+								<img className={styles.userImg} src={user.image} alt="" />
+							</div> }
 
 						{user && <h2 style={{ whiteSpace: 'nowrap', 
 						marginLeft: "20px",

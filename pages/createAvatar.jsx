@@ -24,10 +24,14 @@ const style = {
 export default function CreateAvatar({ user }) {
 	const [avatarCreated, setAvatarCreated] = useState(false);
 	const [avatarURL, setAvatarURL] = useState("");
+	const [image, setImage] = useState("");
 	const router = useRouter();
 
 	const handleOnAvatarExported = async (event) => {
-		setAvatarURL(event.data.url);
+		const glbURL = event.data.url;
+		const pngURL = glbURL.replace(".glb", ".png") + "?blendShapes[mouthSmile]=0.8";
+		setAvatarURL(glbURL);
+		setImage(pngURL);
 		setAvatarCreated(true);
 	};
 
@@ -39,7 +43,7 @@ export default function CreateAvatar({ user }) {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ email: user.email, avatarURL }),
+				body: JSON.stringify({ email: user.email, avatarURL, image }),
 			})
 				.then((response) => {
 					return response.json();

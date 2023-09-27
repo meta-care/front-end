@@ -23,6 +23,7 @@ export default async function saveAvatar(req, res) {
 			{
 				$set: {
 					avatarURL: data.avatarURL,
+					image: data.image,
 				},
 			}
 		);

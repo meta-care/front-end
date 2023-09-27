@@ -12,3 +12,22 @@
     align-items: center;
     justify-content: center;
 }
+
+@media screen and (max-width: 520px) {
+    
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    
+    .product_canvas {
+        flex: 1;
+        max-width: 421px;
+        height: 750px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
