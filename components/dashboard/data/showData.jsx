@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import DataVisualization from "./DataVisualization.jsx";
+import styles from "../../../styles/Home.module.css";
 
 export function ShowData({ user, owndata: ownData }) {
 	const [userData, setUserData] = useState([]);
@@ -54,7 +56,7 @@ export function ShowData({ user, owndata: ownData }) {
 	}, [user]);
 
 	return (
-		<>
+		<main className={styles.main}>
 			<h2 style={{ color: "#091562", fontSize: "2rem" }}>
 				{ownData ? "Your" : user.name} Historical{!ownData && "'s"} Data:
 			</h2>
@@ -72,15 +74,33 @@ export function ShowData({ user, owndata: ownData }) {
 									historical data yet.
 								</p>
 							) : (
-								<p>
-									{ownData ? "You have " : `${user.name} has `}
-									{` an average heart rate of ${averageHeartRate}bpm.`}
-								</p>
+								<>
+									<p>
+										{ownData ? "You have " : `${user.name} has `}
+										{` an average heart rate of ${averageHeartRate}bpm.`}
+									</p>
+
+									<Suspense>
+										<div
+											style={{
+												width: "100%",
+												padding: "20px",
+												display: "flex",
+												flexDirection: "column",
+												alignItems: "center",
+												textAlign: "center",
+											}}
+										>
+											<h3 style={{ margin: 0 }}>Heart Rate</h3>
+											<DataVisualization />
+										</div>
+									</Suspense>
+								</>
 							)}
 						</>
 					)}
 				</>
 			)}
-		</>
+		</main>
 	);
 }

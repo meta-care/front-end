@@ -1,17 +1,15 @@
-import { Suspense, useRef } from "react";
 import { useIsMounted } from "../hooks/useIsMounted";
 import { getUser } from "../../components/mongoDB/getUser";
 import { NavBar } from "../../components/navBar/InApplicationNav/index.jsx";
 import { getSession } from "next-auth/react";
+import { getPatients } from "../../components/mongoDB/getPatients";
+import { useState } from "react";
+import styles from "../../styles/Home.module.css";
 import { ShowData } from "../../components/dashboard/data/showData";
-import { Canvas } from "@react-three/fiber";
-import styles from "./data.module.css";
-import AvatarDisplay from "../../components/characters/AvatarDisplay";
 
-export default function Data({ user }) {
+export default function ProfessionnalsData({ user, patients }) {
 	const mounted = useIsMounted();
-
-	const productCanvasRef = useRef();
+	const [selectedUser, setSelectedUser] = useState();
 
 	return (
 		<>
@@ -19,14 +17,13 @@ export default function Data({ user }) {
 				<>
 					<NavBar user={user} />
 					<div className={styles.main}>
-						<div className={styles.product_canvas} ref={productCanvasRef}>
-							<Canvas>
-								<Suspense fallback={"null"}>
-									<AvatarDisplay user={user} containerRef={productCanvasRef} />
-								</Suspense>
-							</Canvas>
-						</div>
-						<ShowData user={user} owndata={true} />
+						{selectedUser && <ShowData user={selectedUser} owndata={false} />}
+						<h1> Look at your patients data:</h1>
+						{patients.map((patient) => (
+							<div onClick={() => setSelectedUser(patient)} key={patient._id}>
+								{patient.name}
+							</div>
+						))}
 					</div>
 				</>
 			)}
@@ -78,8 +75,22 @@ export async function getServerSideProps(context) {
 		};
 	}
 
-	// Return the user profile
+	// Get the patients of this user
+	let patients = await getPatients(user.email);
+	patients = JSON.parse(JSON.stringify(patients));
+
+	// Redirect users without patients to the dashboard page
+	if (patients.length == 0) {
+		return {
+			redirect: {
+				destination: "/dashboard",
+				permanent: false,
+			},
+		};
+	}
+
+	// Return the user profile and his patients
 	return {
-		props: { user },
+		props: { user, patients },
 	};
 }
