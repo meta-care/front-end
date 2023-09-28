@@ -28,6 +28,12 @@ const DashboardMenu = ({ isDoctor }) => {
 				</div>
 			)}
 
+			{/*Settings*/}
+			<div className={styles.menuItems} onClick={() => router.push("/dashboard/settings")}>
+				<img src={"/Settings.png"} className={styles.img} alt="" />
+				<h2>Settings</h2>
+			</div>
+
 			{/*Recommendations*/}
 			<div className={styles.menuItems_soon}>
 				<img src={"/Recommendations.png"} className={styles.img} alt="" />
@@ -41,15 +47,6 @@ const DashboardMenu = ({ isDoctor }) => {
 			<div className={styles.menuItems_soon}>
 				<img src={"/Value_accrued.png"} className={styles.img} alt="" />
 				<h2>Value Accrued</h2>
-				<div className={styles.comingSoon}>
-					<h2>Coming soon</h2>
-				</div>
-			</div>
-
-			{/*Settings*/}
-			<div className={styles.menuItems_soon}>
-				<img src={"/Settings.png"} className={styles.img} alt="" />
-				<h2>Settings</h2>
 				<div className={styles.comingSoon}>
 					<h2>Coming soon</h2>
 				</div>
