@@ -1,5 +1,6 @@
 import { useEffect, useState, Suspense } from "react";
 import DataVisualization from "./DataVisualization.jsx";
+import CommentAI from "./CommentAI.jsx";
 import styles from "../../../styles/Home.module.css";
 
 export function ShowData({ user, owndata: ownData }) {
@@ -97,6 +98,7 @@ export function ShowData({ user, owndata: ownData }) {
 											<DataVisualization />
 										</div>
 									</Suspense>
+									<CommentAI />
 								</>
 							)}
 						</>
