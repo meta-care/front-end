@@ -83,6 +83,8 @@ const AvatarDisplay = ({ containerRef, user }) => {
       controls.maxDistance = 10; // Maximum distance from the object
       controls.minPolarAngle = Math.PI / 2.3; // Lock vertical rotation (min angle)
       controls.maxPolarAngle = Math.PI / 2.3; // Lock vertical rotation (max angle)
+      controls.minAzimuthAngle = -Math.PI / 4.4; // Lock horizontal rotation (min angle)
+      controls.maxAzimuthAngle = Math.PI / 4.4; // Lock horizontal rotation (max angle)
       controls.target.set(0, 2, 0); // Set the initial target of the camera
       controls.addEventListener('change', render);
       controls.target.set(0, 2, 0);
