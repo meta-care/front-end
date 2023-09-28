@@ -3,7 +3,7 @@ import styles from "./DataVisualization.module.css";
 
 const DataVisualization = () => {
   const chartBarRef = useRef(null);
-  const [percentageValue, setPercentageValue] = useState(98);
+  const [percentageValue, setPercentageValue] = useState(25);
 
   useEffect(() => {
     if (chartBarRef.current) {
