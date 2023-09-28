@@ -19,24 +19,9 @@ const NavLinks = ({ user }) => {
 
 						{/*Link for other pages (Blog, Docs)...*/}
 
-						{user && (
-							<li>
-								<button
-									className={styles.startedButton}
-									onClick={() =>
-										signOut("google", {
-											redirect: true,
-											callbackUrl: "/",
-										})
-									}
-								>
-									SignOut
-								</button>
-							</li>
-						)}
-
 						<li>
 							<button
+							style={{marginLeft: "20%"}}
 								className={styles.startedButton}
 								onClick={() =>
 									user
@@ -47,23 +32,10 @@ const NavLinks = ({ user }) => {
 										  })
 								}
 							>
-								{user ? "Dashboard" : "Get Started"}
+								{user ? "Dashboard" : "Sign Up"}
 							</button>
 						</li>
 
-						{user && <img className={styles.userImg} src={user.image} alt="" />}
-
-						{user && (
-							<h2
-								style={{
-									whiteSpace: "nowrap",
-									marginLeft: "5px",
-									color: "#0093ff",
-								}}
-							>
-								{user.name}
-							</h2>
-						)}
 					</ul>
 				</div>
 			)}
