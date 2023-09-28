@@ -19,7 +19,7 @@ export function ShowData({ user, owndata: ownData }) {
 		const queryParams = new URLSearchParams({
 			email: user.email,
 			type: "com.google.heart_rate.bpm",
-			startTime: currentTimestampInNanoseconds - nanosecondsPerDay * 200, // 200 days ago
+			startTime: currentTimestampInNanoseconds - nanosecondsPerDay * 1, // 1 day ago
 			endTime: currentTimestampInNanoseconds,
 			limit: 1000,
 		});
@@ -40,11 +40,13 @@ export function ShowData({ user, owndata: ownData }) {
 				let totalHeartRate = 0;
 				let dataNumber = 0;
 				for (let i = 0; i < data.length; i++) {
-					if (data[i].value !== 0) {
+					// Only add the value if it's not 0 or an empty array
+					if (data[i].value !== 0 && data[i].value.length !== 0) {
 						totalHeartRate += data[i].value;
 						dataNumber++;
 					}
 				}
+
 				//Save the value and only keep 2 decimals
 				setAverageHeartRate(Math.round((totalHeartRate / dataNumber) * 10) / 10);
 			})
