@@ -61,7 +61,7 @@ export function ShowData({ user, owndata: ownData }) {
 	return (
 		<main className={styles.main}>
 			<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-				{ownData ? "Your" : user.name} Historical{!ownData && "'s"} Data:
+				{ownData ? "Your" : user.name} Health {!ownData && "'s"} Data Summary:
 			</h2>
 			{!finishedGettingData ? (
 				<p>Loading...</p>
@@ -98,7 +98,7 @@ export function ShowData({ user, owndata: ownData }) {
 											<DataVisualization />
 										</div>
 									</Suspense>
-									<CommentAI />
+									<CommentAI averageHeartRate={averageHeartRate} />
 								</>
 							)}
 						</>
