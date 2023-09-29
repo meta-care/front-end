@@ -1,7 +1,7 @@
 import { useEffect, useState, Suspense } from "react";
 import DataVisualization from "./DataVisualization.jsx";
 import CommentAI from "./CommentAI.jsx";
-import styles from "../../../styles/Home.module.css";
+import styles from "./DataVisualization.module.css";
 
 export function ShowData({ user, owndata: ownData }) {
 	const [userData, setUserData] = useState([]);

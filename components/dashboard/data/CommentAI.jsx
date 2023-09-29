@@ -24,7 +24,7 @@ export default function CommentAI({ averageHeartRate }) {
 	}, [averageHeartRate]);
 
 	return (
-		<div>
+		<div style={{width:"50%", display: "flex", flexDirection: "column", alignItems: "center"}}>
 			<h3>AI Commentary:</h3>
 			<p>{response}</p>
 		</div>
