@@ -3,7 +3,7 @@ import DataVisualization from "./DataVisualization.jsx";
 import CommentAI from "./CommentAI.jsx";
 import styles from "./DataVisualization.module.css";
 
-export function ShowData({ user, owndata: ownData }) {
+export function ShowData({ user, owndata: ownData, backendUrl }) {
 	const [userData, setUserData] = useState([]);
 	const [finishedGettingData, setFinishedGettingData] = useState(false);
 	const [error, setError] = useState(null);
@@ -25,7 +25,7 @@ export function ShowData({ user, owndata: ownData }) {
 			limit: 1000,
 		});
 
-		fetch(`http://localhost:8080/historical?${queryParams}`, {
+		fetch(`${backendUrl}/historical?${queryParams}`, {
 			method: "GET",
 		})
 			.then((res) => res.json())

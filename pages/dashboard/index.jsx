@@ -6,12 +6,12 @@ import { getUser } from "../../components/mongoDB/getUser";
 import { useEffect } from "react";
 import { getPatients } from "../../components/mongoDB/getPatients";
 
-export default function Dashboard({ user, isDoctor }) {
+export default function Dashboard({ user, isDoctor, backendUrl }) {
 	const mounted = useIsMounted();
 
 	// Store the newest user data in the database
 	useEffect(() => {
-		fetch(`http://localhost:8080/historical`, {
+		fetch(`${backendUrl}/historical`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -93,6 +93,6 @@ export async function getServerSideProps(context) {
 
 	// Return the user profile
 	return {
-		props: { user, isDoctor },
+		props: { user, isDoctor, backendUrl: process.env.BACKEND_URL },
 	};
 }

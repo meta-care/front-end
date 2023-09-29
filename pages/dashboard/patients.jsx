@@ -7,7 +7,7 @@ import { useState } from "react";
 import styles from "../../styles/Home.module.css";
 import { ShowData } from "../../components/dashboard/data/showData";
 
-export default function Patients({ user, patients }) {
+export default function Patients({ user, patients, backendUrl }) {
 	const mounted = useIsMounted();
 	const [selectedUser, setSelectedUser] = useState();
 
@@ -17,7 +17,9 @@ export default function Patients({ user, patients }) {
 				<>
 					<NavBar user={user} />
 					<div className={styles.main}>
-						{selectedUser && <ShowData user={selectedUser} owndata={false} />}
+						{selectedUser && (
+							<ShowData user={selectedUser} owndata={false} backendUrl={backendUrl} />
+						)}
 						<h1> Look at your patients data:</h1>
 						{patients.map((patient) => (
 							<div onClick={() => setSelectedUser(patient)} key={patient._id}>
@@ -91,6 +93,6 @@ export async function getServerSideProps(context) {
 
 	// Return the user profile and his patients
 	return {
-		props: { user, patients },
+		props: { user, patients, backendUrl: process.env.BACKEND_URL },
 	};
 }

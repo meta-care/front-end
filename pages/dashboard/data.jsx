@@ -8,7 +8,7 @@ import { Canvas } from "@react-three/fiber";
 import styles from "./data.module.css";
 import AvatarDisplay from "../../components/characters/AvatarDisplay";
 
-export default function Data({ user }) {
+export default function Data({ user, backendUrl }) {
 	const mounted = useIsMounted();
 
 	const productCanvasRef = useRef();
@@ -26,7 +26,7 @@ export default function Data({ user }) {
 								</Suspense>
 							</Canvas>
 						</div>
-						<ShowData user={user} owndata={true} />
+						<ShowData user={user} owndata={true} backendUrl={backendUrl} />
 					</div>
 				</>
 			)}
@@ -80,6 +80,6 @@ export async function getServerSideProps(context) {
 
 	// Return the user profile
 	return {
-		props: { user },
+		props: { user, backendUrl: process.env.BACKEND_URL },
 	};
 }
