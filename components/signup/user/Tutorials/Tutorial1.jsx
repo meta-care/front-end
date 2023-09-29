@@ -32,6 +32,7 @@ const Tutorial1 = ({ onNext }) => {
 					{tutorialStep === 1 && (
 						<div className={styles.textAndButton}>
 							<div style={{ width: "100%" }}>
+								<img src={"/metacareLogo-removebg-preview.png"} width="275px" />
 								<h3 style={{ fontSize: "20px" }}>Welcome to Metacare Health!</h3>
 								<p style={{ fontSize: "18px", textAlign: "justify" }}>
 									Your journey for an healthier future just started! I'm Alberto,
@@ -52,6 +53,7 @@ const Tutorial1 = ({ onNext }) => {
 					{tutorialStep === 2 && (
 						<div className={styles.textAndButton}>
 							<div style={{ width: "100%" }}>
+								<img src={"/metacareLogo-removebg-preview.png"} width="275px" />
 								<h3 style={{ fontSize: "20px" }}>Why we need some informations?</h3>
 								<p style={{ fontSize: "18px", textAlign: "justify" }}>
 									We at Metacare believe that the internet should be transparent
@@ -59,7 +61,7 @@ const Tutorial1 = ({ onNext }) => {
 									provide a personalized health recommendation experience. Our
 									business model is NOT personal data selling, although, in order
 									to provide you with the best recommendations and experience,
-									your ANONIMOUS data may be used to train an AI model.
+									your anonimous data may be used to train an AI model.
 								</p>
 							</div>
 							<button className={styles.tutorial_button} onClick={onNext}>

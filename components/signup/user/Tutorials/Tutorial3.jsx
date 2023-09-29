@@ -29,6 +29,7 @@ const Tutorial3 = ({ onNext }) => {
 
 					<div className={styles.textAndButton}>
 						<div style={{ width: "100%" }}>
+							<img src={"/metacareLogo-removebg-preview.png"} width="275px" />
 							<h3 style={{ fontSize: "20px" }}>Let's create your own Avatar</h3>
 							<p style={{ fontSize: "18px", textAlign: "justify" }}>
 								Don't walk alone through this journey, just create your own Virtual

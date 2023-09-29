@@ -69,38 +69,10 @@ const SignupPage1 = ({ onSubmit, user }) => {
 	}, [saveData]);
 
 	return (
-		//Registration Form
 		<>
-			<div className={styles.formDisplay2}>
-				<div className={styles.formStep}>
-					<div>
-						<ul>
-							<li style={{ color: "grey" }}>
-								{" "}
-								<p>Step 1: Required informations</p>{" "}
-							</li>
-							<li style={{ color: "green" }}>
-								{" "}
-								<p>Step 2: Optional informations</p>{" "}
-							</li>
-							<li style={{ color: "grey" }}>
-								{" "}
-								<p>Step 3: Create Avatar</p>{" "}
-							</li>
-							<li style={{ color: "grey" }}>
-								{" "}
-								<p>Step 4: Start your healthier future</p>{" "}
-							</li>
-						</ul>
-					</div>
-				</div>
+			<div className={styles.formDisplay}>
 				<div className={styles.signupForm}>
-					<img
-						style={{ margin: "0 auto" }}
-						src={"/logo.png"}
-						width="200px"
-						height="197px"
-					/>
+					<img src={"/metacareLogo-removebg-preview.png"} width="275px" />
 					<div style={{ height: "100%", marginBottom: "5%" }}>
 						<form
 							onSubmit={handleSubmit}
@@ -113,7 +85,9 @@ const SignupPage1 = ({ onSubmit, user }) => {
 							}}
 						>
 							<div className={styles.inputField}>
-								<label htmlFor="gender">Gender:</label>
+								<label htmlFor="gender" style={{ marginRight: "10px" }}>
+									Gender:
+								</label>
 								<select
 									id="gender"
 									name="gender"
@@ -129,7 +103,9 @@ const SignupPage1 = ({ onSubmit, user }) => {
 							</div>
 
 							<div className={styles.inputField}>
-								<label htmlFor="heardAbout">Where did you hear about us?</label>
+								<label htmlFor="heardAbout" style={{ marginRight: "10px" }}>
+									Where did you hear about us?
+								</label>
 								<select
 									id="heardAbout"
 									name="heardAbout"
@@ -145,8 +121,8 @@ const SignupPage1 = ({ onSubmit, user }) => {
 							</div>
 
 							<div className={styles.inputField}>
-								<label htmlFor="objectives">
-									What are your objectives with the Metacare?
+								<label htmlFor="objectives" style={{ marginRight: "10px" }}>
+									What are your objectives with Metacare?
 								</label>
 								<select
 									id="objectives"
@@ -163,7 +139,7 @@ const SignupPage1 = ({ onSubmit, user }) => {
 							</div>
 
 							<div className={styles.inputField}>
-								<label htmlFor="medication">
+								<label htmlFor="medication" style={{ marginRight: "10px" }}>
 									Do you take any Chronic medication?
 								</label>
 								<select
@@ -171,13 +147,19 @@ const SignupPage1 = ({ onSubmit, user }) => {
 									name="medication"
 									value={formData.medication}
 									onChange={handleInputChange}
+									style={{ marginRight: "10px" }}
 								>
 									<option value="No">No</option>
 									<option value="Yes">Yes</option>
 								</select>
 								{formData.medication === "Yes" && (
 									<div className={styles.inputField}>
-										<label htmlFor="chronicMedication">Please specify:</label>
+										<label
+											htmlFor="chronicMedication"
+											style={{ marginRight: "10px" }}
+										>
+											Please specify:
+										</label>
 										<input
 											type="text"
 											id="chronicMedication"

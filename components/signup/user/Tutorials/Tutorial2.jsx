@@ -26,6 +26,7 @@ const Tutorial2 = ({ onNext }) => {
 					</div>
 					<div className={styles.textAndButton}>
 						<div style={{ width: "100%" }}>
+							<img src={"/metacareLogo-removebg-preview.png"} width="275px" />
 							<h3 style={{ fontSize: "20px" }}>First step done!</h3>
 							<p style={{ fontSize: "18px", textAlign: "justify" }}>
 								Thank you for providing the required information! Those informations

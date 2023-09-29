@@ -1,115 +1,90 @@
 .formDisplay {
-  width: 900px;
-  height: 700px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  border-radius: 5%;
-  background: linear-gradient(
-  to bottom,
-  white 10%, /* Extend white for the top 10% */
-  white 30%, /* Continue white for the next 80% */
-  #0093ff /* Start the gradient from 90% to 100% */
-  );
-  display: flex;
-  flex-direction: row;
-}
-
-.formDisplay2 {
-  width: 60%;
-  height: 700px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  border-radius: 5%;
-  background: linear-gradient(
-  to bottom,
-  white 10%, /* Extend white for the top 10% */
-  white 30%, /* Continue white for the next 80% */
-  #0093ff /* Start the gradient from 90% to 100% */
-  );
-  display: flex;
-  flex-direction: row;
+	width: 900px;
+	height: 700px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 3px 3px 3px grey;
+	border-radius: 5%;
+	background-color: rgb(147, 210, 255, 0.95); /* Semi-transparent blue background */
+	display: flex;
+	flex-direction: row;
 }
 
 .signupForm {
-  z-index: 998;
-  width: 60%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	z-index: 998;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .formStep {
-  z-index: 998;
-  width: 40%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  box-shadow: 1px 0 5px -2px rgba(0, 0, 0, 0.2);
-  border-radius: 15% 0 0 15%;
+	z-index: 998;
+	width: 40%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	box-shadow: 1px 0 5px -2px rgba(0, 0, 0, 0.2);
+	border-radius: 15% 0 0 15%;
 }
 
 .inputField {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
 }
 
 /* Styles for the tutorial overlay */
 .tutorial_overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(147, 210, 255, 0.95); /* Semi-transparent blue background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999; /* Ensure the overlay appears above the form */
-  }
-  
-  .tutorial_content {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  /* Styles for the buttons within the tutorial */
-  .tutorial_button {
-    height: 50px;
-  }
-  
-  .avatar_container {
-    flex: 1;
-    max-width: 600px;
-    height: 750px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(147, 210, 255, 0.95); /* Semi-transparent blue background */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 999; /* Ensure the overlay appears above the form */
+}
+
+.tutorial_content {
+	width: 100%;
+	text-align: center;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+/* Styles for the buttons within the tutorial */
+.tutorial_button {
+	height: 50px;
+}
+
+.avatar_container {
+	flex: 1;
+	max-width: 600px;
+	height: 750px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .textAndButton {
-    width: 33%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5%;
+	width: 33%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5%;
 }
 
-.tutorial_button{
-  appearance: none;
+.tutorial_button {
+	appearance: none;
 	border: none;
 	background-image: linear-gradient(to right, #0d76fc, #7a70ff);
 	line-height: 1;

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import SignupPage1 from "../components/signup/user/Forms/SignupPage1";
 import SignupPage2 from "../components/signup/user/Forms/SignupPage2";
 import Tutorial1 from "../components/signup/user/Tutorials/Tutorial1";
@@ -10,21 +9,12 @@ import { getUser } from "../components/mongoDB/getUser";
 
 export default function RegistrationForm({ user }) {
 	const [step, setStep] = useState(1);
-	const [formData, setFormData] = useState({}); // Store user inputs
-
-	const handleNextStep = (data) => {
-		// Save user inputs and advance to the next step
-		setFormData({ ...formData, ...data });
-		setStep(step + 1);
-	};
 
 	return (
-		//Registration Form
 		<>
 			{/* Render the appropriate signup form and tutorial based on the step */}
 			{step === 1 && (
 				<>
-					<SignupPage1 onSubmit={handleNextStep} user={user} />
 					<Tutorial1 onNext={() => setStep(step + 1)} />
 				</>
 			)}
@@ -32,13 +22,11 @@ export default function RegistrationForm({ user }) {
 			{step === 2 && (
 				<>
 					<SignupPage1 onSubmit={() => setStep(step + 1)} user={user} />
-					{/* Hide the Tutorial */}
 				</>
 			)}
 
 			{step === 3 && (
 				<>
-					<SignupPage2 onSubmit={() => setStep(step + 1)} user={user} />
 					<Tutorial2 onNext={() => setStep(step + 1)} />
 				</>
 			)}
@@ -46,7 +34,6 @@ export default function RegistrationForm({ user }) {
 			{step === 4 && (
 				<>
 					<SignupPage2 onSubmit={() => setStep(step + 1)} user={user} />
-					{/* Hide the Tutorial */}
 				</>
 			)}
 
@@ -84,7 +71,7 @@ export async function getServerSideProps(context) {
 	const user = JSON.parse(JSON.stringify(profile));
 
 	// Verify that the user does NOT have all the required profile fields
-	if (user.birthDate && user.weight && user.height && user.gender) {
+	if (user.birthDate && user.weight && user.height) {
 		return {
 			redirect: {
 				destination: "/dashboard",

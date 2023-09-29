@@ -51,38 +51,10 @@ const SignupPage1 = ({ onSubmit, user }) => {
 	}, [saveData]);
 
 	return (
-		//Registration Form
-		<>
+		<div>
 			<div className={styles.formDisplay}>
-				<div className={styles.formStep}>
-					<div>
-						<ul>
-							<li style={{ color: "green" }}>
-								{" "}
-								<p>Step 1: Required informations</p>{" "}
-							</li>
-							<li style={{ color: "grey" }}>
-								{" "}
-								<p>Step 2: Optional informations</p>{" "}
-							</li>
-							<li style={{ color: "grey" }}>
-								{" "}
-								<p>Step 3: Create Avatar</p>{" "}
-							</li>
-							<li style={{ color: "grey" }}>
-								{" "}
-								<p>Step 4: Start your healthier future</p>{" "}
-							</li>
-						</ul>
-					</div>
-				</div>
 				<div className={styles.signupForm}>
-					<img
-						style={{ margin: "0 auto" }}
-						src={"/logo.png"}
-						width="200px"
-						height="197px"
-					/>
+					<img src={"/metacareLogo-removebg-preview.png"} width="275px" />
 					<div style={{ height: "100%", marginBottom: "5%" }}>
 						<form
 							onSubmit={handleSubmit}
@@ -95,8 +67,8 @@ const SignupPage1 = ({ onSubmit, user }) => {
 							}}
 						>
 							<div className={styles.inputField}>
-								<label htmlFor="dateOfBirth">
-									Date of Birth <span style={{ color: "red" }}>*</span>:
+								<label htmlFor="dateOfBirth" style={{ marginRight: "10px" }}>
+									Date of Birth: <span style={{ color: "red" }}>*</span>
 								</label>
 								<input
 									type="date"
@@ -108,8 +80,8 @@ const SignupPage1 = ({ onSubmit, user }) => {
 								/>
 							</div>
 							<div className={styles.inputField}>
-								<label htmlFor="height">
-									Height (cm) <span style={{ color: "red" }}>*</span>:
+								<label htmlFor="height" style={{ marginRight: "10px" }}>
+									Height (cm): <span style={{ color: "red" }}>*</span>
 								</label>
 								<input
 									type="number"
@@ -122,8 +94,8 @@ const SignupPage1 = ({ onSubmit, user }) => {
 								/>
 							</div>
 							<div className={styles.inputField}>
-								<label htmlFor="weight">
-									Weight (kg) <span style={{ color: "red" }}>*</span>:
+								<label htmlFor="weight" style={{ marginRight: "10px" }}>
+									Weight (kg): <span style={{ color: "red" }}>*</span>
 								</label>
 								<input
 									type="number"
@@ -136,7 +108,9 @@ const SignupPage1 = ({ onSubmit, user }) => {
 								/>
 							</div>
 							<div className={styles.inputField}>
-								<label htmlFor="knownDiseases">Known Diseases:</label>
+								<label htmlFor="knownDiseases" style={{ marginRight: "10px" }}>
+									Known Diseases:
+								</label>
 								<select
 									id="knownDiseases"
 									name="knownDiseases"
@@ -159,7 +133,7 @@ const SignupPage1 = ({ onSubmit, user }) => {
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
