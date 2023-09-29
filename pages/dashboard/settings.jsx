@@ -17,6 +17,7 @@ export default function Data({ user }) {
 					<div className={styles.main}>
 						<button
 							className={styles.button}
+							style={{ marginTop: "16px" }}
 							onClick={() =>
 								signOut("google", {
 									redirect: true,
@@ -28,6 +29,7 @@ export default function Data({ user }) {
 						</button>
 						<button
 							className={styles.button}
+							style={{ marginTop: "16px" }}
 							onClick={() => {
 								router.push("/createAvatar");
 							}}

@@ -32,16 +32,6 @@ export default function Dashboard({ user, isDoctor }) {
 			{mounted && (
 				<>
 					<NavBar user={user} />
-					<div style={{ display: "flex", justifyContent: "center" }}>
-						<img
-							src={"/metacare.png"}
-							width="350px"
-							height="75px"
-							style={{
-								marginTop: "3%",
-							}}
-						/>
-					</div>
 					<DashboardMenu isDoctor={isDoctor} />
 				</>
 			)}

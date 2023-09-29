@@ -5,6 +5,7 @@ import { useIsMounted } from "../../../pages/hooks/useIsMounted";
 const NavLinks = ({ user }) => {
 	const router = useRouter();
 	const mounted = useIsMounted();
+
 	return (
 		<div style={{ width: "100%" }}>
 			{mounted && (
@@ -12,19 +13,21 @@ const NavLinks = ({ user }) => {
 					<ul>
 						<div
 							style={{
-								height: "80%",
 								display: "flex",
-								flexDirection: "row",
 								alignItems: "center",
+								justifyContent: "space-between",
+								height: "80%",
 							}}
 						>
-							{user && (
+							<div
+								style={{
+									display: "flex",
+									alignItems: "center",
+								}}
+							>
 								<div className={styles.userImgContainer}>
 									<img className={styles.userImg} src={user.image} alt="" />
 								</div>
-							)}
-
-							{user && (
 								<h2
 									style={{
 										whiteSpace: "nowrap",
@@ -34,17 +37,33 @@ const NavLinks = ({ user }) => {
 								>
 									{user.name}
 								</h2>
-							)}
-						</div>
-						<div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
-							<li>
+							</div>
+
+							<div
+								style={{
+									position: "absolute",
+									left: "50%",
+									transform: "translateX(-50%)",
+								}}
+							>
+								<img src={"/metacare.png"} width="200px" />
+							</div>
+
+							<div
+								style={{
+									position: "absolute",
+									left: "100%",
+									transform: "translateX(-115%)",
+									marginRight: "20px",
+								}}
+							>
 								<button
 									className={styles.startedButton}
 									onClick={() => router.push(`/dashboard`)}
 								>
 									{"Dashboard"}
 								</button>
-							</li>
+							</div>
 						</div>
 					</ul>
 				</div>

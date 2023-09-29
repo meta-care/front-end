@@ -61,7 +61,7 @@ export function ShowData({ user, owndata: ownData }) {
 	return (
 		<main className={styles.main}>
 			<h2 style={{ color: "#091562", fontSize: "2rem" }}>
-				{ownData ? "Your" : user.name} Health {!ownData && "'s"} Data Summary:
+				{ownData ? "Your" : `${user.name}'s`} Health Data Summary:
 			</h2>
 			{!finishedGettingData ? (
 				<p>Loading...</p>
