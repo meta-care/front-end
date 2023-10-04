@@ -11,11 +11,6 @@ export function HomeMenu() {
 			<div className={styles.mobileMain}>
 				<Mobile />
 			</div>
-			<footer>
-				<a href="https://www.crotaluslabs.com/" target="_blank" rel="noopener noreferrer">
-					Powered by Crotalus Labs&reg;
-				</a>
-			</footer>
 		</>
 	);
 }

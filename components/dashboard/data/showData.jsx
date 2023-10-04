@@ -1,5 +1,4 @@
 import { useEffect, useState, Suspense } from "react";
-import DataVisualization from "./DataVisualization.jsx";
 import CommentAI from "./CommentAI.jsx";
 import styles from "./DataVisualization.module.css";
 
@@ -80,24 +79,8 @@ export function ShowData({ user, owndata: ownData, backendUrl }) {
 								<>
 									<p>
 										{ownData ? "You have " : `${user.name} has `}
-										{` an average heart rate of ${averageHeartRate}bpm.`}
+										{` an average daily heart rate of ${averageHeartRate}bpm.`}
 									</p>
-
-									<Suspense>
-										<div
-											style={{
-												width: "100%",
-												padding: "20px",
-												display: "flex",
-												flexDirection: "column",
-												alignItems: "center",
-												textAlign: "center",
-											}}
-										>
-											<h3 style={{ margin: 0 }}>Heart Rate</h3>
-											<DataVisualization />
-										</div>
-									</Suspense>
 									<CommentAI averageHeartRate={averageHeartRate} />
 								</>
 							)}
