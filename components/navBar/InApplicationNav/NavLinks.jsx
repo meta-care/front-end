@@ -46,7 +46,11 @@ const NavLinks = ({ user }) => {
 									transform: "translateX(-50%)",
 								}}
 							>
-								<img src={"/metacare.png"} width="200px" />
+								<img
+									src={"/metacare.png"}
+									width="200px"
+									onClick={() => router.push(`/`)}
+								/>
 							</div>
 
 							<div
