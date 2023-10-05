@@ -3,15 +3,13 @@ import CommentAI from "./CommentAI.jsx";
 import styles from "./DataVisualization.module.css";
 
 export function ShowData({ user, owndata: ownData, backendUrl }) {
-	const [userData, setUserData] = useState([]);
 	const [finishedGettingData, setFinishedGettingData] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState(false);
 	const [averageHeartRate, setAverageHeartRate] = useState(0);
 
 	// Get the newest user data from the database
 	useEffect(() => {
 		setFinishedGettingData(false);
-		setUserData([]);
 
 		// Construct query parameters
 		const currentTimestampInNanoseconds = Date.now() * 1000000;
@@ -29,11 +27,10 @@ export function ShowData({ user, owndata: ownData, backendUrl }) {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				if (data.error) {
+				if (data.error || data.length === 0) {
 					throw data.error;
 				}
-				setUserData(data);
-				setError(null);
+				setError(false);
 				setFinishedGettingData(true);
 
 				// Calculate the average heart rate
@@ -51,8 +48,7 @@ export function ShowData({ user, owndata: ownData, backendUrl }) {
 				setAverageHeartRate(Math.round((totalHeartRate / dataNumber) * 10) / 10);
 			})
 			.catch((error) => {
-				console.log(error);
-				setError(JSON.stringify(error));
+				setError(true);
 				setFinishedGettingData(true);
 			});
 	}, [user]);
@@ -67,23 +63,19 @@ export function ShowData({ user, owndata: ownData, backendUrl }) {
 			) : (
 				<>
 					{error ? (
-						<p>There was an error while getting the user's data: {error}</p>
+						<p>
+							We were unable to retrieve your data. You may not have any yet, or you
+							may not have synchronized your watch with its phone app. Make sure to be
+							able to see your data on Google FIT, then come back and refresh this
+							page and the dashboard page.
+						</p>
 					) : (
 						<>
-							{!userData?.length ? (
-								<p>
-									{ownData ? "You don't " : `${user.name} doesn't `}have any
-									historical data yet.
-								</p>
-							) : (
-								<>
-									<p>
-										{ownData ? "You have " : `${user.name} has `}
-										{` an average daily heart rate of ${averageHeartRate}bpm.`}
-									</p>
-									<CommentAI averageHeartRate={averageHeartRate} />
-								</>
-							)}
+							<p>
+								{ownData ? "You have " : `${user.name} has `}
+								{` an average daily heart rate of ${averageHeartRate}bpm.`}
+							</p>
+							<CommentAI averageHeartRate={averageHeartRate} />
 						</>
 					)}
 				</>
