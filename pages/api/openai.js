@@ -73,7 +73,7 @@ export default async (req, res) => {
 				},
 				{
 					role: "user",
-					content: `30`,
+					content: `${data.averageHeartRate}`,
 				},
 
 			],
