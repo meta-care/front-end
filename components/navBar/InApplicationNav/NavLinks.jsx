@@ -24,6 +24,7 @@ const NavLinks = ({ user }) => {
 									display: "flex",
 									alignItems: "center",
 								}}
+								onClick={() => router.push(`/dashboard/settings`)}
 							>
 								<div className={styles.userImgContainer}>
 									<img className={styles.userImg} src={user.image} alt="" />
